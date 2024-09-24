@@ -1,14 +1,13 @@
-import {Await, Link} from '@remix-run/react';
+import {Await} from '@remix-run/react';
 import {Suspense} from 'react';
 import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
 import {Header, HeaderMenu} from '~/components/Header';
 import {CartMain} from '~/components/CartMain';
 import {
-  SEARCH_ENDPOINT,
-  SearchFormPredictive,
-} from '~/components/SearchFormPredictive';
-import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
+  PredictiveSearchForm,
+  PredictiveSearchResults,
+} from '~/components/Search';
 
 /**
  * @param {PageLayoutProps}
@@ -66,9 +65,9 @@ function SearchAside() {
     <Aside type="search" heading="SEARCH">
       <div className="predictive-search">
         <br />
-        <SearchFormPredictive>
-          {({fetchResults, goToSearch, inputRef}) => (
-            <>
+        <PredictiveSearchForm>
+          {({fetchResults, inputRef}) => (
+            <div>
               <input
                 name="q"
                 onChange={fetchResults}
@@ -78,64 +77,19 @@ function SearchAside() {
                 type="search"
               />
               &nbsp;
-              <button onClick={goToSearch}>Search</button>
-            </>
+              <button
+                onClick={() => {
+                  window.location.href = inputRef?.current?.value
+                    ? `/search?q=${inputRef.current.value}`
+                    : `/search`;
+                }}
+              >
+                Search
+              </button>
+            </div>
           )}
-        </SearchFormPredictive>
-
-        <SearchResultsPredictive>
-          {({items, total, term, state, inputRef, closeSearch}) => {
-            const {articles, collections, pages, products, queries} = items;
-
-            if (state === 'loading' && term.current) {
-              return <div>Loading...</div>;
-            }
-
-            if (!total) {
-              return <SearchResultsPredictive.Empty term={term} />;
-            }
-
-            return (
-              <>
-                <SearchResultsPredictive.Queries
-                  queries={queries}
-                  inputRef={inputRef}
-                />
-                <SearchResultsPredictive.Products
-                  products={products}
-                  closeSearch={closeSearch}
-                  term={term}
-                />
-                <SearchResultsPredictive.Collections
-                  collections={collections}
-                  closeSearch={closeSearch}
-                  term={term}
-                />
-                <SearchResultsPredictive.Pages
-                  pages={pages}
-                  closeSearch={closeSearch}
-                  term={term}
-                />
-                <SearchResultsPredictive.Articles
-                  articles={articles}
-                  closeSearch={closeSearch}
-                  term={term}
-                />
-                {term.current && total ? (
-                  <Link
-                    onClick={closeSearch}
-                    to={`${SEARCH_ENDPOINT}?q=${term.current}`}
-                  >
-                    <p>
-                      View all results for <q>{term.current}</q>
-                      &nbsp; →
-                    </p>
-                  </Link>
-                ) : null}
-              </>
-            );
-          }}
-        </SearchResultsPredictive>
+        </PredictiveSearchForm>
+        <PredictiveSearchResults />
       </div>
     </Aside>
   );

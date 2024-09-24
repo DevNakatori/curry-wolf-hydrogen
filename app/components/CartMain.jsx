@@ -69,4 +69,5 @@ function CartEmpty({hidden = false}) {
  * }} CartMainProps
  */
 
+/** @typedef {import('@shopify/hydrogen').OptimisticCartLine} OptimisticCartLine */
 /** @typedef {import('storefrontapi.generated').CartApiQueryFragment} CartApiQueryFragment */

@@ -9,7 +9,7 @@ import {useAside} from './Aside';
  * It also provides controls to update the quantity or remove the line item.
  * @param {{
  *   layout: CartLayout;
- *   line: CartLine;
+ *   line: OptimisticCartLine;
  * }}
  */
 export function CartLineItem({layout, line}) {
@@ -65,7 +65,7 @@ export function CartLineItem({layout, line}) {
  * Provides the controls to update the quantity of a line item in the cart.
  * These controls are disabled when the line item is new, and the server
  * hasn't yet responded that it was successfully added to the cart.
- * @param {{line: CartLine}}
+ * @param {{line: OptimisticCartLine}}
  */
 function CartLineQuantity({line}) {
   if (!line || typeof line?.quantity === 'undefined') return null;
@@ -144,9 +144,6 @@ function CartLineUpdateButton({children, lines}) {
   );
 }
 
-/** @typedef {OptimisticCartLine<CartApiQueryFragment>} CartLine */
-
 /** @typedef {import('@shopify/hydrogen/storefront-api-types').CartLineUpdateInput} CartLineUpdateInput */
 /** @typedef {import('~/components/CartMain').CartLayout} CartLayout */
 /** @typedef {import('@shopify/hydrogen').OptimisticCartLine} OptimisticCartLine */
-/** @typedef {import('storefrontapi.generated').CartApiQueryFragment} CartApiQueryFragment */
