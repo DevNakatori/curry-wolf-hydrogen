@@ -1,4 +1,3 @@
-// @ts-ignore
 // Virtual entry point for the app
 import * as remixBuild from 'virtual:remix/server-build';
 import {
@@ -15,6 +14,11 @@ import {
 } from '@shopify/remix-oxygen';
 import {AppSession} from '~/lib/session';
 import {CART_QUERY_FRAGMENT} from '~/lib/fragments';
+
+// Import Sanity client and session
+import {createSanityClient} from '~/lib/sanity/sanity.server';
+import {SanitySession} from '~/lib/sanity/sanity.session.server';
+import {getLocaleFromRequest} from 'countries';
 
 /**
  * Export a fetch handler in module format.
@@ -35,18 +39,21 @@ export default {
       }
 
       const waitUntil = executionContext.waitUntil.bind(executionContext);
-      const [cache, session] = await Promise.all([
+      const [cache, session, sanitySession] = await Promise.all([
         caches.open('hydrogen'),
         AppSession.init(request, [env.SESSION_SECRET]),
+        SanitySession.init(request, [env.SESSION_SECRET]), // Initialize Sanity session
       ]);
-
+      const sanityPreviewMode = await sanitySession.has('previewMode');
+      const isDev = env.NODE_ENV === 'development';
+      const locale = getLocaleFromRequest(request);
       /**
        * Create Hydrogen's Storefront client.
        */
       const {storefront} = createStorefrontClient({
         cache,
         waitUntil,
-        i18n: getLocaleFromRequest(request),
+        i18n: {country: locale.country, language: locale.language},
         publicStorefrontToken: env.PUBLIC_STOREFRONT_API_TOKEN,
         privateStorefrontToken: env.PRIVATE_STOREFRONT_API_TOKEN,
         storeDomain: env.PUBLIC_STORE_DOMAIN,
@@ -78,8 +85,25 @@ export default {
       });
 
       /**
+       * Initialize Sanity CMS client
+       */
+      const sanity = createSanityClient({
+        cache,
+        config: {
+          apiVersion: env.SANITY_STUDIO_API_VERSION,
+          dataset: env.SANITY_STUDIO_DATASET,
+          projectId: env.SANITY_STUDIO_PROJECT_ID,
+          studioUrl: env.SANITY_STUDIO_URL,
+          useCdn: !env.NODE_ENV || env.NODE_ENV === 'production',
+          useStega: env.SANITY_STUDIO_USE_PREVIEW_MODE,
+        },
+        isPreviewMode: sanityPreviewMode,
+        waitUntil,
+      });
+
+      /**
        * Create a Remix request handler and pass
-       * Hydrogen's Storefront client to the loader context.
+       * Hydrogen's Storefront client and Sanity client to the loader context.
        */
       const handleRequest = createRequestHandler({
         build: remixBuild,
@@ -89,8 +113,13 @@ export default {
           storefront,
           customerAccount,
           cart,
+          isDev,
           env,
           waitUntil,
+          locale,
+          sanity, // Pass the Sanity client to the loader context
+          sanityPreviewMode,
+          sanitySession,
         }),
       });
 
@@ -122,24 +151,19 @@ export default {
  * @returns {I18nLocale}
  * @param {Request} request
  */
-function getLocaleFromRequest(request) {
-  const url = new URL(request.url);
-  const firstPathPart = url.pathname.split('/')[1]?.toUpperCase() ?? '';
+// function getLocaleFromRequest(request) {
+//   const url = new URL(request.url);
+//   const firstPathPart = url.pathname.split('/')[1]?.toUpperCase() ?? '';
 
-  let pathPrefix = '';
-  let [language, country] = ['DE', 'DE']; // Default to German
+//   let pathPrefix = '';
+//   let [language, country] = ['DE', 'DE']; // Default to German
 
-  if (/^[A-Z]{2}-[A-Z]{2}$/i.test(firstPathPart)) {
-    pathPrefix = '/' + firstPathPart;
-    [language, country] = firstPathPart.split('-');
-  }
-  //  else if (/^[A-Z]{2}$/i.test(firstPathPart)) {
-  //   language = firstPathPart;
-  //   country = language === 'EN' ? 'US' : 'DE'; // Default country for `en` is `US`
-  //   pathPrefix = '/' + firstPathPart;
-  // }
+//   if (/^[A-Z]{2}-[A-Z]{2}$/i.test(firstPathPart)) {
+//     pathPrefix = '/' + firstPathPart;
+//     [language, country] = firstPathPart.split('-');
+//   }
 
-  return {language, country, pathPrefix};
-}
+//   return {language, country, pathPrefix};
+// }
 
 /** @typedef {import('@shopify/remix-oxygen').AppLoadContext} AppLoadContext */

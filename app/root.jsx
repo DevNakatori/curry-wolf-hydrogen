@@ -10,6 +10,7 @@ import {
   useLoaderData,
   ScrollRestoration,
   isRouteErrorResponse,
+  useMatches,
 } from '@remix-run/react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -22,7 +23,11 @@ import React, {useEffect, useState} from 'react';
 import {useLocation} from 'react-router-dom';
 import Popup from './components/Popup';
 import * as gtag from './util/gtag';
-
+import {DEFAULT_LOCALE} from 'countries';
+import {useLocalePath} from './hooks/useLocalePath';
+import {sanityPreviewPayload} from './lib/sanity/sanity.payload.server';
+import {seoPayload} from './lib/seo.server';
+import {ROOT_QUERY} from './qroq/queries';
 export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {
   if (formMethod && formMethod !== 'GET') {
     return true;
@@ -87,13 +92,43 @@ export function links() {
   ];
 }
 
-export async function loader({context}) {
-  const {storefront, customerAccount, cart, env} = context;
+export async function loader({context, request}) {
+  const {
+    storefront,
+    customerAccount,
+    cart,
+    env,
+    locale,
+    sanity,
+    sanityPreviewMode,
+  } = context;
+
+  // Ensure locale exists
+  if (!locale) {
+    throw new Error('Locale is missing in the context');
+  }
+  const language = locale?.language.toLowerCase();
   const publicStoreDomain = context.env.PUBLIC_STORE_DOMAIN;
 
   const isLoggedInPromise = customerAccount.isLoggedIn();
   const cartPromise = cart.get();
-
+  const queryParams = {
+    defaultLanguage: DEFAULT_LOCALE.language.toLowerCase(),
+    language,
+  };
+  const rootData = Promise.all([
+    sanity.query({
+      groqdQuery: ROOT_QUERY,
+      params: queryParams,
+    }),
+    storefront.query(`#graphql
+      query layout {
+        shop {
+          id
+        } 
+      }
+    `),
+  ]);
   const footerPromise = storefront.query(FOOTER_QUERY, {
     cache: storefront.CacheLong(),
     variables: {
@@ -107,26 +142,65 @@ export async function loader({context}) {
       headerMenuHandle: 'new-menu',
     },
   });
-
-  return defer(
-    {
-      cart: cartPromise,
-      footer: footerPromise,
-      header: await headerPromise,
-      isLoggedIn: isLoggedInPromise,
-      publicStoreDomain,
-      shop: getShopAnalytics({
-        storefront,
-        publicStorefrontId: env.PUBLIC_STOREFRONT_ID,
-      }),
-      consent: {
-        checkoutDomain: env.PUBLIC_CHECKOUT_DOMAIN,
-        storefrontAccessToken: env.PUBLIC_STOREFRONT_API_TOKEN,
-      },
+  const [sanityRoot, layout] = await rootData;
+  const seo = seoPayload.root({
+    root: sanityRoot.data,
+    sanity: {
+      dataset: env.SANITY_STUDIO_DATASET,
+      projectId: env.SANITY_STUDIO_PROJECT_ID,
     },
-    {},
-  );
+    url: request.url,
+  });
+  return defer({
+    cart: cartPromise,
+    footer: footerPromise,
+    header: await headerPromise,
+    isLoggedIn: isLoggedInPromise,
+    locale,
+    sanityPreviewMode,
+    sanityRoot,
+    seo,
+    publicStoreDomain,
+    shop: getShopAnalytics({
+      storefront,
+      publicStorefrontId: env.PUBLIC_STOREFRONT_ID,
+    }),
+    consent: {
+      checkoutDomain: env.PUBLIC_CHECKOUT_DOMAIN,
+      storefrontAccessToken: env.PUBLIC_STOREFRONT_API_TOKEN,
+    },
+    env: {
+      /*
+       * Be careful not to expose any sensitive environment variables here.
+       */
+      NODE_ENV: env.NODE_ENV,
+      PUBLIC_STORE_DOMAIN: env.PUBLIC_STORE_DOMAIN,
+      PUBLIC_STOREFRONT_API_TOKEN: env.PUBLIC_STOREFRONT_API_TOKEN,
+      PUBLIC_STOREFRONT_API_VERSION: env.PUBLIC_STOREFRONT_API_VERSION,
+      SANITY_STUDIO_API_VERSION: env.SANITY_STUDIO_API_VERSION,
+      SANITY_STUDIO_DATASET: env.SANITY_STUDIO_DATASET,
+      SANITY_STUDIO_PROJECT_ID: env.SANITY_STUDIO_PROJECT_ID,
+      SANITY_STUDIO_URL: env.SANITY_STUDIO_URL,
+      SANITY_STUDIO_USE_PREVIEW_MODE: env.SANITY_STUDIO_USE_PREVIEW_MODE,
+    },
+    ...sanityPreviewPayload({
+      context,
+      params: queryParams,
+      query: ROOT_QUERY.query,
+    }),
+  });
 }
+export const useRootLoaderData = () => {
+  const matches = useMatches();
+  const rootMatch = matches.find((match) => match.id === 'root'); // Ensure we get the correct match
+
+  // Return data or provide a fallback object if data is missing
+  return (
+    rootMatch?.data || {
+      locale: {language: 'en'},
+    }
+  );
+};
 
 export default function App() {
   useShopifyCookies({hasUserConsent: true, domain: 'curry-wolf.de'});
@@ -134,7 +208,7 @@ export default function App() {
   const data = useLoaderData();
   const location = useLocation();
   const gaTrackingId = 'G-RMTF34SVQM';
-
+  const {locale} = useRootLoaderData();
   useEffect(() => {
     if (gaTrackingId?.length) {
       gtag.pageview(location.pathname, gaTrackingId);
@@ -179,7 +253,7 @@ export default function App() {
     location.pathname.includes('/collections/all');
 
   return (
-    <html lang="en">
+    <html lang={locale.language.toLowerCase()}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -272,22 +346,16 @@ export default function App() {
   );
 }
 
-export function ErrorBoundary() {
-  const error = useRouteError();
-  const rootData = useLoaderData();
-  const nonce = useNonce();
-  let errorMessage = 'Unknown error';
-  let errorStatus = 500;
+export function ErrorBoundary({error}) {
+  const nonce = useNonce(); // Safely use nonce without loader context
+  const errorMessage = error?.message || 'An unknown error occurred';
+  const errorStatus = error?.status || 500;
 
-  if (isRouteErrorResponse(error)) {
-    errorMessage = error?.data?.message ?? error.data;
-    errorStatus = error.status;
-  } else if (error instanceof Error) {
-    errorMessage = error.message;
-  }
+  // Fallback locale if loader data is not available
+  const fallbackLocale = {language: 'en'}; // Default to English if no locale data
 
   return (
-    <html lang="en">
+    <html lang={fallbackLocale.language.toLowerCase()}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -295,7 +363,7 @@ export function ErrorBoundary() {
         <Links />
       </head>
       <body className="error-oops">
-        <Layout {...rootData}>
+        <Layout>
           <div className="route-error">
             <h1>Oops!</h1>
             <h2>{errorStatus}</h2>

@@ -9,5 +9,10 @@
       "~/*": ["app/*"]
     }
   },
-  "include": ["./**/*.d.ts", "./**/*.js", "./**/*.jsx"]
+  "include": [
+    "./**/*.d.ts",
+    "./**/*.js",
+    "./**/*.jsx",
+    "app/routes/sanity.preview.tsx"
+  ]
 }
