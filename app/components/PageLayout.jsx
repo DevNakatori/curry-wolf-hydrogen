@@ -4,6 +4,8 @@ import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
 import {Header, HeaderMenu} from '~/components/Header';
 import {CartMain} from '~/components/CartMain';
+import {useSanityRoot} from '~/hooks/useSanityRoot';
+import {useRootLoaderData as LoaderData} from '~/root';
 import {
   PredictiveSearchForm,
   PredictiveSearchResults,
@@ -20,11 +22,13 @@ export function PageLayout({
   isLoggedIn,
   publicStoreDomain,
 }) {
+  const {data} = useSanityRoot();
+  console.log(data);
   return (
     <Aside.Provider>
       <CartAside cart={cart} />
       <SearchAside />
-      <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
+      <MobileMenuAside header={data} publicStoreDomain={publicStoreDomain} />
       {header && (
         <Header
           header={header}
@@ -101,13 +105,12 @@ function SearchAside() {
  *   publicStoreDomain: PageLayoutProps['publicStoreDomain'];
  * }}
  */
-function MobileMenuAside({header, publicStoreDomain}) {
+function MobileMenuAside({data, publicStoreDomain}) {
   return (
-    header.menu &&
-    header.shop.primaryDomain?.url && (
+    data?.header?.menu && (
       <Aside type="mobile" heading="MENU">
         <HeaderMenu
-          menu={header.menu}
+          menu={data}
           viewport="mobile"
           primaryDomainUrl={header.shop.primaryDomain.url}
           publicStoreDomain={publicStoreDomain}

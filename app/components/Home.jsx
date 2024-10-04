@@ -1,4 +1,6 @@
+import {Link} from '@remix-run/react';
 import React, {useEffect, useRef, useState} from 'react';
+import {getImageUrl} from '~/lib/utils';
 
 const Home = ({data}) => {
   const videoRef = useRef(null);
@@ -10,7 +12,6 @@ const Home = ({data}) => {
   const [totalSlides, setTotalSlides] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const {video} = data;
-  console.log(data);
   // Handle video playback
   useEffect(() => {
     const videoElement = document.querySelector('video');
@@ -255,170 +256,100 @@ const Home = ({data}) => {
                 data-aos-once="true"
                 ref={sliderWrapperRef}
               >
-                <div
-                  className="slide aos-init"
-                  data-aos-duration={1500}
-                  data-aos="fade-up"
-                  data-aos-once="true"
-                >
-                  <div
-                    data-aos-once="true"
-                    data-aos-duration={1500}
-                    data-aos="fade-up"
-                    className="aos-init"
-                  >
-                    <div className="inner-slider">
-                      <h3>
-                        <meta charSet="UTF-8" />
-                        <span>Für dem Wolfshunger.</span>
-                      </h3>
-                      <img
-                        alt="Hungry like a wolf"
-                        src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/webp_store_1_1_98766e44-17b6-4f1a-a57e-4e87d631a48c.webp?v=1721732901"
-                      />
-                      <p className="same-height">
-                        <meta charSet="UTF-8" />
-                        <span>
-                          Fünfmal in Berlin und Potsdam an den besten Plätzen
-                          der Stadt.
-                        </span>
-                      </p>
-                      <div className="btn-wrap">
-                        <a className="yellow-btn" href="/pages/locations">
-                          Standorte
-                        </a>
+                {data.homepageSecondSections.cards.map((card, index) => {
+                  const {image, title, description, buttonLink, buttonText} =
+                    card;
+                  const imageUrl = getImageUrl(image.asset._ref);
+                  return (
+                    <div
+                      kay={index}
+                      className="slide aos-init"
+                      data-aos-duration={1500}
+                      data-aos="fade-up"
+                      data-aos-once="true"
+                    >
+                      <div
+                        data-aos-once="true"
+                        data-aos-duration={1500}
+                        data-aos="fade-up"
+                        className="aos-init"
+                      >
+                        <div className="inner-slider">
+                          <h3>
+                            <meta charSet="UTF-8" />
+                            <span>{title}</span>
+                          </h3>
+                          <img alt="Hungry like a wolf" src={imageUrl} />
+                          <p className="same-height">
+                            <meta charSet="UTF-8" />
+                            <span>{description}</span>
+                          </p>
+                          <div className="btn-wrap">
+                            <Link className="yellow-btn" href={buttonLink}>
+                              {buttonText}
+                            </Link>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div
-                  className="slide"
-                  data-aos-duration={1500}
-                  data-aos="fade-up"
-                  data-aos-once="true"
-                >
-                  <div className="inner-slider">
-                    <h3>Wolf bestellt. Schwein gehabt.</h3>
-                    <img
-                      alt="Wolf bestellt"
-                      src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/webp_truck_1_1_f66bb9e1-e0c8-4e54-8943-d4b8f0c79cd4.webp?v=1721732901"
-                    />
-                    <p className="same-height">
-                      <span>
-                        Catering ist Geschmacks - und Vertrauenssache - deshalb
-                        CURRY WOLF
-                      </span>
-                    </p>
-                    <div className="btn-wrap">
-                      <a href="/pages/catering" className="yellow-btn">
-                        Catering
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="slide"
-                  data-aos-duration={1500}
-                  data-aos="fade-up"
-                  data-aos-once="true"
-                >
-                  <div
-                    data-aos-once="true"
-                    data-aos-duration={1500}
-                    data-aos="fade-up"
-                    className="aos-init"
-                  >
-                    <div className="inner-slider">
-                      <h3>Feine Geschmacksache&nbsp;😋</h3>
-                      <img
-                        alt="A Berlin tidbit"
-                        src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/webp_product_1_1_b22ea210-5694-4495-a9e5-e132036c96c1.webp?v=1721732901"
-                      />
-                      <p className="same-height">
-                        <meta charSet="UTF-8" />
-                        Als frisch zubereiteter Genuss an einem CURRY WOLF
-                        Imbiss genießen und vieles auch über unseren Onlineshop
-                        zu bestellen – für zuhause, unterwegs oder als Geschenk.
-                      </p>
-                      <div className="btn-wrap">
-                        <a className="yellow-btn" href="/collections/all">
-                          Shop
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                  );
+                })}
               </div>
               <div id="dots-container" ref={dotsContainerRef} />
             </div>
-            <div className="s-wrap">
-              <div className="b-title">
-                <h2
-                  data-aos-duration={3000}
+            {data.homepageThirdSection && (
+              <>
+                <div className="s-wrap">
+                  <div className="b-title">
+                    <h2
+                      data-aos-duration={3000}
+                      data-aos="fade-up"
+                      data-aos-once="true"
+                    >
+                      {data.homepageThirdSection.title}
+                    </h2>
+                  </div>
+                  <div
+                    className="c-s-image-section"
+                    data-aos="fade-up"
+                    data-aos-once="true"
+                    data-aos-duration={2000}
+                  >
+                    {data.homepageThirdSection.images.map((image, index) => {
+                      const imageUrl = getImageUrl(image.image.asset._ref);
+                      return (
+                        <div
+                          key={index}
+                          className="img-big-wrap"
+                          data-aos="fade-right"
+                          data-aos-once="true"
+                          data-aos-duration={2000}
+                        >
+                          <div className="img-one">
+                            <div className="inner-white-box">
+                              <img src={imageUrl} />
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                <div
+                  data-aos-duration={2000}
                   data-aos="fade-up"
                   data-aos-once="true"
+                  className="btn-wrap"
                 >
-                  Family Business
-                  <br />
-                  Originalrezept
-                  <br />
-                  Made In Berlin
-                </h2>
-              </div>
-              <div
-                className="c-s-image-section"
-                data-aos="fade-up"
-                data-aos-once="true"
-                data-aos-duration={2000}
-              >
-                <div
-                  className="img-big-wrap"
-                  data-aos="fade-right"
-                  data-aos-once="true"
-                  data-aos-duration={2000}
-                >
-                  <div className="img-one">
-                    <div className="inner-white-box">
-                      <img src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/2.png?v=1716978818" />
-                    </div>
-                  </div>
+                  <Link
+                    className="yellow-btn"
+                    href={data.homepageThirdSection.buttonLink}
+                  >
+                    {data.homepageThirdSection.buttonText}
+                  </Link>
                 </div>
-                <div
-                  className="img-big-wrap"
-                  data-aos="zoom-in"
-                  data-aos-once="true"
-                  data-aos-duration={2000}
-                >
-                  <div className="img-one">
-                    <div className="inner-white-box">
-                      <img src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/unsere_story_01_1.webp?v=1721392013" />
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="img-big-wrap"
-                  data-aos="fade-left"
-                  data-aos-once="true"
-                  data-aos-duration={2000}
-                >
-                  <div className="img-one">
-                    <div className="inner-white-box">
-                      <img src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/458245312-foto-fur-catering-brandenburger-tor2.webp?v=1721730189" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              data-aos-duration={2000}
-              data-aos="fade-up"
-              data-aos-once="true"
-              className="btn-wrap"
-            >
-              <a className="yellow-btn" href="/pages/our-story">
-                Unsere Story
-              </a>
-            </div>
+              </>
+            )}
           </div>
         </section>
       </>

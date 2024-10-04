@@ -4,7 +4,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {mergeMeta} from '../lib/meta';
 import {DEFAULT_LOCALE} from 'countries';
 import {getSeoMetaFromMatches} from '../lib/seo';
-import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
+import {sanityPreviewPayload} from '../../lib/sanity/sanity.payload.server';
 import {seoPayload} from '../lib/seo.server';
 import {PAGE_QUERY} from '../qroq/queries';
 import {useSanityData} from '../hooks/useSanityData';

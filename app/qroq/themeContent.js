@@ -1,5 +1,3 @@
-import type {Selection} from 'groqd';
-
 import {q} from 'groqd';
 
 import {getIntValue} from './utils';
@@ -173,4 +171,4 @@ export const THEME_CONTENT_FRAGMENT = {
       soldOut: [getIntValue('soldOut'), q.string().nullable()],
     })
     .nullable(),
-} satisfies Selection;
+};

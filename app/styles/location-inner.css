@@ -326,6 +326,9 @@ div#closeBtn {
   text-align: left;
   padding-left: 35px;
 }
+.popup-bottom-menu .foodmenu-one ul li span span:first-child {
+  padding-left: 0px;
+}
 
 .foodmenu-one:nth-child(1) ul li span:nth-child(2) {
   width: 70px;

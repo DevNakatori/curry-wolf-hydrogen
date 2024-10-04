@@ -18,6 +18,13 @@ export default defineConfig({
     }),
     tsconfigPaths(),
   ],
+  resolve: {
+    alias: {
+      '~': '/app', // This adds the '~' alias pointing to your app folder.
+      // If you want to add an alias for the lib folder, you can do it like this:
+      lib: '/lib', // Add an alias for the lib folder if needed
+    },
+  },
   build: {
     // Allow a strict Content-Security-Policy
     // without inlining assets as base64:

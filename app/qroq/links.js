@@ -1,5 +1,3 @@
-import type {Selection} from 'groqd';
-
 import {q} from 'groqd';
 
 /*
@@ -30,7 +28,7 @@ export const INTERNAL_LINK_FRAGMENT = {
   anchor: q.string().nullable(),
   link: LINK_REFERENCE_FRAGMENT,
   name: q.string().nullable(),
-} satisfies Selection;
+};
 
 export const EXTERNAL_LINK_FRAGMENT = {
   _key: q.string().nullable(),
@@ -38,7 +36,7 @@ export const EXTERNAL_LINK_FRAGMENT = {
   link: q.string().nullable(),
   name: q.string().nullable(),
   openInNewTab: q.boolean().nullable(),
-} satisfies Selection;
+};
 
 export const NESTED_NAVIGATION_FRAGMENT = {
   _key: q.string().nullable(),
@@ -49,7 +47,7 @@ export const NESTED_NAVIGATION_FRAGMENT = {
   }),
   link: INTERNAL_LINK_FRAGMENT.link,
   name: INTERNAL_LINK_FRAGMENT.name,
-} satisfies Selection;
+};
 
 /*
 |--------------------------------------------------------------------------

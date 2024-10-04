@@ -1,7 +1,7 @@
 import React from 'react';
 import {vercelStegaSplit} from '@vercel/stega';
 
-export default function CleanString({value}: {value?: null | string}) {
+export default function CleanString({value}) {
   if (!value) return null;
 
   const {cleaned, encoded} = vercelStegaSplit(value);

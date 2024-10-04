@@ -1,10 +1,112 @@
-import type {Selection} from 'groqd';
-
 import {q, z} from 'groqd';
 
 import {LINK_REFERENCE_FRAGMENT, LINKS_LIST_SELECTION} from './links';
 
-export const aspectRatioValues = ['square', 'video', 'auto'] as const;
+export const aspectRatioValues = ['square', 'video', 'auto'];
+
+export const CART_QUERY_FRAGMENT = `#graphql
+  fragment Money on MoneyV2 {
+    currencyCode
+    amount
+  }
+  fragment CartLine on CartLine {
+    id
+    quantity
+    attributes {
+      key
+      value
+    }
+    cost {
+      totalAmount {
+        ...Money
+      }
+      amountPerQuantity {
+        ...Money
+      }
+      compareAtAmountPerQuantity {
+        ...Money
+      }
+    }
+    merchandise {
+      ... on ProductVariant {
+        id
+        availableForSale
+        compareAtPrice {
+          ...Money
+        }
+        price {
+          ...Money
+        }
+        requiresShipping
+        title
+        image {
+          id
+          url
+          altText
+          width
+          height
+
+        }
+        product {
+          handle
+          title
+          id
+          vendor
+        }
+        selectedOptions {
+          name
+          value
+        }
+      }
+    }
+  }
+  fragment CartApiQuery on Cart {
+    updatedAt
+    id
+    checkoutUrl
+    totalQuantity
+    buyerIdentity {
+      countryCode
+      customer {
+        id
+        email
+        firstName
+        lastName
+        displayName
+      }
+      email
+      phone
+    }
+    lines(first: $numCartLines) {
+      nodes {
+        ...CartLine
+      }
+    }
+    cost {
+      subtotalAmount {
+        ...Money
+      }
+      totalAmount {
+        ...Money
+      }
+      totalDutyAmount {
+        ...Money
+      }
+      totalTaxAmount {
+        ...Money
+      }
+    }
+    note
+    attributes {
+      key
+      value
+    }
+    discountCodes {
+      code
+      applicable
+    }
+  }
+`;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +135,7 @@ export const IMAGE_FRAGMENT = {
     x: q.number(),
     y: q.number(),
   }),
-} as const;
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -44,27 +146,29 @@ export const BORDER_FRAGMENT = {
   cornerRadius: q.number().nullable(),
   opacity: q.number().nullable(),
   thickness: q.number().nullable(),
-} as const;
+};
 
 export const SHADOW_FRAGMENT = {
   blur: q.number().nullable(),
   horizontalOffset: q.number().nullable(),
   opacity: q.number().nullable(),
   verticalOffset: q.number().nullable(),
-} as const;
+};
 
 /*
 |--------------------------------------------------------------------------
 | Menu Fragment
 |--------------------------------------------------------------------------
 */
-export const MENU_FRAGMENT = q(
-  `coalesce(
-    menu[_key == $language][0].value[],
-    menu[_key == $defaultLanguage][0].value[],
-  )[]`,
-  {isArray: true},
-)
+export const MENU_FRAGMENT = q('menu[]', {isArray: true})
+  .select(LINKS_LIST_SELECTION)
+  .nullable();
+/*
+|--------------------------------------------------------------------------
+| Location Menu Fragment
+|--------------------------------------------------------------------------
+*/
+export const LOCATION_MENU_FRAGMENT = q('imagesLabels[]', {isArray: true})
   .select(LINKS_LIST_SELECTION)
   .nullable();
 
@@ -86,7 +190,7 @@ export const COLOR_FRAGMENT = {
     g: q.number(),
     r: q.number(),
   }),
-} satisfies Selection;
+};
 
 export const COLOR_SCHEME_FRAGMENT = {
   background: q('background').grab(COLOR_FRAGMENT).nullable(),
@@ -96,7 +200,7 @@ export const COLOR_SCHEME_FRAGMENT = {
   foreground: q('foreground').grab(COLOR_FRAGMENT).nullable(),
   primary: q('primary').grab(COLOR_FRAGMENT).nullable(),
   primaryForeground: q('primaryForeground').grab(COLOR_FRAGMENT).nullable(),
-} satisfies Selection;
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -109,7 +213,7 @@ export const ANNOUCEMENT_BAR_FRAGMENT = {
   link: LINK_REFERENCE_FRAGMENT,
   openInNewTab: q.boolean().nullable(),
   text: q.string().nullable(),
-} satisfies Selection;
+};
 
 export const ANNOUCEMENT_BAR_ARRAY_FRAGMENT = q(
   `coalesce(
@@ -215,7 +319,7 @@ export const SETTINGS_FRAGMENT = {
   twitter: q.string().nullable(),
   vimeo: q.string().nullable(),
   youtube: q.string().nullable(),
-} satisfies Selection;
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -226,7 +330,7 @@ const FONT_ASSET_FRAGMENT = {
   extension: q('asset').deref().grabOne('extension', q.string()),
   mimeType: q('asset').deref().grabOne('mimeType', q.string()),
   url: q('asset').deref().grabOne('url', q.string()),
-} satisfies Selection;
+};
 
 export const FONT_CATEGORY_FRAGMENT = {
   antialiased: q.boolean().nullable(),
@@ -240,7 +344,7 @@ export const FONT_CATEGORY_FRAGMENT = {
   }),
   fontName: q.string(),
   fontType: q.string(),
-} satisfies Selection;
+};
 
 export const FONT_FRAGMENT = {
   baseSize: q.number().nullable(),
@@ -248,4 +352,4 @@ export const FONT_FRAGMENT = {
   font: q('font[]', {isArray: true}).grab(FONT_CATEGORY_FRAGMENT).nullable(),
   letterSpacing: q.number().nullable(),
   lineHeight: q.number().nullable(),
-} satisfies Selection;
+};

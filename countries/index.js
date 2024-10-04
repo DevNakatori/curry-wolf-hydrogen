@@ -1,8 +1,16 @@
 /* eslint perfectionist/sort-objects: 0 */
-import type {I18nLocale, Localizations} from '../app/lib/type';
 
-export const countries: Localizations = {
+export const countries = {
   default: {
+    country: 'FR',
+    currency: 'EUR',
+    isoCode: 'de-de',
+    label: 'Germany (EUR €)',
+    language: 'DE',
+    languageLabel: 'Deutsch',
+    salesChannel: 'hydrogen',
+  },
+  '/en': {
     country: 'US',
     currency: 'USD',
     isoCode: 'en-us',
@@ -11,35 +19,17 @@ export const countries: Localizations = {
     languageLabel: 'English',
     salesChannel: 'hydrogen',
   },
-  '/ca-fr': {
-    country: 'CA',
-    currency: 'CAD',
-    isoCode: 'fr-ca',
-    label: 'Canada - French (CAD $)',
-    language: 'FR',
-    languageLabel: 'French',
-    salesChannel: 'hydrogen',
-  },
-  '/fr': {
-    country: 'FR',
-    currency: 'EUR',
-    isoCode: 'fr-fr',
-    label: 'France (EUR €)',
-    language: 'FR',
-    languageLabel: 'French',
-    salesChannel: 'hydrogen',
-  },
 };
 
-export const DEFAULT_LOCALE: I18nLocale = Object.freeze({
+export const DEFAULT_LOCALE = Object.freeze({
   ...countries.default,
   pathPrefix: '',
   default: true,
 });
 
 export function getAllLanguages() {
-  const uniqueLanguages: {id: string; title: string}[] = [];
-  const seenLanguages = new Set<string>();
+  const uniqueLanguages = [];
+  const seenLanguages = new Set();
 
   for (const key in countries) {
     const language = countries[key].language;
@@ -56,7 +46,7 @@ export function getAllLanguages() {
   return uniqueLanguages;
 }
 
-export function getLocaleFromRequest(request: Request): I18nLocale {
+export function getLocaleFromRequest(request) {
   const url = new URL(request.url);
   const firstPathPart =
     '/' + url.pathname.substring(1).split('/')[0].toLowerCase();

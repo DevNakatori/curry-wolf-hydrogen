@@ -1,8 +1,6 @@
-import type {Selection} from 'groqd';
-
 import {q, z} from 'groqd';
 
-import {IMAGE_FRAGMENT} from './fragments';
+import {IMAGE_FRAGMENT} from '../lib/fragments';
 import {LINK_REFERENCE_FRAGMENT} from './links';
 import {contentAlignmentValues} from './sections';
 
@@ -16,14 +14,14 @@ export const INTERNAL_LINK_BLOCK_ANNOTATION_FRAGMENT = {
   _type: q.literal('internalLink'),
   anchor: q.string().nullable(),
   link: LINK_REFERENCE_FRAGMENT,
-} satisfies Selection;
+};
 
 export const EXTERNAL_LINK_BLOCK_ANNOTATION_FRAGMENT = {
   _key: q.string(),
   _type: q.literal('externalLink'),
   link: q.string().nullable(),
   openInNewTab: q.boolean().nullable(),
-} satisfies Selection;
+};
 
 export const BASE_BLOCK_FRAGMENT = {
   _key: q.string().optional(),
@@ -46,7 +44,7 @@ export const BASE_BLOCK_FRAGMENT = {
       default: ['{...}', q.object({})],
     }),
   style: q.string().optional(),
-} satisfies Selection;
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -56,24 +54,24 @@ export const BASE_BLOCK_FRAGMENT = {
 export const SHOPIFY_TITLE_BLOCK_FRAGMENT = {
   _key: q.string(),
   _type: q.literal('shopifyTitle'),
-} satisfies Selection;
+};
 
 export const SHOPIFY_DESCRIPTION_BLOCK_FRAGMENT = {
   _key: q.string(),
   _type: q.literal('shopifyDescription'),
-} satisfies Selection;
+};
 
 export const ADD_TO_CART_BUTTON_BLOCK_FRAGMENT = {
   _key: q.string(),
   _type: q.literal('addToCartButton'),
   quantitySelector: q.boolean().nullable(),
   shopPayButton: q.boolean().nullable(),
-} satisfies Selection;
+};
 
 export const PRICE_BLOCK_FRAGMENT = {
   _key: q.string(),
   _type: q.literal('price'),
-} satisfies Selection;
+};
 
 export const PRODUCT_RICHTEXT_BLOCKS = q.select({
   '_type == "addToCartButton"': ADD_TO_CART_BUTTON_BLOCK_FRAGMENT,
@@ -94,14 +92,14 @@ export const BUTTON_BLOCK_FRAGMENT = {
   anchor: q.string().nullable(),
   label: q.string().nullable(),
   link: LINK_REFERENCE_FRAGMENT,
-} satisfies Selection;
+};
 
 export const IMAGE_BLOCK_FRAGMENT = {
   _key: q.string(),
   ...IMAGE_FRAGMENT,
   alignment: z.enum(contentAlignmentValues).nullable(),
   maxWidth: q.number().nullable(),
-} satisfies Selection;
+};
 
 export const RICHTEXT_BLOCKS = q.select({
   '_type == "block"': BASE_BLOCK_FRAGMENT,

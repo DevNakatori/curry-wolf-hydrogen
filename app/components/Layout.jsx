@@ -4,17 +4,13 @@ import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
 import {Header, HeaderMenu} from '~/components/Header';
 import {CartMain} from '~/components/Cart';
-import {TogglePreviewMode} from '../components/sanity/TogglePreviewMode';
 import {
   PredictiveSearchForm,
   PredictiveSearchResults,
 } from '~/components/Search';
 import {useRootLoaderData} from '~/lib/root-data';
-const VisualEditing = lazy(() =>
-  import('../components/sanity/VisualEditing').then((mod) => ({
-    default: mod.VisualEditing,
-  })),
-);
+import {useSanityRoot} from '~/hooks/useSanityRoot';
+import {useRootLoaderData as LoaderData} from '~/root';
 
 /**
  * @param {LayoutProps}
@@ -22,12 +18,13 @@ const VisualEditing = lazy(() =>
 export function Layout({cart, children = null, footer, header, isLoggedIn}) {
   const [toggle, setToggle] = useState(false);
   const {env, locale, sanityPreviewMode} = useRootLoaderData();
+  const {data} = useSanityRoot();
   return (
     <>
       <CartAside cart={cart} />
       <SearchAside />
       <MobileMenuAside
-        menu={header?.menu}
+        data={data}
         shop={header?.shop}
         toggle={toggle}
         setToggle={setToggle}
@@ -47,13 +44,6 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
           {(footer) => <Footer menu={footer?.menu} shop={header?.shop} />}
         </Await>
       </Suspense>
-      {sanityPreviewMode ? (
-        <Suspense>
-          <VisualEditing />
-        </Suspense>
-      ) : (
-        <TogglePreviewMode />
-      )}
     </>
   );
 }
@@ -118,9 +108,9 @@ function SearchAside() {
  *   setToggle: React.Dispatch<React.SetStateAction<boolean>>;
  * }}
  */
-function MobileMenuAside({menu, shop, toggle, setToggle}) {
+function MobileMenuAside({data, shop, toggle, setToggle}) {
   return (
-    menu &&
+    data?.header?.menu &&
     shop?.primaryDomain?.url && (
       <Aside
         id="mobile-menu-aside"
@@ -129,7 +119,7 @@ function MobileMenuAside({menu, shop, toggle, setToggle}) {
         setToggle={setToggle}
       >
         <HeaderMenu
-          menu={menu}
+          menu={data}
           viewport="mobile"
           primaryDomainUrl={shop.primaryDomain.url}
           toggle={toggle}

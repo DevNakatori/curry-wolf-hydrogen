@@ -1,15 +1,6 @@
 // https://gist.github.com/ryanflorence/ec1849c6d690cfbffcb408ecd633e069
 
-import type {LoaderFunction, MetaFunction} from '@shopify/remix-oxygen';
-export const mergeMeta = <
-  Loader extends LoaderFunction | unknown = unknown,
-  ParentsLoaders extends Record<string, LoaderFunction | unknown> = Record<
-    string,
-    unknown
-  >,
->(
-  leafMetaFn: MetaFunction<Loader, ParentsLoaders>,
-): MetaFunction<Loader, ParentsLoaders> => {
+export const mergeMeta = (leafMetaFn) => {
   return (arg) => {
     const leafMeta = leafMetaFn(arg);
     return arg.matches.reduceRight((acc, match) => {

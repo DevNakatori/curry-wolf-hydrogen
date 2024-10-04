@@ -11,11 +11,11 @@ import {useCallback, useEffect} from 'react';
 |
 */
 export function TogglePreviewMode() {
-  const fetcher = useFetcher<{success?: boolean}>();
+  const fetcher = useFetcher();
   const {pathname} = useLocation();
 
   const handleTogglePreviewMode = useCallback(
-    (event: KeyboardEvent) => {
+    (event) => {
       if (event.metaKey && event.ctrlKey && event.key === 'p') {
         fetcher.load(`/sanity/preview?slug=${pathname}`);
       }

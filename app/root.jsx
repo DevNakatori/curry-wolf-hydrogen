@@ -25,7 +25,7 @@ import Popup from './components/Popup';
 import * as gtag from './util/gtag';
 import {DEFAULT_LOCALE} from 'countries';
 import {useLocalePath} from './hooks/useLocalePath';
-import {sanityPreviewPayload} from './lib/sanity/sanity.payload.server';
+import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
 import {seoPayload} from './lib/seo.server';
 import {ROOT_QUERY} from './qroq/queries';
 export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {

@@ -4,7 +4,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {mergeMeta} from '../lib/meta';
 import {DEFAULT_LOCALE} from 'countries';
 import {getSeoMetaFromMatches} from '../lib/seo';
-import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
+import {sanityPreviewPayload} from '../../lib/sanity/sanity.payload.server';
 import {seoPayload} from '../lib/seo.server';
 import {PAGE_QUERY} from '../qroq/queries';
 import {useSanityData} from '../hooks/useSanityData';
@@ -23,7 +23,6 @@ export async function loader({request}) {
     handle,
     language,
   };
-
   const page = await sanity.query({
     groqdQuery: PAGE_QUERY,
     params: queryParams,
@@ -34,7 +33,7 @@ export async function loader({request}) {
       statusText: 'Not Found',
     });
   }
-  // console.log(page);
+
   const seo = seoPayload.home({
     page: page.data,
     sanity: {
@@ -59,7 +58,7 @@ export default function PageRoute() {
   });
   return <Home data={data} />;
 }
-function getPageHandle(args) {
+export function getPageHandle(args) {
   const {locale, params, pathname} = args;
   const pathWithoutLocale = pathname.replace(`${locale?.pathPrefix}`, '');
   const pathWithoutSlash = pathWithoutLocale.replace(/^\/+/g, '');
@@ -73,8 +72,8 @@ function getPageHandle(args) {
     locale?.pathPrefix && params['*']
       ? params['*'] // Handle for a page with locale having pathPrefix ex: /fr/about-us/
       : params.locale && params['*']
-        ? `${params.locale}/${params['*']}` // Handle for default locale page with multiple slugs ex: /about-us/another-slug
-        : params.locale || pathWithoutSlash; // Handle for default locale page  ex: /about-us/
+      ? `${params.locale}/${params['*']}` // Handle for default locale page with multiple slugs ex: /about-us/another-slug
+      : params.locale || pathWithoutSlash; // Handle for default locale page  ex: /about-us/
 
   return handle;
 }

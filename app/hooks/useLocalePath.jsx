@@ -1,6 +1,6 @@
 import {useRootLoaderData} from '../root';
 
-export function useLocalePath(props: {path: string}) {
+export function useLocalePath(props) {
   const {locale} = useRootLoaderData();
   const {path} = props;
   const pathPrefix = locale.pathPrefix;
