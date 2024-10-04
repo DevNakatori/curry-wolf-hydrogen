@@ -1,15 +1,22 @@
 import {json} from '@shopify/remix-oxygen';
-import {useLoaderData} from '@remix-run/react';
+import {Link, NavLink, useLoaderData} from '@remix-run/react';
 import '../styles/location-page.css';
 import {useEffect, useRef, useState} from 'react';
+import {mergeMeta} from '../lib/meta';
+import {DEFAULT_LOCALE} from 'countries';
+import {sanityPreviewPayload} from '../../lib/sanity/sanity.payload.server';
+import {LOCATION_PAGE_QUERY} from '../qroq/queries';
+import {useSanityData} from '../hooks/useSanityData';
+import {getPageHandle} from './($locale).$';
+import {getImageUrl} from '~/lib/utils';
 
 /**
  * @type {MetaFunction<typeof loader>}
  */
 export const meta = ({data}) => {
   return [
-    {title: `Curry Wolf | ${data?.page.title ?? ''}`},
-    {name: 'description', content: data.page.seo.description},
+    {title: `Curry Wolf | ${data?.seo?.title ?? ''}`},
+    {name: 'description', content: data?.seo?.description},
     {
       tagName: 'link',
       rel: 'canonical',
@@ -22,24 +29,55 @@ export const meta = ({data}) => {
  * @param {LoaderFunctionArgs}
  */
 export async function loader({params, request, context}) {
-  const canonicalUrl = request.url;
-  const handle = params.handle || 'locations';
-  const {page} = await context.storefront.query(PAGE_QUERY, {
-    variables: {
-      handle: handle,
-    },
-  });
+  const {env, locale, sanity, storefront} = context;
+  const pathname = new URL(request.url).pathname;
+  const handle = getPageHandle({locale, params, pathname}).replace(
+    /^pages\//,
+    '',
+  );
+  const language = locale?.language.toLowerCase();
+  const queryParams = {
+    defaultLanguage: DEFAULT_LOCALE.language.toLowerCase(),
+    handle,
+    language,
+  };
 
+  const page = await sanity.query({
+    groqdQuery: LOCATION_PAGE_QUERY,
+    params: queryParams,
+  });
+  console.log(page);
   if (!page) {
     throw new Response('Not Found', {status: 404});
   }
+  const seo = page.data.seo;
+  const canonicalUrl = request.url;
 
-  return json({page, canonicalUrl});
+  return json({
+    page,
+    canonicalUrl,
+    seo,
+    ...sanityPreviewPayload({
+      context,
+      params: queryParams,
+      query: LOCATION_PAGE_QUERY.query,
+    }),
+  });
 }
 
 export default function Page() {
   /* @type {LoaderReturnData} */
+
   const {page} = useLoaderData();
+  const {data, encodeDataAttribute} = useSanityData({
+    initial: page,
+  });
+
+  const locationSecondSection = data?.locationSecondSection;
+  const cards = locationSecondSection?.cards || [];
+  const locationThirdSection = data?.locationThirdSection;
+  const images = locationThirdSection?.images || [];
+
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -155,6 +193,20 @@ export default function Page() {
           },
         ];
 
+    const apiData =
+      data?.imagesLabels ||
+      []?.map(({name, anchor}) => ({
+        additionalLabel: name,
+        additionalLabel2: anchor,
+      }));
+
+    const updatedPositions = positions.map((position, index) => ({
+      ...position, // Keep the existing position data
+      additionalLabel:
+        apiData[index]?.additionalLabel || position.additionalLabel, // Merge or fallback to original
+      additionalLabel2:
+        apiData[index]?.additionalLabel2 || position.additionalLabel2, // Merge or fallback to original
+    }));
     const overlayLabels = [];
 
     function positionOverlayImages() {
@@ -162,8 +214,8 @@ export default function Page() {
 
       if (window.innerWidth <= 767) {
         overlayImages.forEach((image, index) => {
-          const xPercentage = positions[index].x;
-          const yPercentage = positions[index].y;
+          const xPercentage = updatedPositions[index].x;
+          const yPercentage = updatedPositions[index].y;
           const xPos =
             rect.left + (rect.width * xPercentage) / 100 - image.width / 2;
           const yPos =
@@ -182,9 +234,9 @@ export default function Page() {
           const label = document.createElement('div');
           label.classList.add('overlayLabel');
           label.innerHTML = `
-            <span class="mainLabel">${positions[index].label}</span>
-            <span class="additionalLabel">${positions[index].additionalLabel}</span>
-            <span class="additionalLabel2">${positions[index].additionalLabel2}</span>
+            <span class="mainLabel">${updatedPositions[index].label}</span>
+            <span class="additionalLabel">${updatedPositions[index].additionalLabel}</span>
+            <span class="additionalLabel2">${updatedPositions[index].additionalLabel2}</span>
           `;
           label.style.opacity = 0;
           videocontainer.appendChild(label);
@@ -205,8 +257,8 @@ export default function Page() {
         });
       } else {
         overlayImages.forEach((image, index) => {
-          const xPercentage = positions[index].x;
-          const yPercentage = positions[index].y;
+          const xPercentage = updatedPositions[index].x;
+          const yPercentage = updatedPositions[index].y;
           const xPos =
             rect.left + (rect.width * xPercentage) / 100 - image.width / 2;
           const yPos =
@@ -225,9 +277,9 @@ export default function Page() {
           const label = document.createElement('div');
           label.classList.add('overlayLabel');
           label.innerHTML = `
-            <span class="mainLabel">${positions[index].label}</span>
-            <span class="additionalLabel">${positions[index].additionalLabel}</span>
-            <span class="additionalLabel2">${positions[index].additionalLabel2}</span>
+            <span class="mainLabel">${updatedPositions[index].label}</span>
+            <span class="additionalLabel">${updatedPositions[index].additionalLabel}</span>
+            <span class="additionalLabel2">${updatedPositions[index].additionalLabel2}</span>
           `;
           label.style.opacity = 0;
           videocontainer.appendChild(label);
@@ -331,29 +383,162 @@ export default function Page() {
 
   return (
     <div className="page location-main">
-      <main dangerouslySetInnerHTML={{__html: page.body}} />
+      <main>
+        <section className="thereedmainsection">
+          <div id="video-container" className="video-container">
+            {data?.imagesLabels?.map((item) => {
+              const slug = item?.link?.slug;
+              return (
+                <Link key={item?._key} to={`/pages/${slug}`}>
+                  <img
+                    className="overlayImage"
+                    src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/CurryWolf-BerlinMap-StoreButton.png?v=1718286508"
+                    alt={`Overlay Image ${item?.name}`}
+                  />
+                </Link>
+              );
+            })}
+            <div className="video_one">
+              <video id="video1" muted autoPlay playsInline>
+                <source
+                  src="https://cdn.shopify.com/videos/c/o/v/5f70395797e84acb87b9244598f082ef.webm"
+                  type="video/webm"
+                />
+                <source
+                  src="https://cdn.shopify.com/videos/c/o/v/6505d5c2cef7490fa1be7b4603f6c345.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div className="video_two">
+              <video
+                playsInline
+                loop
+                muted
+                id="video2"
+                style={{display: 'none'}}
+              >
+                <source
+                  src="https://cdn.shopify.com/videos/c/o/v/f983f8e33ce1416ab2d81f8c32b8b82e.webm"
+                  type="video/webm"
+                />
+                <source
+                  src="https://cdn.shopify.com/videos/c/o/v/0863e1d535974ad49b2d8fc1038cb5b0.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+          <div className="onlytouchdevice">
+            <p>Move to navigate through the map</p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 48 24"
+              height="24"
+              width="48"
+            >
+              <path
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth="1.5"
+                stroke="#fff"
+                d="M19.5 12.0003L17.496 14.6723C17.216 15.0456 17.0754 15.505 17.0984 15.9711C17.1214 16.4371 17.3066 16.8805 17.622 17.2243L21.406 21.3523C21.784 21.7653 22.318 22.0003 22.879 22.0003H27.5C29.9 22.0003 31.5 20.0003 31.5 18.0003V9.42934C31.5 7.14334 28.5 7.14334 28.5 9.42934V10.0003"
+              />
+              <path
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth="1.5"
+                stroke="#fff"
+                d="M28.5 10V8.286C28.5 6 25.5 6 25.5 8.286V10V7.5C25.5 5.214 22.5 5.214 22.5 7.5V10V3.499C22.4997 3.10135 22.3416 2.72007 22.0603 2.43899C21.779 2.1579 21.3977 2 21 2C20.6022 2 20.2206 2.15804 19.9393 2.43934C19.658 2.72064 19.5 3.10218 19.5 3.5V15"
+              />
+              <path stroke="#fff" d="M5.1194 9L1 12.5L5.1194 16" />
+              <path stroke="#fff" d="M1 12.5H9.92537" />
+              <path stroke="#fff" d="M42.8806 16L47 12.5L42.8806 9" />
+              <path stroke="#fff" d="M47 12.5L38.0746 12.5" />
+            </svg>
+          </div>
+        </section>
+        <div className="main-location-curry">
+          <div className="container">
+            <div
+              className="curry-image-content"
+              data-aos-duration="1500"
+              data-aos="fade-up"
+              data-aos-once="true"
+            >
+              {cards?.map((card, index) => {
+                const imageUrl = getImageUrl(card.image.asset._ref);
+                return (
+                  <div key={index} className="c-two-box">
+                    <div className="c-left">
+                      <img src={imageUrl} alt="shop-image" />
+                    </div>
+                    <div className="c-right">
+                      <h2>{card?.title}</h2>
+                      <p className="same-height">{card?.description}</p>
+                      <Link href={card?.buttonLink} className="yellow-btn">
+                        {card?.buttonText}
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="follow-currywolf">
+              <div
+                data-aos-once="true"
+                data-aos="fade-up"
+                data-aos-duration="1500"
+              >
+                <h2>{locationThirdSection?.title}</h2>
+                <div className="curry-new-btn">
+                  <a
+                    href={locationThirdSection?.buttonLink}
+                    className="yellow-border-btn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {locationThirdSection?.buttonText}
+                  </a>
+                </div>
+              </div>
+              <div className="follow-box">
+                <div
+                  className="c-s-image-section"
+                  data-aos="fade-right"
+                  data-aos-once="true"
+                  data-aos-duration="2000"
+                >
+                  {images?.map((image, index) => {
+                    const imageUrl = getImageUrl(image.image.asset._ref);
+                    return (
+                      <div
+                        key={index}
+                        className="img-big-wrap"
+                        data-aos={`${
+                          index === 1 || index === 2 ? 'zoom-in' : ''
+                        }`}
+                      >
+                        <div className="img-one">
+                          <div className="inner-white-box">
+                            <img src={imageUrl} alt="" />
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   );
 }
-
-const PAGE_QUERY = `#graphql
-query Page(
-  $language: LanguageCode,
-  $country: CountryCode,
-  $handle: String!
-)
-@inContext(language: $language, country: $country) {
-  page(handle: $handle) {
-    id
-    title
-    body
-    seo {
-      description
-      title
-    }
-  }
-}
-`;
 
 /**  @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /**  @template T @typedef {import('@remix-run/react').MetaFunction<T>} MetaFunction */

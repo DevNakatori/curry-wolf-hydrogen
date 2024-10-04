@@ -2,15 +2,18 @@ import {useCallback, useEffect, useState} from 'react';
 import {Await, NavLink, useLocation, useNavigate} from '@remix-run/react';
 import {Suspense} from 'react';
 import {useRootLoaderData} from '~/lib/root-data';
-import shopLogo from '../assets/CurryWolf_Logo_footer.svg';
 import LanguageSwitcher from './LanguageSwitcher';
-
+import {useSanityRoot} from '~/hooks/useSanityRoot';
+import {useRootLoaderData as LoaderData} from '~/root';
+import {stegaClean} from '@sanity/client/stega';
+import {getImageUrl} from '~/lib/utils';
 /**
  * @param {HeaderProps}
  */
 export function Header({header, isLoggedIn, cart, toggle, setToggle}) {
   const [path, setPath] = useState('');
   const location = useLocation();
+  const {data} = useSanityRoot();
   useEffect(() => {
     setPath(location.pathname);
   }, [location.pathname]);
@@ -21,7 +24,9 @@ export function Header({header, isLoggedIn, cart, toggle, setToggle}) {
       return '/';
     }
   };
-  const {shop, menu} = header;
+  const logo = data?.header?.logo;
+  const logourl = getImageUrl(logo?._ref);
+  const {shop} = header;
   return (
     <header className="header">
       <div className="container">
@@ -29,21 +34,21 @@ export function Header({header, isLoggedIn, cart, toggle, setToggle}) {
           <NavLink prefetch="intent" to={getPath()} style={activeLinkStyle} end>
             <img
               className="desktop-logo"
-              src={shopLogo}
-              alt="logo"
+              src={logourl}
+              alt={logo?.altText || 'logo'}
               data-aos="zoom-in"
               data-aos-duration="1500"
               data-aos-once="true"
             />
           </NavLink>
           <HeaderMenu
-            menu={menu}
+            menu={data}
             viewport="desktop"
-            primaryDomainUrl={header.shop.primaryDomain.url}
             toggle={toggle}
             setToggle={setToggle}
           />
           <HeaderCtas
+            logo={logourl}
             isLoggedIn={isLoggedIn}
             cart={cart}
             toggle={toggle}
@@ -58,13 +63,12 @@ export function Header({header, isLoggedIn, cart, toggle, setToggle}) {
 /**
  * @param {{
  *   menu: HeaderProps['header']['menu'];
- *   primaryDomainUrl: HeaderQuery['shop']['primaryDomain']['url'];
  *   viewport: Viewport;
  * }}
  */
 export function HeaderMenu({
   menu,
-  primaryDomainUrl,
+
   viewport,
   toggle,
   setToggle,
@@ -74,19 +78,13 @@ export function HeaderMenu({
   const [openSubmenus, setOpenSubmenus] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const navigate = useNavigate();
-  function getUrl(itemUrl) {
-    return itemUrl.includes('myshopify.com') ||
-      itemUrl.includes(publicStoreDomain) ||
-      itemUrl.includes(primaryDomainUrl)
-      ? new URL(itemUrl).pathname
-      : itemUrl;
-  }
-
+  const {locale} = LoaderData();
+  const menu1 = menu?.header?.menu;
   const handleClick = useCallback(
     (event, url) => {
       if (viewport === 'mobile') {
         event.preventDefault();
-        navigate(url);
+        navigate(`/pages/${url}`);
         setToggle((prevToggle) => !prevToggle);
         setOpenSubmenus(false);
       }
@@ -103,24 +101,23 @@ export function HeaderMenu({
         className={`${className} ${isDrawerOpen ? 'open' : ''}`}
         role="navigation"
       >
-        {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
-          if (!item.url) return null;
-
-          const url = getUrl(item.url);
+        {(menu1 || FALLBACK_HEADER_MENU.items).map((item, index) => {
+          const link = item?.link;
+          const url = link.slug;
 
           return (
-            <div key={item.id} className="header-menu-item">
+            <div key={index} className="header-menu-item">
               <div className="menu-item-wrapper">
                 <NavLink
                   end
                   prefetch="intent"
                   className={({isActive}) => (isActive ? 'active' : '')}
-                  to={new URL(item.url).pathname}
+                  to={`/pages/${url}`}
                   onClick={(e) => handleClick(e, url)}
                 >
-                  {item.title}
+                  {item.name}
                 </NavLink>
-                {item.items && item.items.length > 0 && (
+                {item.childLinks && (
                   <svg
                     onClick={() => setOpenSubmenus(!openSubmenus)}
                     className={`submenu-arrow ${openSubmenus ? 'open' : ''}`}
@@ -137,24 +134,25 @@ export function HeaderMenu({
                   </svg>
                 )}
               </div>
-              {item.items && item.items.length > 0 && (
+              {item.childLinks && (
                 <ul
                   className={`submenu ${viewport} ${
                     openSubmenus ? 'open' : ''
                   }`}
                 >
-                  {item.items.map((subItem) => {
-                    const subUrl = getUrl(subItem.url);
+                  {item.childLinks.map((subItem, index) => {
+                    const subUrl = subItem?.link?.slug;
                     return (
-                      <li key={subItem.id}>
+                      <li key={index}>
                         <NavLink
+                          key={index}
                           end
                           prefetch="intent"
                           className={({isActive}) => (isActive ? 'active' : '')}
-                          to={subUrl}
+                          to={`/pages/${subUrl}`}
                           onClick={(e) => handleClick(e, subUrl)}
                         >
-                          {subItem.title}
+                          {subItem.name}
                         </NavLink>
                       </li>
                     );
@@ -172,7 +170,7 @@ export function HeaderMenu({
 /**
  * @param {Pick<HeaderProps, 'isLoggedIn' | 'cart'>}
  */
-function HeaderCtas({isLoggedIn, cart, toggle, setToggle}) {
+function HeaderCtas({isLoggedIn, logo, cart, toggle, setToggle}) {
   return (
     <nav className="header-ctas" role="navigation">
       <HeaderMenuMobileToggle toggle={toggle} setToggle={setToggle} />
@@ -203,7 +201,7 @@ function HeaderCtas({isLoggedIn, cart, toggle, setToggle}) {
         </Suspense>
       </NavLink>
       <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <img className="mobile-logo" src={shopLogo} alt="logo" />
+        <img className="mobile-logo" src={logo} alt="logo" />
       </NavLink>
       <CartToggle cart={cart} />
       <LanguageSwitcher />

@@ -1,33 +1,47 @@
 import {NavLink} from '@remix-run/react';
 import {useRootLoaderData} from '~/lib/root-data';
 import {KeepInTouch} from '~/routes/footerData';
-import footerLogo from '../assets/CurryWolf_Logo_footer.svg';
+import {useSanityRoot} from '~/hooks/useSanityRoot';
+import {useRootLoaderData as LoaderData} from '~/root';
+import {stegaClean} from '@sanity/client/stega';
+import {getImageUrl} from '~/lib/utils';
 /**
  * @param {FooterQuery & {shop: HeaderQuery['shop']}}
  */
 
-export function Footer({menu, shop}) {
+export function Footer({shop}) {
+  const {data} = useSanityRoot();
+  const menu = data?.footer?.footerLink;
+  const footerLogo = getImageUrl(data?.footer?.logo?._ref);
+  const footerAddress = data?.footer?.footerAddress;
+  const footerSocialLinks = data?.footer?.footerSocialLinks;
+  const FooterRightLogo = getImageUrl(data?.footer?.FooterRightLogo._ref);
+
   return (
     <footer className="footer">
-      <div className='container'>
-       <div className='footer-inner'>
-      {menu && shop?.primaryDomain?.url && (
-        <>
-         <div className='footer-child'>
-            <FooterMenu menu={menu} primaryDomainUrl={shop.primaryDomain.url} />
-            <KeepInTouch />
-         </div>
-        </>
-      )}
-    </div>
+      <div className="container">
+        <div className="footer-inner">
+          {menu && shop?.primaryDomain?.url && (
+            <>
+              <div className="footer-child">
+                <FooterMenu
+                  menu={menu}
+                  footerLogo={footerLogo}
+                  primaryDomainUrl={shop.primaryDomain.url}
+                />
+                <KeepInTouch
+                  footerSocialLinks={footerSocialLinks}
+                  footerAddress={footerAddress}
+                  FooterRightLogo={FooterRightLogo}
+                />
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </footer>
-  
   );
 }
-
-
-
 
 /**
  * @param {{
@@ -36,50 +50,77 @@ export function Footer({menu, shop}) {
  * }}
  */
 
-
-function FooterMenu({menu, primaryDomainUrl}) {
+function FooterMenu({menu, footerLogo, primaryDomainUrl}) {
   const {publicStoreDomain} = useRootLoaderData();
-
+  const {locale} = LoaderData();
+  const footermenu = menu.menu;
+  const footerMenuTitle = menu.title;
   return (
-    <div className='left-block-wrap'>
-      <div className='logo'>
-        <a href='/'>
-      <img className="footer-bg-img" data-aos="zoom-in" data-aos-duration="1500" data-aos-once="true" src={footerLogo} alt='footer-logo' />
+    <div className="left-block-wrap">
+      <div className="logo">
+        <a href="/">
+          <img
+            className="footer-bg-img"
+            data-aos="zoom-in"
+            data-aos-duration="1500"
+            data-aos-once="true"
+            src={footerLogo}
+            alt="footer-logo"
+          />
         </a>
       </div>
-    <nav className="footer-menu" role="navigation">
-      <span className='yellow-head' data-aos="fade-up" data-aos-duration="1500" data-aos-once="true">Links</span>
+      <nav className="footer-menu" role="navigation">
+        <span
+          className="yellow-head"
+          data-aos="fade-up"
+          data-aos-duration="1500"
+          data-aos-once="true"
+        >
+          {footerMenuTitle}
+        </span>
         <ul data-aos="fade-up" data-aos-duration="1500" data-aos-once="true">
-      {(menu || FALLBACK_FOOTER_MENU).items.map((item) => {
-        if (!item.url) return null;
-        // if the url is internal, we strip the domain
-        const url =
-          item.url.includes('myshopify.com') ||
-          item.url.includes(publicStoreDomain) ||
-          item.url.includes(primaryDomainUrl)
-            ? new URL(item.url).pathname
-            : item.url;
-        const isExternal = !url.startsWith('/');
-        return isExternal ? (
-          <a href={url} key={item.id} rel="noopener noreferrer" target="_blank">
-              {item.title}
-            </a>
-        ) : (
-          <li key={item.url}>
-          <NavLink
-            end
-            key={item.id}
-            prefetch="intent"
-            style={activeLinkStyle}
-            to={url}
-          >
-          {item.title}
-          </NavLink>
-          </li>
-        );
-      })}
-       </ul>
-    </nav>
+          {(footermenu || FALLBACK_HEADER_MENU.items).map((item) => {
+            const link = item?.link;
+            const documentType = link?.documentType;
+            const slug = link?.slug?.current;
+            const anchor = item?.anchor ? `#${item.anchor}` : '';
+            const path = () => {
+              switch (documentType) {
+                case 'page':
+                  return `${locale.pathPrefix}/${slug}`;
+                case 'product':
+                  return `${locale.pathPrefix}/products/${slug}`;
+                case 'collection':
+                  return `${locale.pathPrefix}/collections/${slug}`;
+                case 'home':
+                  return locale.pathPrefix || '/';
+                case 'polices':
+                  return `${locale.pathPrefix}/polices/${slug}`;
+                case 'blogPost':
+                  return `${locale.pathPrefix}/blog/${slug}`;
+                default:
+                  return '';
+              }
+            };
+
+            // Remove encode stega data from url
+            const url = stegaClean(`${path()}${anchor}`);
+            return (
+              <li key={item._key}>
+                <NavLink
+                  end
+                  key={item._key}
+                  prefetch="intent"
+                  style={activeLinkStyle}
+                  to={url}
+                >
+                  {item.name}
+                </NavLink>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
     </div>
   );
 }

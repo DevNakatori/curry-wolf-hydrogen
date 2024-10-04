@@ -27,8 +27,9 @@ export default async function handleRequest(
       `https://cdn.shopify.com`, // Added the necessary script source here
       `https://integrations.etrusted.com`,
       `https://static.hotjar.com`,
-      `https://script.hotjar.com`
-    ]
+      `https://script.hotjar.com`,
+    ],
+    ...createCspHeaders(),
   });
 
   const body = await renderToReadableStream(
@@ -53,13 +54,25 @@ export default async function handleRequest(
   responseHeaders.set('Content-Security-Policy', header);
   responseHeaders.set(
     'Content-Security-Policy',
-    `script-src 'self' https://* 'unsafe-inline' 'unsafe-eval' 'nonce-${nonce}'`
+    `script-src 'self' https://* 'unsafe-inline' 'unsafe-eval' 'nonce-${nonce}'`,
   );
   return new Response(body, {
     headers: responseHeaders,
     status: responseStatusCode,
   });
 }
+export const createCspHeaders = () => {
+  const defaultsCSPHeaders = {
+    connectSrc: ['*', "'self'"],
+    fontSrc: ['*.sanity.io', "'self'", 'localhost:*'],
+    frameAncestors: ['localhost:*', '*.sanity.studio'],
+    frameSrc: ["'self'"],
+    imgSrc: ['*.sanity.io', 'https://cdn.shopify.com', "'self'", 'localhost:*'],
+    scriptSrc: ["'self'", 'localhost:*', 'https://cdn.shopify.com'],
+  };
+
+  return defaultsCSPHeaders;
+};
 
 /** @typedef {import('@shopify/remix-oxygen').EntryContext} EntryContext */
 /** @typedef {import('@shopify/remix-oxygen').AppLoadContext} AppLoadContext */
