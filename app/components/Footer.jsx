@@ -82,11 +82,13 @@ function FooterMenu({menu, footerLogo, primaryDomainUrl}) {
           {(footermenu || FALLBACK_HEADER_MENU.items).map((item) => {
             const link = item?.link;
             const documentType = link?.documentType;
-            const slug = link?.slug?.current;
+            const slug = link?.slug;
             const anchor = item?.anchor ? `#${item.anchor}` : '';
             const path = () => {
               switch (documentType) {
                 case 'page':
+                  return `${locale.pathPrefix}/${slug}`;
+                case 'locations':
                   return `${locale.pathPrefix}/${slug}`;
                 case 'product':
                   return `${locale.pathPrefix}/products/${slug}`;
@@ -96,8 +98,6 @@ function FooterMenu({menu, footerLogo, primaryDomainUrl}) {
                   return locale.pathPrefix || '/';
                 case 'polices':
                   return `${locale.pathPrefix}/polices/${slug}`;
-                case 'blogPost':
-                  return `${locale.pathPrefix}/blog/${slug}`;
                 default:
                   return '';
               }

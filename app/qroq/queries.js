@@ -284,6 +284,74 @@ export const LOCATION_INNER_PAGE_QUERY = q('*')
   .slice(0)
   .nullable();
 
+/*
+|--------------------------------------------------------------------------
+| catering Page Query
+|--------------------------------------------------------------------------
+*/
+export const CATERING_PAGE_QUERY = q('*')
+  .filter(`_type == "catering" && language == $language`)
+  .grab({
+    _type: q.literal('page').or(q.literal('catering')),
+    title: q.string().nullable(),
+    heroTitle: q.string().nullable(),
+    ctaButtontext: q.string().nullable(),
+    link: q.string().nullable(),
+    image: q('image').grab(IMAGE_FRAGMENT).nullable(),
+    Description: q.string().nullable(),
+    cateringPageImages: q.array(
+      q.object({
+        image: q('image').grab(IMAGE_FRAGMENT).nullable(),
+        title: q.string().nullable(),
+        link: q.string().nullable(),
+      }),
+    ),
+    Referenzen: q.object({
+      title: q.string().nullable(),
+      ReferenzenContent: q.array(
+        q.object({
+          description: q.string().nullable(),
+          title: q.string().nullable(),
+        }),
+      ),
+    }),
+    Rating: q.object({
+      title: q.string().nullable(),
+      number: q.string().nullable(),
+      image: q
+        .array(
+          q.object({
+            image: q('image').grab(IMAGE_FRAGMENT).nullable(),
+          }),
+        )
+        .nullable(),
+    }),
+    Accordions: q.object({
+      title: q.string().nullable(),
+      ctaButtontext: q.string().nullable(),
+      link: q.string().nullable(),
+      accordion: q.array(
+        q.object({
+          title: q.string().nullable(),
+          description: q.string().nullable(),
+        }),
+      ),
+    }),
+    // SEO section
+    seo: q('seo')
+      .grab({
+        title: q.string().nullable(),
+        description: q.string().nullable(),
+        image: q('image').nullable(),
+      })
+      .nullable(), // Allow SEO section to be nullable
+
+    // Include language field
+    language: q('language').nullable(),
+  })
+  .slice(0) // Use slice(0) to ensure you get all results without pagination
+  .nullable(); // Allow entire query result to be nullable
+
 export const ROOT_QUERY = q('')
   .grab({
     _type: ['"root"', q.literal('root')],
