@@ -3,7 +3,7 @@ import {useLoaderData} from '@remix-run/react';
 import React, {useEffect, useRef, useMemo} from 'react';
 import {mergeMeta} from '../lib/meta';
 import {DEFAULT_LOCALE} from 'countries';
-import {sanityPreviewPayload} from '../../lib/sanity/sanity.payload.server';
+import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
 import {CONTACT_PAGE_QUERY} from '../qroq/queries';
 import {useSanityData} from '../hooks/useSanityData';
 import {getPageHandle} from './($locale).$';

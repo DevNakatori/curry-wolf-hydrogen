@@ -12,10 +12,10 @@ import {
   createRequestHandler,
   getStorefrontHeaders,
 } from '@shopify/remix-oxygen';
-import {SanitySession} from './lib/sanity/sanity.session.server.js';
-import {createSanityClient} from './lib/sanity/sanity.server.js';
-import {CART_QUERY_FRAGMENT} from './lib/fragments.js';
-import {AppSession} from './lib/session.js';
+import {SanitySession} from './app/lib/sanity/sanity.session.server.js';
+import {createSanityClient} from './app/lib/sanity/sanity.server.js';
+import {CART_QUERY_FRAGMENT} from './app/lib/fragments.js';
+import {AppSession} from './app/lib/session.js';
 import {getLocaleFromRequest} from './countries/index.js';
 
 /**

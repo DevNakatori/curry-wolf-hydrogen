@@ -3,7 +3,7 @@ import {json} from '@shopify/remix-oxygen';
 import {useLoaderData} from '@remix-run/react';
 import {mergeMeta} from '../lib/meta';
 import {DEFAULT_LOCALE} from 'countries';
-import {sanityPreviewPayload} from '../../lib/sanity/sanity.payload.server';
+import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
 import {OUR_STORY_PAGE_QUERY} from '../qroq/queries';
 import {useSanityData} from '../hooks/useSanityData';
 import {getPageHandle} from './($locale).$';
