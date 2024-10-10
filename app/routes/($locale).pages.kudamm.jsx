@@ -76,8 +76,8 @@ export default function Page() {
   const googleRouting = data?.route;
   const Menus = data?.locationMenu;
   const VeganLogoUrl = getImageUrl(Menus?.MenuImage?.asset?._ref);
-  const firstObject = openingTimesArray || [].slice(0, 4);
-  const secondObject = openingTimesArray || [].slice(4);
+  const firstObject = openingTimesArray.slice(0, 4);
+  const secondObject = openingTimesArray.slice(4);
   const result = {
     firstObject,
     secondObject,

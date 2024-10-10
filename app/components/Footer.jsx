@@ -16,7 +16,6 @@ export function Footer({shop}) {
   const footerAddress = data?.footer?.footerAddress;
   const footerSocialLinks = data?.footer?.footerSocialLinks;
   const FooterRightLogo = getImageUrl(data?.footer?.FooterRightLogo._ref);
-
   return (
     <footer className="footer">
       <div className="container">
@@ -82,38 +81,37 @@ function FooterMenu({menu, footerLogo, primaryDomainUrl}) {
           {(footermenu || FALLBACK_HEADER_MENU.items).map((item) => {
             const link = item?.link;
             const documentType = link?.documentType;
-            const slug = link?.slug?.current;
+            const slug = link?.slug;
+            const slug2 = link?.slug?.current;
             const anchor = item?.anchor ? `#${item.anchor}` : '';
             const path = () => {
               switch (documentType) {
                 case 'page':
-                  return `${locale.pathPrefix}/${slug}`;
+                  return `${locale.pathPrefix}/pages/${slug}`;
+                case 'locations':
+                  return `${locale.pathPrefix}/pages/${slug}`;
+                case 'catering':
+                  return `${locale.pathPrefix}/pages/${slug}`;
+                case 'ourStory':
+                  return `${locale.pathPrefix}/pages/${slug}`;
+                case 'ourCurrywurst':
+                  return `${locale.pathPrefix}/pages/${slug}`;
                 case 'product':
-                  return `${locale.pathPrefix}/products/${slug}`;
+                  return `${locale.pathPrefix}/products/${slug2}`;
                 case 'collection':
-                  return `${locale.pathPrefix}/collections/${slug}`;
+                  return `${locale.pathPrefix}/collections/${slug2}`;
                 case 'home':
                   return locale.pathPrefix || '/';
                 case 'polices':
                   return `${locale.pathPrefix}/polices/${slug}`;
-                case 'blogPost':
-                  return `${locale.pathPrefix}/blog/${slug}`;
                 default:
                   return '';
               }
             };
-
-            // Remove encode stega data from url
             const url = stegaClean(`${path()}${anchor}`);
             return (
               <li key={item._key}>
-                <NavLink
-                  end
-                  key={item._key}
-                  prefetch="intent"
-                  style={activeLinkStyle}
-                  to={url}
-                >
+                <NavLink end key={item._key} style={activeLinkStyle} to={url}>
                   {item.name}
                 </NavLink>
               </li>

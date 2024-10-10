@@ -103,16 +103,42 @@ export function HeaderMenu({
       >
         {(menu1 || FALLBACK_HEADER_MENU.items).map((item, index) => {
           const link = item?.link;
-          const url = link.slug;
-
+          const documentType = link?.documentType;
+          const slug = link?.slug;
+          const slug2 = link?.slug?.current;
+          const anchor = item?.anchor ? `#${item.anchor}` : '';
+          const path = () => {
+            switch (documentType) {
+              case 'page':
+                return `${locale.pathPrefix}/pages/${slug}`;
+              case 'locations':
+                return `${locale.pathPrefix}/pages/${slug}`;
+              case 'catering':
+                return `${locale.pathPrefix}/pages/${slug}`;
+              case 'ourStory':
+                return `${locale.pathPrefix}/pages/${slug}`;
+              case 'ourCurrywurst':
+                return `${locale.pathPrefix}/pages/${slug}`;
+              case 'product':
+                return `${locale.pathPrefix}/products/${slug2}`;
+              case 'collection':
+                return `${locale.pathPrefix}/collections/${slug2}`;
+              case 'home':
+                return locale.pathPrefix || '/';
+              case 'polices':
+                return `${locale.pathPrefix}/polices/${slug}`;
+              default:
+                return '';
+            }
+          };
+          const url = stegaClean(`${path()}${anchor}`);
           return (
             <div key={index} className="header-menu-item">
               <div className="menu-item-wrapper">
                 <NavLink
                   end
-                  prefetch="intent"
                   className={({isActive}) => (isActive ? 'active' : '')}
-                  to={`/pages/${url}`}
+                  to={url}
                   onClick={(e) => handleClick(e, url)}
                 >
                   {item.name}
@@ -141,15 +167,26 @@ export function HeaderMenu({
                   }`}
                 >
                   {item.childLinks.map((subItem, index) => {
-                    const subUrl = subItem?.link?.slug;
+                    const link = subItem?.link;
+                    const documentType = link?.documentType;
+                    const slug = link?.slug;
+                    const anchor = item?.anchor ? `#${item.anchor}` : '';
+                    const path = () => {
+                      switch (documentType) {
+                        case 'locationInnerPage':
+                          return `${locale.pathPrefix}/pages/${slug}`;
+                        default:
+                          return '';
+                      }
+                    };
+                    const url = stegaClean(`${path()}${anchor}`);
                     return (
                       <li key={index}>
                         <NavLink
                           key={index}
                           end
-                          prefetch="intent"
                           className={({isActive}) => (isActive ? 'active' : '')}
-                          to={`/pages/${subUrl}`}
+                          to={url}
                           onClick={(e) => handleClick(e, subUrl)}
                         >
                           {subItem.name}

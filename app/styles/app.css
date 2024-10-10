@@ -1101,7 +1101,7 @@ img.footer-bg-img {
 .dropdown,
 .dropdown-wrap {
   position: relative;
-  display: none;
+  display: block;
 }
 .dropdown-toggle {
   background-color: transparent;
