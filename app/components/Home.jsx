@@ -256,13 +256,13 @@ const Home = ({data}) => {
                 data-aos-once="true"
                 ref={sliderWrapperRef}
               >
-                {data.homepageSecondSections.cards.map((card, index) => {
+                {data?.homepageSecondSections?.cards?.map((card, index) => {
                   const {image, title, description, buttonLink, buttonText} =
                     card;
-                  const imageUrl = getImageUrl(image.asset._ref);
+                  const imageUrl = getImageUrl(image?.asset?._ref);
                   return (
                     <div
-                      kay={index}
+                      kay={card?._key}
                       className="slide aos-init"
                       data-aos-duration={1500}
                       data-aos="fade-up"
@@ -297,7 +297,7 @@ const Home = ({data}) => {
               </div>
               <div id="dots-container" ref={dotsContainerRef} />
             </div>
-            {data.homepageThirdSection && (
+            {data?.homepageThirdSection && (
               <>
                 <div className="s-wrap">
                   <div className="b-title">
@@ -306,7 +306,7 @@ const Home = ({data}) => {
                       data-aos="fade-up"
                       data-aos-once="true"
                     >
-                      {data.homepageThirdSection.title}
+                      {data?.homepageThirdSection.title}
                     </h2>
                   </div>
                   <div
@@ -315,11 +315,11 @@ const Home = ({data}) => {
                     data-aos-once="true"
                     data-aos-duration={2000}
                   >
-                    {data.homepageThirdSection.images.map((image, index) => {
-                      const imageUrl = getImageUrl(image.image.asset._ref);
+                    {data?.homepageThirdSection?.images?.map((image, index) => {
+                      const imageUrl = getImageUrl(image?.image?.asset?._ref);
                       return (
                         <div
-                          key={index}
+                          key={image?._key}
                           className="img-big-wrap"
                           data-aos="fade-right"
                           data-aos-once="true"
@@ -343,9 +343,9 @@ const Home = ({data}) => {
                 >
                   <Link
                     className="yellow-btn"
-                    href={data.homepageThirdSection.buttonLink}
+                    href={data?.homepageThirdSection?.buttonLink}
                   >
-                    {data.homepageThirdSection.buttonText}
+                    {data?.homepageThirdSection?.buttonText}
                   </Link>
                 </div>
               </>
