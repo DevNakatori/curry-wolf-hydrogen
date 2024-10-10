@@ -38,41 +38,41 @@ const LanguageSwitcher = () => {
       : 'https://cdn.shopify.com/s/files/1/0661/7595/9260/files/united-kingdom-flag-icon.svg?v=1721643633';
 
   return (
-    // <div className="language-switcher">
-    <>
-      <div className="dropdown-wrap" onClick={toggleDropdown}>
-        <img src={flagSrc} alt="Selected Language" />
-      </div>
-      <div className="dropdown">
-        <ul
-          className={`dropdown-menu ${isDropdownOpen ? 'active' : ''}`}
-          ref={dropdownMenu}
-          id="dropdownMenu"
-        >
-          <li
-            className="dropdown-item"
-            data-value="de-de"
-            onClick={handleLanguageChange}
+    <div className="language-switcher">
+      <>
+        <div className="dropdown-wrap" onClick={toggleDropdown}>
+          <img src={flagSrc} alt="Selected Language" />
+        </div>
+        <div className="dropdown">
+          <ul
+            className={`dropdown-menu ${isDropdownOpen ? 'active' : ''}`}
+            ref={dropdownMenu}
+            id="dropdownMenu"
           >
-            <img
-              src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/Flag-of-Germany-01.svg?v=1721643447"
-              alt="German Flag"
-            />
-          </li>
-          <li
-            className="dropdown-item"
-            data-value="en-de"
-            onClick={handleLanguageChange}
-          >
-            <img
-              src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/united-kingdom-flag-icon.svg?v=1721643633"
-              alt="UK Flag"
-            />
-          </li>
-        </ul>
-      </div>
-    </>
-    // </div>
+            <li
+              className="dropdown-item"
+              data-value="de-de"
+              onClick={handleLanguageChange}
+            >
+              <img
+                src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/Flag-of-Germany-01.svg?v=1721643447"
+                alt="German Flag"
+              />
+            </li>
+            <li
+              className="dropdown-item"
+              data-value="en-de"
+              onClick={handleLanguageChange}
+            >
+              <img
+                src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/united-kingdom-flag-icon.svg?v=1721643633"
+                alt="UK Flag"
+              />
+            </li>
+          </ul>
+        </div>
+      </>
+    </div>
   );
 };
 

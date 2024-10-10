@@ -105,6 +105,7 @@ export function HeaderMenu({
           const link = item?.link;
           const documentType = link?.documentType;
           const slug = link?.slug;
+          const slug2 = link?.slug?.current;
           const anchor = item?.anchor ? `#${item.anchor}` : '';
           const path = () => {
             switch (documentType) {
@@ -112,10 +113,16 @@ export function HeaderMenu({
                 return `${locale.pathPrefix}/pages/${slug}`;
               case 'locations':
                 return `${locale.pathPrefix}/pages/${slug}`;
+              case 'catering':
+                return `${locale.pathPrefix}/pages/${slug}`;
+              case 'ourStory':
+                return `${locale.pathPrefix}/pages/${slug}`;
+              case 'ourCurrywurst':
+                return `${locale.pathPrefix}/pages/${slug}`;
               case 'product':
-                return `${locale.pathPrefix}/products/${slug}`;
+                return `${locale.pathPrefix}/products/${slug2}`;
               case 'collection':
-                return `${locale.pathPrefix}/collections/${slug}`;
+                return `${locale.pathPrefix}/collections/${slug2}`;
               case 'home':
                 return locale.pathPrefix || '/';
               case 'polices':
@@ -130,7 +137,6 @@ export function HeaderMenu({
               <div className="menu-item-wrapper">
                 <NavLink
                   end
-                  prefetch="intent"
                   className={({isActive}) => (isActive ? 'active' : '')}
                   to={url}
                   onClick={(e) => handleClick(e, url)}
@@ -179,7 +185,6 @@ export function HeaderMenu({
                         <NavLink
                           key={index}
                           end
-                          prefetch="intent"
                           className={({isActive}) => (isActive ? 'active' : '')}
                           to={url}
                           onClick={(e) => handleClick(e, subUrl)}

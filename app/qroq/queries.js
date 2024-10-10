@@ -352,6 +352,220 @@ export const CATERING_PAGE_QUERY = q('*')
   .slice(0) // Use slice(0) to ensure you get all results without pagination
   .nullable(); // Allow entire query result to be nullable
 
+export const CATERING_INNER_PAGE_QUERY = q('*')
+  .filter(`(slug == $handle && language == $language)`)
+  .grab({
+    _type: q.literal('page').or(q.literal('cateringInnerPage')),
+    title: q.string().nullable(),
+    heroTitle: q.string().nullable(),
+    ctaButtontext: q.string().nullable(),
+    link: q.string().nullable(),
+    image: q('image').grab(IMAGE_FRAGMENT).nullable(),
+    Description: q.string().nullable(),
+    Brandenburger: q.object({
+      title: q.string().nullable(),
+      description: q.string().nullable(),
+    }),
+    cateringPageImages: q.array(
+      q.object({
+        image: q('image').grab(IMAGE_FRAGMENT).nullable(),
+        title: q.string().nullable(),
+        link: q.string().nullable(),
+      }),
+    ),
+    Referenzen: q.object({
+      title: q.string().nullable(),
+      ReferenzenContent: q.array(
+        q.object({
+          description: q.string().nullable(),
+          title: q.string().nullable(),
+        }),
+      ),
+    }),
+    Rating: q.object({
+      title: q.string().nullable(),
+      number: q.string().nullable(),
+      image: q
+        .array(
+          q.object({
+            image: q('image').grab(IMAGE_FRAGMENT).nullable(),
+          }),
+        )
+        .nullable(),
+    }),
+    ImagesSection: q.object({
+      cateringPageImages: q.array(
+        q.object({
+          image: q('image').grab(IMAGE_FRAGMENT).nullable(),
+          title: q.string().nullable(),
+          link: q.string().nullable(),
+        }),
+      ),
+      buttons: q.array(
+        q.object({
+          buttonText: q.string().nullable(),
+          buttonLink: q.string().nullable(),
+        }),
+      ),
+    }),
+    // SEO section
+    seo: q('seo')
+      .grab({
+        title: q.string().nullable(),
+        description: q.string().nullable(),
+        image: q('image').nullable(),
+      })
+      .nullable(), // Allow SEO section to be nullable
+
+    // Include language field
+    language: q('language').nullable(),
+  })
+  .slice(0)
+  .nullable();
+/*
+|--------------------------------------------------------------------------
+| Our Story Page Query
+|--------------------------------------------------------------------------
+*/
+export const OUR_STORY_PAGE_QUERY = q('*')
+  .filter(`_type == "ourStory" && language == $language`)
+  .grab({
+    _type: q.literal('page').or(q.literal('ourStory')),
+    title: q.string().nullable(),
+    subtitle: q.string().nullable(),
+    sectionFirst: q.object({
+      cards: q.array(
+        q.object({
+          title: q.string().nullable(),
+          image: q('image').grab(IMAGE_FRAGMENT).nullable(),
+          description: q.string().nullable(),
+        }),
+      ),
+    }),
+    // SEO section
+    seo: q('seo')
+      .grab({
+        title: q.string().nullable(),
+        description: q.string().nullable(),
+        image: q('image').nullable(),
+      })
+      .nullable(), // Allow SEO section to be nullable
+
+    // Include language field
+    language: q('language').nullable(),
+  })
+  .slice(0) // Use slice(0) to ensure you get all results without pagination
+  .nullable(); // Allow entire query result to be nullable
+/*
+|--------------------------------------------------------------------------
+| Our Currywurst Page Query
+|--------------------------------------------------------------------------
+*/
+export const OUR_CURRYWURST_PAGE_QUERY = q('*')
+  .filter(`_type == "ourCurrywurst" && language == $language`)
+  .grab({
+    _type: q.literal('page').or(q.literal('ourCurrywurst')),
+    title: q.string().nullable(),
+    subtitle: q.string().nullable(),
+    sectionFirst: q.object({
+      image: q('image').grab(IMAGE_FRAGMENT).nullable(),
+    }),
+    sectionSecond: q.object({
+      title: q.string().nullable(),
+    }),
+    sectionThird: q.object({
+      cards: q.array(
+        q.object({
+          title: q.string().nullable(),
+          image: q('image').grab(IMAGE_FRAGMENT).nullable(),
+          description: q.string().nullable(),
+        }),
+      ),
+    }),
+    sectionFourth: q.object({
+      title: q.string().nullable(),
+    }),
+    // SEO section
+    seo: q('seo')
+      .grab({
+        title: q.string().nullable(),
+        description: q.string().nullable(),
+        image: q('image').nullable(),
+      })
+      .nullable(), // Allow SEO section to be nullable
+
+    // Include language field
+    language: q('language').nullable(),
+  })
+  .slice(0) // Use slice(0) to ensure you get all results without pagination
+  .nullable(); // Allow entire query result to be nullable
+/*
+|--------------------------------------------------------------------------
+|  Catering CTA Form Page Query
+|--------------------------------------------------------------------------
+*/
+export const CATERING_CTA_FORM_PAGE_QUERY = q('*')
+  .filter(`_type == "cateringCTAForm" && language == $language`)
+  .grab({
+    _type: q.literal('page').or(q.literal('cateringCTAForm')),
+    title: q.string().nullable(),
+    sectionFirst: q.object({
+      title: q.string().nullable(),
+      buttonText: q.string().nullable(),
+      buttonLink: q.string().nullable(),
+      image: q('image').grab(IMAGE_FRAGMENT).nullable(),
+    }),
+    sectionSecond: q.object({}).nullable(),
+    sectionThird: q.object({
+      title: q.string().nullable(),
+    }),
+    // SEO section
+    seo: q('seo')
+      .grab({
+        title: q.string().nullable(),
+        description: q.string().nullable(),
+        image: q('image').nullable(),
+      })
+      .nullable(), // Allow SEO section to be nullable
+
+    // Include language field
+    language: q('language').nullable(),
+  })
+  .slice(0) // Use slice(0) to ensure you get all results without pagination
+  .nullable(); // Allow entire query result to be nullable
+/*
+|--------------------------------------------------------------------------
+|  Contact Page Query
+|--------------------------------------------------------------------------
+*/
+export const CONTACT_PAGE_QUERY = q('*')
+  .filter(`_type == "contact" && language == $language`)
+  .grab({
+    _type: q.literal('page').or(q.literal('contact')),
+    title: q.string().nullable(),
+    sectionFirst: q
+      .object({
+        title: q.string().nullable(),
+        image: q('image').grab(IMAGE_FRAGMENT).nullable(),
+      })
+      .nullable(),
+    sectionSecond: q.object({}).nullable(),
+    sectionThird: q.object({}).nullable(),
+    // SEO section
+    seo: q('seo')
+      .grab({
+        title: q.string().nullable(),
+        description: q.string().nullable(),
+        image: q('image').nullable(),
+      })
+      .nullable(), // Allow SEO section to be nullable
+
+    // Include language field
+    language: q('language').nullable(),
+  })
+  .slice(0) // Use slice(0) to ensure you get all results without pagination
+  .nullable(); // Allow entire query result to be nullable
+
 export const ROOT_QUERY = q('')
   .grab({
     _type: ['"root"', q.literal('root')],

@@ -1,6 +1,5 @@
 import {json} from '@shopify/remix-oxygen';
 import {Link, NavLink, useLoaderData} from '@remix-run/react';
-import '../styles/location-page.css';
 import {useEffect, useRef, useState} from 'react';
 import {mergeMeta} from '../lib/meta';
 import {DEFAULT_LOCALE} from 'countries';
@@ -9,7 +8,7 @@ import {LOCATION_PAGE_QUERY} from '../qroq/queries';
 import {useSanityData} from '../hooks/useSanityData';
 import {getPageHandle} from './($locale).$';
 import {getImageUrl} from '~/lib/utils';
-
+import '../styles/location-page.css';
 /**
  * @type {MetaFunction<typeof loader>}
  */
@@ -46,7 +45,6 @@ export async function loader({params, request, context}) {
     groqdQuery: LOCATION_PAGE_QUERY,
     params: queryParams,
   });
-  console.log(page);
   if (!page) {
     throw new Response('Not Found', {status: 404});
   }

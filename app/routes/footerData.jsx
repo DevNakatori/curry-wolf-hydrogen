@@ -1,6 +1,7 @@
 import {lazy, Suspense} from 'react';
 import {TogglePreviewMode} from '../components/sanity/TogglePreviewMode';
 import {useRootLoaderData} from '~/lib/root-data';
+import {PortableText} from '@portabletext/react';
 const VisualEditing = lazy(() =>
   import('../components/sanity/VisualEditing').then((mod) => ({
     default: mod.VisualEditing,
@@ -23,25 +24,36 @@ export function KeepInTouch({
         <div className="footer-sub-block">
           <span className="yellow-head">{footerAddress?.title}</span>
           <div className="footer-flex footer-contact">
-            <div className="keep-wrap">
-              <span>Telefon</span>
-              <a href={`tel:${footerAddress.phoneNumber}`}>
-                {footerAddress.phoneNumber}
+            {footerAddress?.phoneNumber && (
+              <div className="keep-wrap">
+                <span>{footerAddress.phoneNumber.label}</span>
+                <a href={`tel:${footerAddress.phoneNumber.number}`}>
+                  {footerAddress.phoneNumber.number}
+                </a>
+              </div>
+            )}
+            {footerAddress?.faxNumber && (
+              <div className="keep-wrap">
+                <span>{footerAddress.faxNumber.label}</span>
+                <a href={`tel:${footerAddress.faxNumber.number}`}>
+                  {footerAddress.faxNumber.number}
+                </a>
+              </div>
+            )}
+            {footerAddress?.email && (
+              <a href={`mailto:${footerAddress?.email?.email}`}>
+                {footerAddress?.email?.email}
               </a>
-            </div>
-            <div className="keep-wrap">
-              <span>Telefax</span>{' '}
-              <a href={`tel:${footerAddress.faxNumber}`}>
-                {footerAddress.faxNumber}
-              </a>
-            </div>
-            <a href={`mailto:${footerAddress.email}`}> {footerAddress.email}</a>
+            )}
           </div>
         </div>
         <div className="footer-sub-block">
-          {/* <span className='yellow-head'>Find us here</span> */}
           <p className="footer-flex footer-location">
-            <span>{footerAddress.address}</span>
+            {footerAddress?.address && (
+              <span>
+                {<PortableText value={footerAddress?.address?.address} />}
+              </span>
+            )}
           </p>
         </div>
       </div>
@@ -55,7 +67,7 @@ export function KeepInTouch({
         <div className="footer-flex footer-icon">
           <a
             className="social-insta"
-            href={footerSocialLinks.socialLinks[0].url}
+            href={footerSocialLinks?.socialLinks[0].url}
             target="_blank"
           >
             <svg
@@ -73,7 +85,7 @@ export function KeepInTouch({
           </a>
           <a
             className="social-fb"
-            href={footerSocialLinks.socialLinks[1].url}
+            href={footerSocialLinks?.socialLinks[1].url}
             target="_blank"
           >
             <svg
@@ -92,7 +104,7 @@ export function KeepInTouch({
 
           <a
             className="social-linkedin"
-            href={footerSocialLinks.socialLinks[2].url}
+            href={footerSocialLinks?.socialLinks[2].url}
             target="_blank"
           >
             <svg

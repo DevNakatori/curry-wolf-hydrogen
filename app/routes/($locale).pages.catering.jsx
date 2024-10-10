@@ -1,7 +1,6 @@
 import {json} from '@shopify/remix-oxygen';
 import {Link, useLoaderData, useLocation} from '@remix-run/react';
 import {useEffect, useState} from 'react';
-import '../styles/catering-page.css';
 import {mergeMeta} from '../lib/meta';
 import {DEFAULT_LOCALE} from 'countries';
 import {sanityPreviewPayload} from '../../lib/sanity/sanity.payload.server';
@@ -12,7 +11,7 @@ import {getImageUrl} from '~/lib/utils';
 import {useRootLoaderData as LoaderData} from '~/root';
 import {stegaClean} from '@sanity/client/stega';
 import {PortableText} from '@portabletext/react';
-
+import '../styles/catering-page.css';
 /**
  * @type {MetaFunction<typeof loader>}
  */
@@ -36,7 +35,6 @@ export async function loader({params, request, context}) {
   const pathname = new URL(request.url).pathname;
   const segments = pathname.split('/').filter(Boolean);
   const handle = segments[segments.length - 1];
-  console.log(handle);
   const language = locale?.language.toLowerCase();
   const queryParams = {
     defaultLanguage: DEFAULT_LOCALE.language.toLowerCase(),
@@ -49,7 +47,6 @@ export async function loader({params, request, context}) {
     params: queryParams,
   });
 
-  console.log(page.data);
   if (!page) {
     throw new Response('Not Found', {status: 404});
   }
@@ -108,6 +105,7 @@ export default function Page() {
       window.removeEventListener('resize', setEqualHeight);
     };
   }, [data]);
+
   const {locale} = LoaderData();
   const cateringPageImages = data?.cateringPageImages;
   const ctaLink = stegaClean(`${locale.pathPrefix}/pages/${data?.link}`);
@@ -115,7 +113,12 @@ export default function Page() {
   const Referenzen = data?.Referenzen;
   const Rating = data?.Rating;
   const Accordions = data?.Accordions;
-
+  useEffect(() => {
+    // Set the first item to be opened by default if available
+    if (Accordions?.accordion?.groups?.length > 0) {
+      setOpenTab(Accordions.accordion.groups[0]._key);
+    }
+  }, [Accordions]);
   return (
     <div className="page catering-main">
       <div className="main-catering-page">
@@ -315,222 +318,6 @@ export default function Page() {
                     </div>
                   );
                 })}
-                {/* <div className="tab">
-                  <input
-                    type="checkbox"
-                    name="accordion-1"
-                    id="cb1"
-                    checked="checked"
-                  />
-                  <label for="cb1" className="tab__label">
-                    Was ist das Angebot beim Currywurst-Catering vom Curry Wolf?
-                  </label>
-                  <div className="tab__content">
-                    <p>
-                      Ob großes oder kleines Event, Indoor oder Outdoor, ob mit
-                      oder ohne … Echte Berliner Currywurst-Kulinarik im
-                      Cateringservice mit vielfach bewährtem
-                      „All-Inclusive-Service“ vom Curry Wolf. Wir bringen die
-                      Original Curry Wolf-Freude in die Gesichter ihrer Gäste!
-                    </p>
-                  </div>
-                </div>
-                <div className="tab">
-                  <input type="checkbox" name="accordion-1" id="cb2" />
-                  <label for="cb2" className="tab__label">
-                    Wo kann ich Currywurst-Catering vom Curry Wolf bekommen?
-                  </label>
-                  <div className="tab__content">
-                    <p>
-                      Unser Currywurst-Catering ist überall in der
-                      Metropolregion Berlin, Potsdam und Brandenburg verfügbar –
-                      immer professionell, schnell und unkompliziert.
-                    </p>
-                  </div>
-                </div>
-                <div className="tab">
-                  <input type="checkbox" name="accordion-1" id="cb3" />
-                  <label for="cb3" className="tab__label">
-                    Für welche Anlässe lässt sich Currywurst-Catering vom Curry
-                    Wolf buchen?
-                  </label>
-                  <div className="tab__content">
-                    <p>
-                      Es eignet sich tatsächlich für alle Anlässe: Ob
-                      beispielsweise als Mitternachtssnack auf der Hochzeit,
-                      Garten- und/oder Office-Party im 9. Stock, Get-together im
-                      Fashion Store, Grundsteinlegung in der Baugrube, die nur
-                      mit Kran erreichbar ist, ein großes Sommerfest oder aber
-                      die enge Toreinfahrt zum kleinen Hinterhoffest, die
-                      Firmenfeier auf der Dachterrasse mit schmalem Aufzug, das
-                      Flying Buffet im Yachtclub oder vielleicht auch auf dem
-                      Messestand usw.
-                    </p>
-                  </div>
-                </div>
-                <div className="tab">
-                  <input type="checkbox" name="accordion-1" id="cb4" />
-                  <label for="cb4" className="tab__label">
-                    Wie kann ich mir das Currywurst-Catering vom Curry Wolf auf
-                    einer Outdoor-Veranstaltung vorstellen?
-                  </label>
-                  <div className="tab__content">
-                    <p>
-                      <span>
-                        Draußen machen Live-Cooking und Genuss an unserem
-                        mobilen Currywurst-Stand besonders viel Appetit: Die
-                        Zubereitung frisch gebratener Currywürste und heiß
-                        frittierter Pommes frites vor den Augen der Gäste, ist
-                        auf jeder Veranstaltung ein leckeres und allseits
-                        beliebtes Highlight.
-                      </span>
-                    </p>
-                  </div>
-                </div>
-                <div className="tab">
-                  <input type="checkbox" name="accordion-1" id="cb5" />
-                  <label for="cb5" className="tab__label">
-                    Ist ein Currywurst-Catering vom Curry Wolf auch auf einer
-                    Innenveranstaltung (Indoor) realisierbar?
-                  </label>
-                  <div className="tab__content">
-                    <p>
-                      Selbstverständlich bieten wir Ihnen auch die
-                      geruchsneutrale, nachhaltige und stylische Variante mit
-                      unserer leckeren Currywurst im hochwertigen, heiß
-                      servierten Bügelverschlussglas für Ihre
-                      Indoor-Veranstaltung an. Das passt beispielsweise auch
-                      immer, wenn es ein Currywurst-Buffet oder ein Flying
-                      Buffet geben soll.
-                    </p>
-                  </div>
-                </div>
-                <div className="tab">
-                  <input type="checkbox" name="accordion-1" id="cb6" />
-                  <label for="cb6" className="tab__label">
-                    Wie kann ich mir eine Currywurst-Station vom Curry Wolf
-                    vorstellen?
-                  </label>
-                  <div className="tab__content">
-                    <p>
-                      Unsere mobile Currywurst-Station ist nur 90 cm tief und
-                      200 cm breit – sie lässt sich überall hinbringen und
-                      aufbauen, passt in jeden Fahrstuhl und ist für alle
-                      Wetterlagen und Ortsbegebenheiten geeignet.
-                    </p>
-                  </div>
-                </div>
-                <div className="tab">
-                  <input type="checkbox" name="accordion-1" id="cb7" />
-                  <label for="cb7" className="tab__label">
-                    Für welche Personenanzahl wird ein Currywurst-Catering vom
-                    Curry Wolf durchgeführt?
-                  </label>
-                  <div className="tab__content">
-                    <p>
-                      <span>
-                        Unser Currywurst-Caterings bieten wir Ihnen von 50 bis
-                        50.000 Personen an. Übrigens Firmen, größere private
-                        Gruppen und Reisegruppen können unsere Currywurst auch
-                        unmittelbar am Brandenburger Tor genießen – so vereinen
-                        sich die zwei beliebtesten Berliner Sehenswürdigkeiten
-                        auf einzigartig kulinarische und unvergessliche Art und
-                        Weise.
-                      </span>
-                    </p>
-                  </div>
-                </div>
-                <div className="tab">
-                  <input type="checkbox" name="accordion-1" id="cb8" />
-                  <label for="cb8" className="tab__label">
-                    Gibt es denn nur Currywurst beim Currywurst-Catering vom
-                    Curry Wolf?
-                  </label>
-                  <div className="tab__content">
-                    <p>
-                      Nein, Sie wählen die Varianten unseres Angebotes: Original
-                      Berliner Currywurst mit und ohne Darm, vegane
-                      „Fleischbällchen“, mit zweierlei Kartoffelsalat (Essig und
-                      Öl oder Majo) und/oder knackigen Pommes (nur Outdoor)
-                      und/oder Imbiss-Brötchen? Vielleicht wählen Sie zum heißen
-                      Snack für Ihre Gäste auch stilecht ein Glas Champagner
-                      dazu, um Ihrem Currywurst-Catering eine ganz besonders
-                      exklusive Note zu verleihen?
-                    </p>
-                  </div>
-                </div>
-                <div className="tab">
-                  <input type="checkbox" name="accordion-1" id="cb9" />
-                  <label for="cb9" className="tab__label">
-                    Gibt es auch vegane Angebote vom Curry Wolf?
-                  </label>
-                  <div className="tab__content">
-                    <p>
-                      Für alle die es fleischlos lieben haben wir die vermutlich
-                      leckerste vegane Currywurst sowie leckere vegane
-                      „Fleischbällchen" im Angebot. Natürlich sind aber auch
-                      unsere Pommes frites sowie die Majo vegan. Für alle ist
-                      was dabei.
-                    </p>
-                  </div>
-                </div>
-                <div className="tab">
-                  <input type="checkbox" name="accordion-1" id="cb10" />
-                  <label for="cb10" className="tab__label">
-                    Was bedeutet es, wenn beim Currywurst-Catering vom Curry
-                    Wolf von „All-Inclusive-Service“ die Rede ist?
-                  </label>
-                  <div className="tab__content">
-                    <p>
-                      Mit unserem vielfach bewährten „All-Inclusive-Service“ für
-                      einen reibungslosen und professionellen Ablauf ist nach
-                      individueller Absprache immer an alles - ohne weitere
-                      Nebenkosten - gedacht und wird von uns gleich mitgebracht:
-                      Vom Equipment, über die Servicemitarbeiter:innen, eine
-                      breite Getränkeauswahl an Softdrinks, Bier und Sekt, sowie
-                      Geschirr (Wurst-Gläser und Salat/Pommes-Schalen), Besteck
-                      (Piker, "normale" Gabeln), Servietten, sowie Stehtische
-                      bis hin zur Müllentsorgung. Selbstverständlich verstehen
-                      sich unsere Angebote immer inklusive Anlieferung, Auf- und
-                      Abbau.
-                    </p>
-                  </div>
-                </div>
-                <div className="tab">
-                  <input type="checkbox" name="accordion-1" id="cb11" />
-                  <label for="cb11" className="tab__label">
-                    Kann ich auch selbst, also ohne „All-Inclusive-Service“, ein
-                    Currywurst-Catering durchführen?
-                  </label>
-                  <div className="tab__content">
-                    <p>
-                      Wer nicht von uns beliefert werden möchte oder sich unter
-                      50 Personen selbst verpflegt, kann natürlich alles auch
-                      selbst abholen: An jedem unserer Berliner Standorte oder
-                      an unserem Standort in Potsdam sind Currywürste im Glas
-                      verfügbar. Diese lassen sich unkompliziert im
-                      haushaltsüblichen Backofen erwärmen.
-                    </p>
-                  </div>
-                </div>
-                <div className="tab">
-                  <input type="checkbox" name="accordion-1" id="cb12" />
-                  <label for="cb12" className="tab__label">
-                    Lassen sich im Rahmen eines Currywurst-Caterings vom Curry
-                    Wolf auch individuelle Absprachen miteinander realisieren?
-                  </label>
-                  <div className="tab__content">
-                    <p>
-                      Bitte sprechen Sie mit uns über Ihre konkreten
-                      Vorstellungen, auf die wir gerne individuell eingehen! Wir
-                      liefern, was wirklich passt: Mit Absenden des Formulars
-                      erhalten Sie von uns einen ersten Kostenvoranschlag, auf
-                      dessen Basis wir weitere Details miteinander klären
-                      können. Wir freuen uns auf Ihre Anfrage! Bei uns heißt es
-                      nicht grundlos: Wolf bestellt, hat Schwein gehabt.
-                    </p>
-                  </div>
-                </div> */}
               </section>
             </div>
           </div>
