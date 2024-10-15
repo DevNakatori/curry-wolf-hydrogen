@@ -76,7 +76,6 @@ export default function Page() {
   const sectionSecond = data?.images;
   const sectionThird = data?.sectionThird;
   const sectionFourth = data?.sectionFourth;
-  console.log(sectionFirst);
 
   return (
     <div className="page job-detail-main">

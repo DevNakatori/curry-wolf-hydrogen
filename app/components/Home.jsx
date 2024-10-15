@@ -1,7 +1,9 @@
 import {Link} from '@remix-run/react';
 import React, {useEffect, useRef, useState} from 'react';
 import {getImageUrl} from '~/lib/utils';
-
+import '../styles/home-video.css';
+import {stegaClean} from '@sanity/client/stega';
+import {useRootLoaderData as LoaderData} from '~/root';
 const Home = ({data}) => {
   const videoRef = useRef(null);
   const indicatorRef = useRef(null);
@@ -12,6 +14,8 @@ const Home = ({data}) => {
   const [totalSlides, setTotalSlides] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const {video} = data;
+  const {locale} = LoaderData();
+
   // Handle video playback
   useEffect(() => {
     const videoElement = document.querySelector('video');
@@ -233,13 +237,11 @@ const Home = ({data}) => {
                 data-aos-duration={3000}
                 data-aos-once="true"
               >
-                {video?.title ? (
-                  <span className="text-small">{video?.title}</span>
-                ) : (
-                  <span className="text-small">{''}</span>
+                {video?.title && (
+                  <span className="text-small">{stegaClean(video?.title)}</span>
                 )}
-                {video.caption && (
-                  <span data-mce-fragment={1}>{video.caption}</span>
+                {video?.caption && (
+                  <span data-mce-fragment={1}>{stegaClean(video.caption)}</span>
                 )}
               </h1>
             </div>
@@ -285,7 +287,12 @@ const Home = ({data}) => {
                             <span>{description}</span>
                           </p>
                           <div className="btn-wrap">
-                            <Link className="yellow-btn" href={buttonLink}>
+                            <Link
+                              className="yellow-btn"
+                              to={stegaClean(
+                                `${locale.pathPrefix}${buttonLink}`,
+                              )}
+                            >
                               {buttonText}
                             </Link>
                           </div>
@@ -343,7 +350,9 @@ const Home = ({data}) => {
                 >
                   <Link
                     className="yellow-btn"
-                    href={data?.homepageThirdSection?.buttonLink}
+                    to={stegaClean(
+                      `${locale.pathPrefix}/pages/${data?.homepageThirdSection?.buttonLink}`,
+                    )}
                   >
                     {data?.homepageThirdSection?.buttonText}
                   </Link>
