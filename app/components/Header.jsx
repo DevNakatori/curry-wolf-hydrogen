@@ -84,7 +84,7 @@ export function HeaderMenu({
     (event, url) => {
       if (viewport === 'mobile') {
         event.preventDefault();
-        navigate(`/pages/${url}`);
+        navigate(url);
         setToggle((prevToggle) => !prevToggle);
         setOpenSubmenus(false);
       }
@@ -189,7 +189,7 @@ export function HeaderMenu({
                           end
                           className={({isActive}) => (isActive ? 'active' : '')}
                           to={url}
-                          onClick={(e) => handleClick(e, subUrl)}
+                          onClick={(e) => handleClick(e, url)}
                         >
                           {subItem.name}
                         </NavLink>
