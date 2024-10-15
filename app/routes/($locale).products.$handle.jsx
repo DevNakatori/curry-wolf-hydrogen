@@ -18,9 +18,10 @@ import certifiedBadge from '../assets/trustedlogo.png';
 import decorativegarland from '../assets/decorativegarland.png';
 import {Fancybox} from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
+import {useSanityRoot} from '~/hooks/useSanityRoot';
+import {getImageUrl} from '~/lib/utils';
 
 export const meta = ({data}) => {
-  console.log(data);
   return [
     {title: `Curry Wolf | ${data?.product.title ?? ''}`},
     {name: 'description', content: data?.product?.seo?.description || ''},
@@ -172,6 +173,13 @@ function ProductMedia({media}) {
   );
 }
 export default function Product() {
+  const {data} = useSanityRoot();
+  const globalContent = data?.global?.globalContent;
+  const benefitsSection = globalContent?.benefitsSection;
+  const trustedShop = globalContent?.trustedShop;
+  const addToCartButton = globalContent?.addToCartButton;
+  const soldOutButton = globalContent?.soldOutButton;
+  const BackToAllProductsButton = globalContent?.BackToAllProducts;
   const {product, variants} = useLoaderData();
   const {selectedVariant} = product;
   const getMetafieldText = (metafield) => {
@@ -280,7 +288,7 @@ export default function Product() {
             className="yellow-border-btn"
             onClick={() => navigate(-1)}
           >
-            Zurück zu allen Produkten
+            {BackToAllProductsButton}
           </a>
         </div>
         <div className="product-container">
@@ -334,38 +342,16 @@ export default function Product() {
                 data-aos-duration="1500"
                 data-aos-once="true"
               >
-                <div className="special-block">
-                  <img
-                    src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/icon_bestseller.svg?v=1721633600"
-                    alt="face smile icon"
-                  />
-                  <h4>Besondere Auswahl</h4>
-                  <p>Familienmanufaktur mit eigener Rezeptur</p>
-                </div>
-                <div className="special-block">
-                  <img
-                    src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/icon_expressdelivery.svg?v=1721633600"
-                    alt="quick delivery icon"
-                  />
-                  <h4>Schnelle Lieferung</h4>
-                  <p>Wir liefern innerhalb von 2-4 Tagen*</p>
-                </div>
-                <div className="special-block">
-                  <img
-                    src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/icon_highquality.svg?v=1721633600"
-                    alt="secure pay icon"
-                  />
-                  <h4>Sichere Bezahlung</h4>
-                  <p>Sicher bezahlen per Paypal und Sofort.com</p>
-                </div>
-                <div className="special-block">
-                  <img
-                    src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/icon_worldwideshipping.svg?v=1721633600"
-                    alt="earth icon"
-                  />
-                  <h4>CO₂ neutraler Versand</h4>
-                  <p>Der Versand erfolgt mit DHL GoGreen</p>
-                </div>
+                {benefitsSection?.benefits.map((benefit, index) => {
+                  const imgUrl = getImageUrl(benefit?.image?.asset?._ref);
+                  return (
+                    <div key={benefit?._key} className="special-block">
+                      <img src={imgUrl} alt="face smile icon" />
+                      <h4>{benefit?.title}</h4>
+                      <p>{benefit?.description}</p>
+                    </div>
+                  );
+                })}
               </div>
               <div
                 className="right-bottom-content desktop-hide"
@@ -373,18 +359,21 @@ export default function Product() {
                 data-aos-duration="1500"
                 data-aos-once="true"
               >
-                <div className="cerified-box">
-                  <h4>Zertifizierter Online-shop</h4>
-                  <img
-                    className="certified-logo"
-                    src={certifiedBadge}
-                    alt="certified logo"
-                  />
-                </div>
-                <div className="certified-logo">
-                  <h4>Schneller Versand</h4>
-                  <img className="dhl-logo" src={dhlLogo} alt="dhl logo" />
-                </div>
+                {trustedShop?.certifications?.map((certification, index) => {
+                  const imgUrl = getImageUrl(certification?.image?.asset?._ref);
+                  const className =
+                    index === 0 ? 'cerified-box' : 'certified-logo';
+                  return (
+                    <div key={certification?._key} className={className}>
+                      <h4>{certification?.label}</h4>
+                      <img
+                        className="certified-logo"
+                        src={imgUrl}
+                        alt="certified logo"
+                      />
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -418,6 +407,8 @@ export default function Product() {
                       product={product}
                       selectedVariant={selectedVariant}
                       variants={[]}
+                      addToCartButton={addToCartButton}
+                      soldOutButton={soldOutButton}
                     />
                   }
                 >
@@ -429,6 +420,8 @@ export default function Product() {
                       <ProductForm
                         product={product}
                         selectedVariant={selectedVariant}
+                        addToCartButton={addToCartButton}
+                        soldOutButton={soldOutButton}
                         variants={data.product?.variants.nodes || []}
                       />
                     )}
@@ -470,18 +463,23 @@ export default function Product() {
                   data-aos-duration="1500"
                   data-aos-once="true"
                 >
-                  <div className="cerified-box">
-                    <h4>Zertifizierter Online-shop</h4>
-                    <img
-                      className="certified-logo"
-                      src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/png-clipart-trusted-shops-gmbh-e-commerce-logo-organization-certification-trust-no-one-text-trademark_copy.webp?v=1721658737"
-                      alt="certified logo"
-                    />
-                  </div>
-                  <div className="certified-logo">
-                    <h4>Schneller Versand</h4>
-                    <img className="dhl-logo" src={dhlLogo} alt="dhl logo" />
-                  </div>
+                  {trustedShop?.certifications?.map((certification, index) => {
+                    const imgUrl = getImageUrl(
+                      certification?.image?.asset?._ref,
+                    );
+                    const className =
+                      index === 0 ? 'cerified-box' : 'certified-logo';
+                    return (
+                      <div key={certification?._key} className={className}>
+                        <h4>{certification?.label}</h4>
+                        <img
+                          className="certified-logo"
+                          src={imgUrl}
+                          alt="certified logo"
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -537,7 +535,13 @@ function ProductPrice({selectedVariant}) {
     </div>
   );
 }
-function ProductForm({product, selectedVariant, variants}) {
+function ProductForm({
+  product,
+  addToCartButton,
+  soldOutButton,
+  selectedVariant,
+  variants,
+}) {
   const [quantity, setQuantity] = useState(1);
   const {publish, shop, cart, prevCart} = useAnalytics();
   const handleQuantityChange = (newQuantity) => {
@@ -582,8 +586,8 @@ function ProductForm({product, selectedVariant, variants}) {
           }
         >
           {selectedVariant?.availableForSale
-            ? 'In den Warenkorb'
-            : 'Ausverkauft'}
+            ? addToCartButton
+            : {soldOutButton}}
         </AddToCartButton>
       </div>
     </div>

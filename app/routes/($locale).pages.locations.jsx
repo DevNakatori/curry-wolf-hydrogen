@@ -50,7 +50,6 @@ export async function loader({params, request, context}) {
   }
   const seo = page.data.seo;
   const canonicalUrl = request.url;
-
   return json({
     page,
     canonicalUrl,

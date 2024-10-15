@@ -47,7 +47,7 @@ export async function loader({params, request, context}) {
     groqdQuery: OUR_STORY_PAGE_QUERY,
     params: queryParams,
   });
-
+  console.log(queryParams);
   if (!page) {
     throw new Response('Not Found', {status: 404});
   }
@@ -71,6 +71,7 @@ export default function Page() {
   const {data, encodeDataAttribute} = useSanityData({
     initial: page,
   });
+  console.log(data);
   useEffect(() => {
     if (document.querySelectorAll('.path-vert').length > 0) {
       const path = document.querySelector('.path-vert');
@@ -165,7 +166,7 @@ export default function Page() {
             data-aos-duration="1500"
             data-aos-once="true"
           >
-            <p>{data.subtitle}</p>
+            <p>{data?.subtitle}</p>
           </div>
           <div className="our-story-sec">
             <div

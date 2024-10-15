@@ -1,10 +1,15 @@
 import {lazy, Suspense} from 'react';
-import {TogglePreviewMode} from '../components/sanity/TogglePreviewMode';
+// import {TogglePreviewMode} from '../components/sanity/TogglePreviewMode';
 import {useRootLoaderData} from '~/lib/root-data';
 import {PortableText} from '@portabletext/react';
 const VisualEditing = lazy(() =>
   import('../components/sanity/VisualEditing').then((mod) => ({
     default: mod.VisualEditing,
+  })),
+);
+const TogglePreviewMode = lazy(() =>
+  import('../components/sanity/TogglePreviewMode').then((mod) => ({
+    default: mod.TogglePreviewMode,
   })),
 );
 export function KeepInTouch({

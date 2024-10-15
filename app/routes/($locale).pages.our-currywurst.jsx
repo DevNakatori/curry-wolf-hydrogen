@@ -43,7 +43,6 @@ export async function loader({params, request, context}) {
     handle,
     language,
   };
-
   const page = await sanity.query({
     groqdQuery: OUR_CURRYWURST_PAGE_QUERY,
     params: queryParams,
@@ -52,7 +51,7 @@ export async function loader({params, request, context}) {
   if (!page) {
     throw new Response('Not Found', {status: 404});
   }
-  console.log(page.data);
+
   const seo = page?.data?.seo;
   const canonicalUrl = request.url;
 

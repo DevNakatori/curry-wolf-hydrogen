@@ -4,14 +4,20 @@ import {
   useNavigate,
   useSearchParams,
 } from '@remix-run/react';
-import {VisualEditing as SanityVisualEditing} from '@sanity/visual-editing/remix';
 import {cx} from 'class-variance-authority';
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, lazy, Suspense} from 'react';
 
 import {useIsInIframe} from '../../hooks/useIsInIframe';
 import {useSanityClient} from '../../hooks/useSanityClient';
 import {useRootLoaderData} from '../../root';
 import {useLiveMode} from '@sanity/react-loader';
+
+// Lazy load the SanityVisualEditing component
+const SanityVisualEditing = lazy(() =>
+  import('@sanity/visual-editing/remix').then((module) => ({
+    default: module.VisualEditing,
+  })),
+);
 
 export function VisualEditing() {
   const isInIframe = useIsInIframe();
@@ -21,11 +27,15 @@ export function VisualEditing() {
 
   return !isInIframe ? (
     <>
-      <SanityVisualEditing />
+      <Suspense fallback={<div>Loading...</div>}>
+        <SanityVisualEditing />
+      </Suspense>
       <ExitBanner />
     </>
   ) : (
-    <SanityVisualEditing />
+    <Suspense fallback={<div>Loading...</div>}>
+      <SanityVisualEditing />
+    </Suspense>
   );
 }
 

@@ -12,6 +12,10 @@ import decorativegarland from '../assets/decorativegarland.png';
 import '../styles/collection.css';
 import dhlLogo from '../assets/logo_dhl-gogreen.svg';
 import {useEffect} from 'react';
+import {useSanityRoot} from '~/hooks/useSanityRoot';
+import {getImageUrl} from '~/lib/utils';
+import {PortableText} from '@portabletext/react';
+import {useRootLoaderData as LoaderData} from '~/root';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -68,8 +72,12 @@ export async function loader({request, params, context}) {
 
 export default function Collection() {
   /** @type {LoaderReturnData} */
-  const {collection, customMenu} = useLoaderData();
 
+  const {data} = useSanityRoot();
+  const globalContent = data?.global?.globalContent;
+  const benefitsSection = globalContent?.benefitsSection;
+  const trustedShop = globalContent?.trustedShop;
+  const {collection, customMenu} = useLoaderData();
   return (
     <div className="collection">
       <div className="food-decorative-garland">
@@ -104,46 +112,18 @@ export default function Collection() {
           <div className="benifits-inner-wrap">
             {/* <h4>Vorteile von Curry Wolf</h4> */}
             <div className="banifits-wrap">
-              <div className="benifits-content">
-                <img
-                  src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/icon_bestseller.svg?v=1721633600"
-                  alt="face smile icon"
-                />
-                <div className="">
-                  <h4>Besondere Auswahl</h4>
-                  <p>Familienmanufaktur mit eigener Rezeptur</p>
-                </div>
-              </div>
-              <div className="benifits-content">
-                <img
-                  src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/icon_expressdelivery.svg?v=1721633600"
-                  alt="quick delivery icon"
-                />
-                <div className="">
-                  <h4>Schnelle Lieferung</h4>
-                  <p>Wir liefern innerhalb von 2-4 Tagen*</p>
-                </div>
-              </div>
-              <div className="benifits-content">
-                <img
-                  src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/icon_highquality.svg?v=1721633600"
-                  alt="secure pay icon"
-                />
-                <div className="">
-                  <h4>Sichere Bezahlung</h4>
-                  <p>Sicher bezahlen per Paypal und Sofort.com</p>
-                </div>
-              </div>
-              <div className="benifits-content">
-                <img
-                  src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/icon_worldwideshipping.svg?v=1721633600"
-                  alt="earth icon"
-                />
-                <div className="">
-                  <h4>CO₂ neutraler Versand</h4>
-                  <p>Der Versand erfolgt mit DHL GoGreen</p>
-                </div>
-              </div>
+              {benefitsSection?.benefits.map((benefit, index) => {
+                const imgUrl = getImageUrl(benefit?.image?.asset?._ref);
+                return (
+                  <div className="benifits-content">
+                    <img src={imgUrl} alt="face smile icon" />
+                    <div className="">
+                      <h4>{benefit?.title}</h4>
+                      <p>{benefit?.description}</p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -190,31 +170,21 @@ export default function Collection() {
             </div>
             <div className="right-l">
               <div className="c-right-wrap">
-                <div className="right-inner">
-                  <div className="l-logo">
-                    <img
-                      src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/png-clipart-trusted-shops-gmbh-e-commerce-logo-organization-certification-trust-no-one-text-trademark_copy.webp?v=1721658737"
-                      alt="certified logo"
-                    />
-                  </div>
-                  <div className="r-content">
-                    <p>Zertifizierter online-shop</p>
-                  </div>
-                </div>
-                <div className="right-inner">
-                  <div className="l-logo">
-                    <img src={dhlLogo} />
-                  </div>
-                  <div className="r-content">
-                    <p>Zertifizierter online-shop</p>
-                  </div>
-                </div>
+                {trustedShop?.certifications?.map((certification, index) => {
+                  const imgUrl = getImageUrl(certification?.image?.asset?._ref);
+                  return (
+                    <div key={certification?._key} className="right-inner">
+                      <div className="l-logo">
+                        <img src={imgUrl} alt="certified logo" />
+                      </div>
+                      <div className="r-content">
+                        <p>{certification?.label}</p>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-              <p>
-                * Lieferzeitangaben gelten für Lieferungen innerhalb
-                Deutschlands, Lieferzeiten für andere Länder entnehmen Sie bitte
-                den Zahlungs- und Versandinformationen
-              </p>
+              <PortableText value={trustedShop?.deliveryNote} />
             </div>
           </div>
         </div>
@@ -289,6 +259,11 @@ function ProductsGrid({products}) {
  * }}
  */
 function ProductItem({product, loading, ProductsLength}) {
+  const {data} = useSanityRoot();
+  const globalContent = data?.global?.globalContent;
+  const addToCartButton = globalContent?.addToCartButton;
+  const soldOutButton = globalContent?.soldOutButton;
+  const {locale} = LoaderData();
   const variant = product.variants.nodes[0];
   const variantUrl = useVariantUrl(product.handle, variant.selectedOptions);
   function classifyValue(value) {
@@ -309,8 +284,8 @@ function ProductItem({product, loading, ProductsLength}) {
   const variantId = variantNumber ? variantNumber[0] : null;
   // Assuming weight is in kilograms
   const weight = variant.weight
-    ? `Versandgewicht: ${variant.weight} kg`
-    : 'Gewicht nicht verfügbar';
+    ? `${globalContent?.ShippingWeight}: ${variant.weight} kg`
+    : globalContent?.WeightNotAvailable;
   // Adding the unit price
   const referenceUnit = variant.unitPriceMeasurement?.referenceUnit;
   const unitPrice = variant.unitPrice ? (
@@ -328,7 +303,7 @@ function ProductItem({product, loading, ProductsLength}) {
 
   const deliveryTime = product.tags.includes('app:expresshint')
     ? 'Lieferzeit: 1 Tag (*)'
-    : 'Lieferzeit: 2-4 Tage (*)';
+    : globalContent?.deliveryTime;
   useEffect(() => {
     const priceElements = document.querySelectorAll('.c-price-range');
     priceElements.forEach((priceElement) => {
@@ -378,10 +353,13 @@ function ProductItem({product, loading, ProductsLength}) {
         <div className="tax-hint">
           <div className="same-height">
             <small>
-              inkl. MwSt. /
-              <a className="shipping_policy" href="/policies/shipping-policy">
-                zzgl. Versandkosten
-              </a>
+              {globalContent?.inclVatText}
+              <Link
+                className="shipping_policy"
+                to={`${locale.pathPrefix}/policies/shipping-policy`}
+              >
+                {globalContent?.plusShippingCostsText}
+              </Link>
             </small>
 
             <div className="c-weight">{weight}</div>
@@ -390,7 +368,7 @@ function ProductItem({product, loading, ProductsLength}) {
             <div className="pro-wrap-c unit-price">{unitPrice}</div>
           </div>
           <div className="cart-btn">
-            <span className="yellow-btn">In den Warenkorb</span>
+            <span className="yellow-btn">{addToCartButton}</span>
           </div>
         </div>
       </div>

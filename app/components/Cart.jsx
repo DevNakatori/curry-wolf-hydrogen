@@ -2,10 +2,14 @@ import {CartForm, Image, Money} from '@shopify/hydrogen';
 import {Link} from '@remix-run/react';
 import {useVariantUrl} from '~/lib/variants';
 import '../styles/cart.css';
+import {useSanityRoot} from '~/hooks/useSanityRoot';
 /**
  * @param {CartMainProps}
  */
 export function CartMain({layout, cart}) {
+  const {data} = useSanityRoot();
+  const globalContent = data?.global?.globalContent;
+  const cartContent = globalContent?.cartContent;
   const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
   const withDiscount =
     cart &&
@@ -14,8 +18,12 @@ export function CartMain({layout, cart}) {
 
   return (
     <div className={className}>
-      <CartEmpty hidden={linesCount} layout={layout} />
-      <CartDetails cart={cart} layout={layout} />
+      <CartEmpty
+        cartContent={cartContent}
+        hidden={linesCount}
+        layout={layout}
+      />
+      <CartDetails cartContent={cartContent} cart={cart} layout={layout} />
     </div>
   );
 }
@@ -23,16 +31,22 @@ export function CartMain({layout, cart}) {
 /**
  * @param {CartMainProps}
  */
-function CartDetails({layout, cart}) {
+function CartDetails({layout, cartContent, cart}) {
   const cartHasItems = !!cart && cart.totalQuantity > 0;
 
   return (
     <div className="cart-details">
       <CartLines lines={cart?.lines} layout={layout} />
       {cartHasItems && (
-        <CartSummary cost={cart.cost} layout={layout}>
-          <CartDiscounts discountCodes={cart.discountCodes} />
-          <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
+        <CartSummary cartContent={cartContent} cost={cart.cost} layout={layout}>
+          <CartDiscounts
+            cartContent={cartContent}
+            discountCodes={cart.discountCodes}
+          />
+          <CartCheckoutActions
+            cartContent={cartContent}
+            checkoutUrl={cart.checkoutUrl}
+          />
         </CartSummary>
       )}
     </div>
@@ -117,13 +131,13 @@ function CartLineItem({layout, line}) {
 /**
  * @param {{checkoutUrl: string}}
  */
-function CartCheckoutActions({checkoutUrl}) {
+function CartCheckoutActions({cartContent, checkoutUrl}) {
   if (!checkoutUrl) return null;
 
   return (
     <div>
       <a className="yellow-btn checkout" href={checkoutUrl} target="_self">
-        <p>Weiter zu Kasse</p>
+        <p>{cartContent?.ContinueToCheckout}</p>
       </a>
       <br />
     </div>
@@ -137,15 +151,15 @@ function CartCheckoutActions({checkoutUrl}) {
  *   layout: CartMainProps['layout'];
  * }}
  */
-export function CartSummary({cost, layout, children = null}) {
+export function CartSummary({cost, cartContent, layout, children = null}) {
   const className =
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
 
   return (
     <div aria-labelledby="cart-summary" className={className}>
-      <h4>Gesamtsumme</h4>
+      <h4>{cartContent?.total}</h4>
       <dl className="cart-subtotal">
-        <dt>Zwischensumme</dt>
+        <dt>{cartContent?.subtotal}</dt>
         <dd>
           {cost?.subtotalAmount?.amount ? (
             <Money data={cost?.subtotalAmount} />
@@ -246,14 +260,11 @@ function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
  *   layout?: CartMainProps['layout'];
  * }}
  */
-export function CartEmpty({hidden = false, layout = 'aside'}) {
+export function CartEmpty({cartContent, hidden = false, layout = 'aside'}) {
   return (
     <div hidden={hidden}>
       <br />
-      <p>
-        Sieht so aus, als hätten Sie noch nichts in den Einkaufswagen gelegt.
-        Lassen Sie uns beginnen!
-      </p>
+      <p>{cartContent?.cartMessage}</p>
       <br />
       <Link
         className="yellow-btn"
@@ -264,7 +275,7 @@ export function CartEmpty({hidden = false, layout = 'aside'}) {
           }
         }}
       >
-        Weiter shoppen →
+        {cartContent?.ContinueShopping}
       </Link>
     </div>
   );
@@ -275,7 +286,7 @@ export function CartEmpty({hidden = false, layout = 'aside'}) {
  *   discountCodes: CartApiQueryFragment['discountCodes'];
  * }}
  */
-function CartDiscounts({discountCodes}) {
+function CartDiscounts({cartContent, discountCodes}) {
   const codes =
     discountCodes
       ?.filter((discount) => discount.applicable)
@@ -287,7 +298,7 @@ function CartDiscounts({discountCodes}) {
       <dl hidden={!codes.length}>
         <div>
           <dt>Discount(s)</dt>
-          <UpdateDiscountForm>
+          <UpdateDiscountForm cartContent={cartContent}>
             <div className="cart-discount">
               <code>{codes?.join(', ')}</code>
               &nbsp;
@@ -303,12 +314,12 @@ function CartDiscounts({discountCodes}) {
           <input
             type="text"
             name="discountCode"
-            placeholder="Rabattcode"
+            placeholder={cartContent?.discountcode}
             className="form-input"
           />
           &nbsp;
           <button className="yellow-btn" type="submit">
-            Anwenden
+            {cartContent?.apply}
           </button>
         </div>
       </UpdateDiscountForm>
