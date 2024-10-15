@@ -2,22 +2,12 @@ import {lazy, Suspense} from 'react';
 // import {TogglePreviewMode} from '../components/sanity/TogglePreviewMode';
 import {useRootLoaderData} from '~/lib/root-data';
 import {PortableText} from '@portabletext/react';
-const VisualEditing = lazy(() =>
-  import('../components/sanity/VisualEditing').then((mod) => ({
-    default: mod.VisualEditing,
-  })),
-);
-const TogglePreviewMode = lazy(() =>
-  import('../components/sanity/TogglePreviewMode').then((mod) => ({
-    default: mod.TogglePreviewMode,
-  })),
-);
 export function KeepInTouch({
   footerAddress,
   FooterRightLogo,
   footerSocialLinks,
 }) {
-  const {env, locale, sanityPreviewMode} = useRootLoaderData();
+  const {env, locale} = useRootLoaderData();
   return (
     <>
       <div
@@ -126,13 +116,7 @@ export function KeepInTouch({
             </svg>
           </a>
         </div>
-        {sanityPreviewMode ? (
-          <Suspense>
-            <VisualEditing />
-          </Suspense>
-        ) : (
-          <TogglePreviewMode />
-        )}
+
         <img
           className="footer-berline-logo"
           src={FooterRightLogo}
