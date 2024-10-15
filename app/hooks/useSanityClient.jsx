@@ -2,7 +2,7 @@ import {useMemo} from 'react';
 
 // import {getSanityClient} from '../lib/sanity/client';
 import {useRootLoaderData} from '../root';
-import {getSanityClient} from 'lib/sanity/client';
+import {getSanityClient} from '~/lib/sanity/client';
 
 export function useSanityClient() {
   const {env} = useRootLoaderData();

@@ -1,5 +1,5 @@
 import {useMatches, useRouteLoaderData} from '@remix-run/react';
-import {useQuery} from '../../lib/sanity/sanity.loader';
+import {useQuery} from '../lib/sanity/sanity.loader';
 import {useRootLoaderData} from '../root';
 
 /**

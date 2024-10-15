@@ -565,11 +565,155 @@ export const CONTACT_PAGE_QUERY = q('*')
   })
   .slice(0) // Use slice(0) to ensure you get all results without pagination
   .nullable(); // Allow entire query result to be nullable
+/*
+|--------------------------------------------------------------------------
+|  JOB_PAGE_QUERY Page Query
+|--------------------------------------------------------------------------
+*/
+export const JOB_PAGE_QUERY = q('*')
+  .filter(`_type == "job" && language == $language`)
+  .grab({
+    _type: q.literal('page').or(q.literal('job')),
+    sectionFirst: q.object({}).nullable(),
+    images: q.object({}).nullable(),
+    sectionThird: q.object({}).nullable(),
+    // SEO section
+    seo: q('seo')
+      .grab({
+        title: q.string().nullable(),
+        description: q.string().nullable(),
+        image: q('image').nullable(),
+      })
+      .nullable(), // Allow SEO section to be nullable
+
+    // Include language field
+    language: q('language').nullable(),
+  })
+  .slice(0) // Use slice(0) to ensure you get all results without pagination
+  .nullable(); // Allow entire query result to be nullable
+/*
+|--------------------------------------------------------------------------
+|  JOB_INNER_PAGE_QUERY Page Query
+|--------------------------------------------------------------------------
+*/
+export const JOB_INNER_PAGE_QUERY = q('*')
+  .filter(`(slug == $handle && language == $language)`)
+  .grab({
+    _type: q.literal('page').or(q.literal('jobInnerPage')),
+    sectionFirst: q.object({}).nullable(),
+    images: q.object({}).nullable(),
+    sectionThird: q.object({}).nullable(),
+    sectionFourth: q.object({}).nullable(),
+    // SEO section
+    seo: q('seo')
+      .grab({
+        title: q.string().nullable(),
+        description: q.string().nullable(),
+        image: q('image').nullable(),
+      })
+      .nullable(), // Allow SEO section to be nullable
+
+    // Include language field
+    language: q('language').nullable(),
+  })
+  .slice(0) // Use slice(0) to ensure you get all results without pagination
+  .nullable(); // Allow entire query result to be nullable
+
+/*
+|--------------------------------------------------------------------------
+|  LEGAL_NOTICE_PAGE_QUERY Page Query
+|--------------------------------------------------------------------------
+*/
+export const LEGAL_NOTICE_PAGE_QUERY = q('*')
+  .filter(`_type == "legalNoticePage" && language == $language`)
+  .grab({
+    _type: q.literal('page').or(q.literal('legalNoticePage')),
+    title: q.string().nullable(),
+    button: q.object({}).nullable(),
+    content: q.object({}).nullable(),
+    // SEO section
+    seo: q('seo')
+      .grab({
+        title: q.string().nullable(),
+        description: q.string().nullable(),
+        image: q('image').nullable(),
+      })
+      .nullable(), // Allow SEO section to be nullable
+
+    // Include language field
+    language: q('language').nullable(),
+  })
+  .slice(0) // Use slice(0) to ensure you get all results without pagination
+  .nullable(); // Allow entire query result to be nullable
+/*
+|--------------------------------------------------------------------------
+|  POLICIES_PAGE_QUERY Page Query
+|--------------------------------------------------------------------------
+*/
+export const POLICIES_PAGE_QUERY = q('*')
+  .filter(`_type == "policies" && language == $language`)
+  .grab({
+    _type: q.literal('page').or(q.literal('policies')),
+    title: q.string().nullable(),
+    policiesLink: q('policiesLink').grab({
+      title: q('title').nullable(),
+      menu: MENU_FRAGMENT,
+    }),
+    // SEO section
+    seo: q('seo')
+      .grab({
+        title: q.string().nullable(),
+        description: q.string().nullable(),
+        image: q('image').nullable(),
+      })
+      .nullable(), // Allow SEO section to be nullable
+
+    // Include language field
+    language: q('language').nullable(),
+  })
+  .slice(0) // Use slice(0) to ensure you get all results without pagination
+  .nullable(); // Allow entire query result to be nullable
+
+/*
+|--------------------------------------------------------------------------
+|  POLICIES_INNER_PAGE_QUERY Page Query
+|--------------------------------------------------------------------------
+*/
+export const POLICIES_INNER_PAGE_QUERY = q('*')
+  .filter(`(slug == $handle && language == $language)`)
+  .grab({
+    _type: q.literal('page').or(q.literal('policiesInnerPage')),
+    title: q.string().nullable(),
+    button: q.object({}).nullable(),
+    content: q.object({}).nullable(),
+    // SEO section
+    seo: q('seo')
+      .grab({
+        title: q.string().nullable(),
+        description: q.string().nullable(),
+        image: q('image').nullable(),
+      })
+      .nullable(), // Allow SEO section to be nullable
+
+    // Include language field
+    language: q('language').nullable(),
+  })
+  .slice(0) // Use slice(0) to ensure you get all results without pagination
+  .nullable(); // Allow entire query result to be nullable
+export const GLOBAL_QUERY = q('*')
+  .filter(`(_type == "settings" &&  language == $language)`)
+  .grab({
+    notFoundPage: q('notFoundPage').nullable(),
+    globalContent: q.object({}).nullable(),
+  })
+  .slice(0)
+  .nullable();
 
 export const ROOT_QUERY = q('')
   .grab({
     _type: ['"root"', q.literal('root')],
     footer: FOOTER_QUERY,
     header: HEADER_QUERY,
+    global: GLOBAL_QUERY,
   })
   .nullable();

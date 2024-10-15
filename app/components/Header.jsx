@@ -111,6 +111,8 @@ export function HeaderMenu({
             switch (documentType) {
               case 'page':
                 return `${locale.pathPrefix}/pages/${slug}`;
+              case 'contact':
+                return `${locale.pathPrefix}/pages/${slug}`;
               case 'locations':
                 return `${locale.pathPrefix}/pages/${slug}`;
               case 'catering':

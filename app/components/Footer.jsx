@@ -88,6 +88,8 @@ function FooterMenu({menu, footerLogo, primaryDomainUrl}) {
               switch (documentType) {
                 case 'page':
                   return `${locale.pathPrefix}/pages/${slug}`;
+                case 'job':
+                  return `${locale.pathPrefix}/pages/${slug}`;
                 case 'locations':
                   return `${locale.pathPrefix}/pages/${slug}`;
                 case 'catering':
@@ -102,8 +104,10 @@ function FooterMenu({menu, footerLogo, primaryDomainUrl}) {
                   return `${locale.pathPrefix}/collections/${slug2}`;
                 case 'home':
                   return locale.pathPrefix || '/';
-                case 'polices':
-                  return `${locale.pathPrefix}/polices/${slug}`;
+                case 'policiesInnerPage':
+                  return `${locale.pathPrefix}/policies/${slug}`;
+                case 'legalNoticePage':
+                  return `${locale.pathPrefix}/pages/legal-notice`;
                 default:
                   return '';
               }

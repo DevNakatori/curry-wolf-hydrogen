@@ -3,7 +3,7 @@ import {json} from '@shopify/remix-oxygen';
 import {useLoaderData} from '@remix-run/react';
 import {mergeMeta} from '../lib/meta';
 import {DEFAULT_LOCALE} from 'countries';
-import {sanityPreviewPayload} from '../../lib/sanity/sanity.payload.server';
+import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
 import {OUR_STORY_PAGE_QUERY} from '../qroq/queries';
 import {useSanityData} from '../hooks/useSanityData';
 import {getPageHandle} from './($locale).$';
@@ -47,7 +47,7 @@ export async function loader({params, request, context}) {
     groqdQuery: OUR_STORY_PAGE_QUERY,
     params: queryParams,
   });
-
+  console.log(queryParams);
   if (!page) {
     throw new Response('Not Found', {status: 404});
   }
@@ -71,6 +71,7 @@ export default function Page() {
   const {data, encodeDataAttribute} = useSanityData({
     initial: page,
   });
+  console.log(data);
   useEffect(() => {
     if (document.querySelectorAll('.path-vert').length > 0) {
       const path = document.querySelector('.path-vert');
@@ -165,7 +166,7 @@ export default function Page() {
             data-aos-duration="1500"
             data-aos-once="true"
           >
-            <p>{data.subtitle}</p>
+            <p>{data?.subtitle}</p>
           </div>
           <div className="our-story-sec">
             <div

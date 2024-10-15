@@ -1,15 +1,15 @@
 import {json} from '@shopify/remix-oxygen';
 import {useLoaderData} from '@remix-run/react';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {lazy, Suspense, useEffect, useRef, useState} from 'react';
 import {mergeMeta} from '../lib/meta';
 import {DEFAULT_LOCALE} from 'countries';
 import {getSeoMetaFromMatches} from '../lib/seo';
-import {sanityPreviewPayload} from '../../lib/sanity/sanity.payload.server';
+import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
 import {seoPayload} from '../lib/seo.server';
 import {PAGE_QUERY} from '../qroq/queries';
 import {useSanityData} from '../hooks/useSanityData';
+const Home = lazy(() => import('~/components/Home'));
 import '../styles/home-video.css';
-import Home from '~/components/Home';
 /**
  * @param {LoaderFunctionArgs}
  */
@@ -56,7 +56,11 @@ export default function PageRoute() {
   const {data, encodeDataAttribute} = useSanityData({
     initial: page,
   });
-  return <Home data={data} />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Home data={data} />
+    </Suspense>
+  );
 }
 export function getPageHandle(args) {
   const {locale, params, pathname} = args;

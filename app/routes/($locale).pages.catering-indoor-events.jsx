@@ -4,7 +4,7 @@ import '../styles/catering-inner.css';
 import {useEffect, useRef, useState} from 'react';
 import {mergeMeta} from '../lib/meta';
 import {DEFAULT_LOCALE} from 'countries';
-import {sanityPreviewPayload} from '../../lib/sanity/sanity.payload.server';
+import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
 import {CATERING_INNER_PAGE_QUERY} from '../qroq/queries';
 import {useSanityData} from '../hooks/useSanityData';
 import {getPageHandle} from './($locale).$';
