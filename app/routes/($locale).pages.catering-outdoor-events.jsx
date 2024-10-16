@@ -94,7 +94,7 @@ export default function Page() {
               data-aos-duration="1500"
             >
               <div className="left-content">
-                <h1>{data?.heroTitle}</h1>
+                <h1 dangerouslySetInnerHTML={{__html: data?.heroTitle}} />
                 <h3>{data?.Description}</h3>
                 <Link className="yellow-btn" to={ctaLink}>
                   {data?.ctaButtontext}
@@ -183,7 +183,7 @@ export default function Page() {
                       <div className="ref-box">
                         <p className="same-height">{item?.description}</p>
                         <div className="ref-title">
-                          <h4>{item?.title}</h4>
+                          <h4 dangerouslySetInnerHTML={{__html: item?.title}} />
                         </div>
                       </div>
                     );

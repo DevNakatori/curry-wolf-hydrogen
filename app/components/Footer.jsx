@@ -115,13 +115,7 @@ function FooterMenu({menu, footerLogo, primaryDomainUrl}) {
             const url = stegaClean(`${path()}${anchor}`);
             return (
               <li key={item._key}>
-                <NavLink
-                  end
-                  prefetch="intent"
-                  key={item._key}
-                  style={activeLinkStyle}
-                  to={url}
-                >
+                <NavLink end key={item._key} style={activeLinkStyle} to={url}>
                   {item.name}
                 </NavLink>
               </li>

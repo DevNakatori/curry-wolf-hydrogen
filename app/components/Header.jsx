@@ -107,7 +107,6 @@ export function HeaderMenu({
           const slug = link?.slug;
           const slug2 = link?.slug?.current;
           const anchor = item?.anchor ? `#${item.anchor}` : '';
-          console.log(slug);
           const path = () => {
             switch (documentType) {
               case 'page':
@@ -140,7 +139,6 @@ export function HeaderMenu({
               <div className="menu-item-wrapper">
                 <NavLink
                   end
-                  prefetch="intent"
                   className={({isActive}) => (isActive ? 'active' : '')}
                   to={url}
                   onClick={(e) => handleClick(e, url)}
@@ -189,7 +187,6 @@ export function HeaderMenu({
                         <NavLink
                           key={index}
                           end
-                          prefetch="intent"
                           className={({isActive}) => (isActive ? 'active' : '')}
                           to={url}
                           onClick={(e) => handleClick(e, url)}

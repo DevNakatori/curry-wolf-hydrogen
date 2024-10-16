@@ -187,8 +187,11 @@ div#faq {
   max-width: 910px;
 }
 
-.c-brand-content p span,
 .brandenburg .brand-right p {
+  margin-bottom: 20px;
+  display: block;
+}
+.c-brand-content p span {
   margin-bottom: 25px;
   display: block;
 }
@@ -399,7 +402,7 @@ div#faq {
 }
 
 .wolf-logo .w-left-content svg {
-  width: 35px;
+  width: 39px;
   height: 35px;
 }
 

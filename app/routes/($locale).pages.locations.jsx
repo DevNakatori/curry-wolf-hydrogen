@@ -7,7 +7,9 @@ import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
 import {LOCATION_PAGE_QUERY} from '../qroq/queries';
 import {useSanityData} from '../hooks/useSanityData';
 import {getImageUrl} from '~/lib/utils';
+import {useRootLoaderData as LoaderData} from '~/root';
 import '../styles/location-page.css';
+import {stegaClean} from '@sanity/client/stega';
 /**
  * @type {MetaFunction<typeof loader>}
  */
@@ -68,7 +70,7 @@ export default function Page() {
   const {data, encodeDataAttribute} = useSanityData({
     initial: page,
   });
-
+  const {locale} = LoaderData();
   const locationSecondSection = data?.locationSecondSection;
   const cards = locationSecondSection?.cards || [];
   const locationThirdSection = data?.locationThirdSection;
@@ -475,7 +477,12 @@ export default function Page() {
                     <div className="c-right">
                       <h2>{card?.title}</h2>
                       <p className="same-height">{card?.description}</p>
-                      <Link href={card?.buttonLink} className="yellow-btn">
+                      <Link
+                        to={stegaClean(
+                          `${locale.pathPrefix}${card?.buttonLink}`,
+                        )}
+                        className="yellow-btn"
+                      >
                         {card?.buttonText}
                       </Link>
                     </div>
@@ -485,16 +492,19 @@ export default function Page() {
             </div>
             <div className="follow-currywolf">
               <div
-                className="aos-init aos-animate"
-                data-aos-once="true"
-                data-aos="fade-up"
                 data-aos-duration="1500"
+                data-aos="fade-up"
+                data-aos-once="true"
               >
-                <h2>{locationThirdSection?.title}</h2>
+                <h2
+                  dangerouslySetInnerHTML={{
+                    __html: locationThirdSection?.title,
+                  }}
+                />
                 <div className="curry-new-btn">
                   <a
-                    href={locationThirdSection?.buttonLink}
                     className="yellow-border-btn"
+                    href="https://www.instagram.com/curry_wolf/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -504,8 +514,8 @@ export default function Page() {
               </div>
               <div className="follow-box">
                 <div className="c-s-image-section aos-init aos-animate">
-                  {images?.map((image, index) => {
-                    const imageUrl = getImageUrl(image.image.asset._ref);
+                  {images?.map((item, index) => {
+                    const imageUrl = getImageUrl(item?.image?.asset?._ref);
                     const aosType =
                       index === 0
                         ? 'fade-right'
@@ -518,7 +528,6 @@ export default function Page() {
                         : 'fade-right';
                     return (
                       <div
-                        key={index}
                         className="img-big-wrap aos-init aos-animate"
                         data-aos-duration="2000"
                         data-aos-once="true"
@@ -526,7 +535,10 @@ export default function Page() {
                       >
                         <div className="img-one">
                           <div className="inner-white-box">
-                            <img src={imageUrl} alt={`Image ${index}`} />
+                            <img
+                              src={imageUrl}
+                              alt={`Curry Wolf Image ${index + 1}`}
+                            />
                           </div>
                         </div>
                       </div>

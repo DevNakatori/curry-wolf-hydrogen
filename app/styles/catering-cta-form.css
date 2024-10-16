@@ -513,13 +513,17 @@ input[type='date']:invalid::-webkit-datetime-edit {
   font-size: calc(14px + (18 - 14) * ((100vw - 320px) / (1920 - 320)));
   line-height: calc(20px + (24 - 20) * ((100vw - 320px) / (1920 - 320)));
 }
-
+.c-left-form form .form-last-box .form-group:last-child label p {
+  font-size: calc(14px + (18 - 14) * ((100vw - 320px) / (1920 - 320)));
+  line-height: calc(20px + (24 - 20) * ((100vw - 320px) / (1920 - 320)));
+}
 .form-main-wrap.form-last-box {
   border-bottom: 0;
   margin-bottom: 0;
 }
 
-.c-left-form form .form-last-box .form-group:last-child label {
+.c-left-form form .form-last-box .form-group:last-child label,
+.c-left-form form .form-last-box .form-group:last-child label p {
   font-family: 'Gotham-Book';
   font-weight: 400;
 }

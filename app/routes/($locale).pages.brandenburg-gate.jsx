@@ -113,7 +113,7 @@ export default function Page() {
             <div className="popup-scroll">
               <div className="popup-img-right-one">
                 {imageTop?.map((image, index) => {
-                  const imageUrl = getImageUrl(image.image.asset._ref);
+                  const imageUrl = getImageUrl(image?.image?.asset?._ref);
                   const imageClass = index === 0 ? 'img-one' : 'img-two';
                   return (
                     <img

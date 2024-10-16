@@ -77,8 +77,6 @@ export default function Page() {
   const sectionThird = data?.sectionThird;
   const imageUrl = getImageUrl(sectionFirst?.image?.asset?._ref);
 
-  console.log(data);
-
   useEffect(() => {
     const phoneInput = document.querySelector('input[name="phone"]');
     if (phoneInput) {
@@ -313,11 +311,7 @@ export default function Page() {
               data-aos="fade-up"
               data-aos-duration="1500"
             >
-              <h2>
-                {sectionThird?.title}
-                <br />
-                {sectionThird?.Subtitle}
-              </h2>
+              <h2>{sectionThird?.title}</h2>
               <div className="curry-new-btn">
                 <a
                   href={sectionThird?.buttonLink}
@@ -328,32 +322,39 @@ export default function Page() {
                   {sectionThird?.buttonText}
                 </a>
               </div>
-              <div className="follow-box">
-                <div className="c-s-image-section aos-init aos-animate">
-                  {sectionThird?.images?.map((image, index) => {
-                    const imageUrl = getImageUrl(image.image.asset._ref);
-                    return (
-                      <div
-                        key={index}
-                        className="img-big-wrap"
-                        data-aos-once="true"
-                        data-aos={
-                          index === 1 || index === 2
-                            ? 'zoom-in'
-                            : index === 0
-                            ? 'fade-right'
-                            : 'fade-left'
-                        }
-                      >
-                        <div className="img-one">
-                          <div className="inner-white-box">
-                            <img src={imageUrl} alt="" />
-                          </div>
+            </div>
+            <div className="follow-box">
+              <div className="c-s-image-section aos-init aos-animate">
+                {sectionThird?.images?.map((image, index) => {
+                  const imageUrl = getImageUrl(image.image.asset._ref);
+                  const aosType =
+                    index === 0
+                      ? 'fade-right'
+                      : index === 1
+                      ? 'zoom-in'
+                      : index === 2
+                      ? 'zoom-in'
+                      : index === 3
+                      ? 'fade-left'
+                      : 'fade-right';
+                  return (
+                    <div
+                      data-aos-once="true"
+                      className="img-big-wrap aos-init aos-animate"
+                      data-aos={aosType}
+                      data-aos-duration="1500"
+                    >
+                      <div className="img-one">
+                        <div className="inner-white-box">
+                          <img
+                            src={imageUrl}
+                            alt={`Curry Wolf Moment ${index + 1}`}
+                          />
                         </div>
                       </div>
-                    );
-                  })}
-                </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
