@@ -107,6 +107,7 @@ export function HeaderMenu({
           const slug = link?.slug;
           const slug2 = link?.slug?.current;
           const anchor = item?.anchor ? `#${item.anchor}` : '';
+          console.log(slug);
           const path = () => {
             switch (documentType) {
               case 'page':
@@ -114,7 +115,7 @@ export function HeaderMenu({
               case 'contact':
                 return `${locale.pathPrefix}/pages/${slug}`;
               case 'locations':
-                return `${locale.pathPrefix}/pages/${slug}`;
+                return `${locale.pathPrefix}/pages/locations`;
               case 'catering':
                 return `${locale.pathPrefix}/pages/${slug}`;
               case 'ourStory':

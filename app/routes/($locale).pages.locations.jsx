@@ -30,26 +30,26 @@ export const meta = ({data}) => {
 export async function loader({params, request, context}) {
   const {env, locale, sanity, storefront} = context;
   const pathname = new URL(request.url).pathname;
-  const handle = getPageHandle({locale, params, pathname}).replace(
-    /^pages\//,
-    '',
-  );
+  const segments = pathname.split('/').filter(Boolean);
+  const handle = segments[segments.length - 1];
   const language = locale?.language.toLowerCase();
   const queryParams = {
     defaultLanguage: DEFAULT_LOCALE.language.toLowerCase(),
     handle,
     language,
   };
-
   const page = await sanity.query({
     groqdQuery: LOCATION_PAGE_QUERY,
     params: queryParams,
   });
+
   if (!page) {
     throw new Response('Not Found', {status: 404});
   }
-  const seo = page.data.seo;
+
+  const seo = page?.data?.seo;
   const canonicalUrl = request.url;
+
   return json({
     page,
     canonicalUrl,
