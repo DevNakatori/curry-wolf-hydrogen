@@ -343,7 +343,7 @@ function ProductItem({product, loading, ProductsLength}) {
         {titleMain}
         <br />
       </h4>
-      <span>{}</span>
+      <span>{titleSub}</span>
       <div className="c-price-range">
         {product.priceRange.minVariantPrice && (
           <FormattedMoney money={product.priceRange.minVariantPrice} />

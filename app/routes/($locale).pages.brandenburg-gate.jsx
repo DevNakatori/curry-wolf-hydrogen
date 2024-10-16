@@ -8,7 +8,6 @@ import {DEFAULT_LOCALE} from 'countries';
 import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
 import {LOCATION_INNER_PAGE_QUERY} from '../qroq/queries';
 import {useSanityData} from '../hooks/useSanityData';
-import {getPageHandle} from './($locale).$';
 import {getImageUrl} from '~/lib/utils';
 /**
  * @type {MetaFunction<typeof loader>}
@@ -114,7 +113,7 @@ export default function Page() {
             <div className="popup-scroll">
               <div className="popup-img-right-one">
                 {imageTop?.map((image, index) => {
-                  const imageUrl = getImageUrl(image.image.asset._ref);
+                  const imageUrl = getImageUrl(image?.image?.asset?._ref);
                   const imageClass = index === 0 ? 'img-one' : 'img-two';
                   return (
                     <img

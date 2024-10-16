@@ -1,9 +1,9 @@
 import {Link} from '@remix-run/react';
 import React, {useEffect, useRef, useState} from 'react';
 import {getImageUrl} from '~/lib/utils';
-import '../styles/home-video.css';
 import {stegaClean} from '@sanity/client/stega';
 import {useRootLoaderData as LoaderData} from '~/root';
+import '../styles/home-video.css';
 const Home = ({data}) => {
   const videoRef = useRef(null);
   const indicatorRef = useRef(null);
@@ -241,7 +241,12 @@ const Home = ({data}) => {
                   <span className="text-small">{stegaClean(video?.title)}</span>
                 )}
                 {video?.caption && (
-                  <span data-mce-fragment={1}>{stegaClean(video.caption)}</span>
+                  <span
+                    data-mce-fragment={1}
+                    dangerouslySetInnerHTML={{
+                      __html: stegaClean(video?.caption),
+                    }}
+                  />
                 )}
               </h1>
             </div>
@@ -324,11 +329,20 @@ const Home = ({data}) => {
                   >
                     {data?.homepageThirdSection?.images?.map((image, index) => {
                       const imageUrl = getImageUrl(image?.image?.asset?._ref);
+                      const aosType =
+                        index === 0
+                          ? 'fade-right'
+                          : index === 1
+                          ? 'zoom-in'
+                          : index === 2
+                          ? 'fade-left'
+                          : 'fade-right';
+
                       return (
                         <div
                           key={image?._key}
                           className="img-big-wrap"
-                          data-aos="fade-right"
+                          data-aos={aosType}
                           data-aos-once="true"
                           data-aos-duration={2000}
                         >

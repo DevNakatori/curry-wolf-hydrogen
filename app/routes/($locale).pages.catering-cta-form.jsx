@@ -7,7 +7,6 @@ import {DEFAULT_LOCALE} from 'countries';
 import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
 import {CATERING_CTA_FORM_PAGE_QUERY} from '../qroq/queries';
 import {useSanityData} from '../hooks/useSanityData';
-import {getPageHandle} from './($locale).$';
 import {getImageUrl} from '~/lib/utils';
 import {useRootLoaderData as LoaderData} from '~/root';
 import {stegaClean} from '@sanity/client/stega';
@@ -528,12 +527,12 @@ export default function Page() {
                           <img src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/Cil-Fax.svg?v=1721396596" />
                         </div>
                         <div className="c-right">
-                          <h3>{sectionSecond?.Address?.phoneNumber?.label}</h3>
+                          <h3>{sectionSecond?.Address?.faxNumber?.label}</h3>
                           <p>
                             <a
-                              href={`tel:${sectionSecond?.Address?.phoneNumber?.number}`}
+                              href={`tel:${sectionSecond?.Address?.faxNumber?.number}`}
                             >
-                              {sectionSecond?.Address?.phoneNumber?.number}
+                              {sectionSecond?.Address?.faxNumber?.number}
                             </a>
                           </p>
                         </div>
@@ -543,12 +542,12 @@ export default function Page() {
                           <img src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/phone.svg?v=1721396560" />
                         </div>
                         <div className="c-right">
-                          <h3>{sectionSecond?.Address?.faxNumber?.label}</h3>
+                          <h3>{sectionSecond?.Address?.phoneNumber?.label}</h3>
                           <p>
                             <a
-                              href={`tel:${sectionSecond?.Address?.faxNumber?.number}`}
+                              href={`tel:${sectionSecond?.Address?.phoneNumber?.number}`}
                             >
-                              {sectionSecond?.Address?.faxNumber?.number}
+                              {sectionSecond?.Address?.phoneNumber?.number}
                             </a>
                           </p>
                         </div>

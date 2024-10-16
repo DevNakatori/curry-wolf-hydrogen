@@ -114,7 +114,7 @@ export function HeaderMenu({
               case 'contact':
                 return `${locale.pathPrefix}/pages/${slug}`;
               case 'locations':
-                return `${locale.pathPrefix}/pages/${slug}`;
+                return `${locale.pathPrefix}/pages/locations`;
               case 'catering':
                 return `${locale.pathPrefix}/pages/${slug}`;
               case 'ourStory':
@@ -243,7 +243,7 @@ function HeaderCtas({isLoggedIn, logo, cart, toggle, setToggle}) {
         <img className="mobile-logo" src={logo} alt="logo" />
       </NavLink>
       <CartToggle cart={cart} />
-      <LanguageSwitcher />
+      {/* <LanguageSwitcher /> */}
     </nav>
   );
 }

@@ -6,7 +6,6 @@ import {DEFAULT_LOCALE} from 'countries';
 import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
 import {CATERING_PAGE_QUERY} from '../qroq/queries';
 import {useSanityData} from '../hooks/useSanityData';
-import {getPageHandle} from './($locale).$';
 import {getImageUrl} from '~/lib/utils';
 import {useRootLoaderData as LoaderData} from '~/root';
 import {stegaClean} from '@sanity/client/stega';
@@ -109,14 +108,14 @@ export default function Page() {
   const {locale} = LoaderData();
   const cateringPageImages = data?.cateringPageImages;
   const ctaLink = stegaClean(`${locale.pathPrefix}/pages/${data?.link}`);
-  const [openTab, setOpenTab] = useState(null);
+  const [openTabs, setOpenTabs] = useState([]);
   const Referenzen = data?.Referenzen;
   const Rating = data?.Rating;
   const Accordions = data?.Accordions;
   useEffect(() => {
     // Set the first item to be opened by default if available
     if (Accordions?.accordion?.groups?.length > 0) {
-      setOpenTab(Accordions.accordion.groups[0]._key);
+      setOpenTabs([Accordions.accordion.groups[0]._key]);
     }
   }, [Accordions]);
   return (
@@ -136,7 +135,7 @@ export default function Page() {
             data-aos-once="true"
           >
             <div className="left-content">
-              <h1>{data?.heroTitle}</h1>
+              <h1 dangerouslySetInnerHTML={{__html: data?.heroTitle}} />
             </div>
             <div className="right-logo">
               <img src={getImageUrl(data?.image?.asset?._ref)} />
@@ -227,7 +226,7 @@ export default function Page() {
                     <div className="ref-box">
                       <p className="same-height">{item?.description}</p>
                       <div className="ref-title">
-                        <h4>{item?.title}</h4>
+                        <h4 dangerouslySetInnerHTML={{__html: item?.title}} />
                       </div>
                     </div>
                   );
@@ -294,9 +293,13 @@ export default function Page() {
             <div className="faq-right">
               <section className="accordion">
                 {Accordions?.accordion?.groups.map((item, index) => {
-                  const uniqueId = `cb-${index}`;
+                  const uniqueId = `cb-${index + 1}`;
                   const handleToggle = (key) => {
-                    setOpenTab(openTab === key ? null : key);
+                    if (openTabs.includes(key)) {
+                      setOpenTabs(openTabs.filter((tab) => tab !== key));
+                    } else {
+                      setOpenTabs([...openTabs, key]);
+                    }
                   };
                   return (
                     <div key={item?._key} className="tab">
@@ -304,13 +307,13 @@ export default function Page() {
                         type="checkbox"
                         name="accordion-1"
                         id={uniqueId}
-                        checked={openTab === item?._key}
+                        checked={openTabs.includes(item?._key)}
                         onChange={() => handleToggle(item?._key)}
                       />
                       <label htmlFor={uniqueId} className="tab__label">
                         {item?.title}
                       </label>
-                      {openTab === item?._key && (
+                      {openTabs.includes(item?._key) && (
                         <div className="tab__content">
                           <PortableText value={item?.body} />
                         </div>
@@ -323,7 +326,6 @@ export default function Page() {
           </div>
         </div>
       </div>
-      ;
     </div>
   );
 }

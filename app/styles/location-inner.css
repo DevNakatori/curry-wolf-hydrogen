@@ -103,7 +103,7 @@ div#closeBtn {
 .popup-img-right-one img.img-one {
   margin-bottom: 0px;
   position: relative;
-  right: -186px;
+  right: -181px;
   background: transparent;
   height: auto;
   box-shadow: unset;
@@ -118,7 +118,7 @@ div#closeBtn {
 
 .popup-img-right-two img.img-three {
   position: relative;
-  right: -230px;
+  right: -225px;
 }
 
 .popup-img-right-two img.img-four {
@@ -324,7 +324,7 @@ div#closeBtn {
   width: 70px;
   display: inline-block;
   text-align: left;
-  padding-left: 35px;
+  padding-left: 39px;
 }
 .popup-bottom-menu .foodmenu-one ul li span span:first-child {
   padding-left: 0px;

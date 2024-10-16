@@ -7,7 +7,6 @@ import {DEFAULT_LOCALE} from 'countries';
 import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
 import {OUR_CURRYWURST_PAGE_QUERY} from '../qroq/queries';
 import {useSanityData} from '../hooks/useSanityData';
-import {getPageHandle} from './($locale).$';
 import {getImageUrl} from '~/lib/utils';
 import {useRootLoaderData as LoaderData} from '~/root';
 import {stegaClean} from '@sanity/client/stega';
@@ -236,17 +235,27 @@ export default function Page() {
                   <div className="c-s-image-section aos-init aos-animate">
                     {sectionFourth?.images?.map((image, index) => {
                       const imageUrl = getImageUrl(image.image.asset._ref);
+                      const aosType =
+                        index === 0
+                          ? 'fade-right'
+                          : index === 1
+                          ? 'zoom-in'
+                          : index === 2
+                          ? 'zoom-in'
+                          : index === 3
+                          ? 'fade-left'
+                          : 'fade-right';
                       return (
                         <div
                           key={index}
-                          className="img-big-wrap"
-                          data-aos={`${
-                            index === 1 || index === 2 ? 'zoom-in' : ''
-                          }`}
+                          className="img-big-wrap aos-init aos-animate"
+                          data-aos-duration="2000"
+                          data-aos-once="true"
+                          data-aos={aosType}
                         >
                           <div className="img-one">
                             <div className="inner-white-box">
-                              <img src={imageUrl} alt="" />
+                              <img src={imageUrl} alt={`Image ${index}`} />
                             </div>
                           </div>
                         </div>

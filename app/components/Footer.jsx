@@ -91,7 +91,7 @@ function FooterMenu({menu, footerLogo, primaryDomainUrl}) {
                 case 'job':
                   return `${locale.pathPrefix}/pages/${slug}`;
                 case 'locations':
-                  return `${locale.pathPrefix}/pages/${slug}`;
+                  return `${locale.pathPrefix}/pages/locations`;
                 case 'catering':
                   return `${locale.pathPrefix}/pages/${slug}`;
                 case 'ourStory':

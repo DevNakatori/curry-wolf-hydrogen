@@ -6,9 +6,10 @@ import {DEFAULT_LOCALE} from 'countries';
 import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
 import {LOCATION_PAGE_QUERY} from '../qroq/queries';
 import {useSanityData} from '../hooks/useSanityData';
-import {getPageHandle} from './($locale).$';
 import {getImageUrl} from '~/lib/utils';
+import {useRootLoaderData as LoaderData} from '~/root';
 import '../styles/location-page.css';
+import {stegaClean} from '@sanity/client/stega';
 /**
  * @type {MetaFunction<typeof loader>}
  */
@@ -30,26 +31,26 @@ export const meta = ({data}) => {
 export async function loader({params, request, context}) {
   const {env, locale, sanity, storefront} = context;
   const pathname = new URL(request.url).pathname;
-  const handle = getPageHandle({locale, params, pathname}).replace(
-    /^pages\//,
-    '',
-  );
+  const segments = pathname.split('/').filter(Boolean);
+  const handle = segments[segments.length - 1];
   const language = locale?.language.toLowerCase();
   const queryParams = {
     defaultLanguage: DEFAULT_LOCALE.language.toLowerCase(),
     handle,
     language,
   };
-
   const page = await sanity.query({
     groqdQuery: LOCATION_PAGE_QUERY,
     params: queryParams,
   });
+
   if (!page) {
     throw new Response('Not Found', {status: 404});
   }
-  const seo = page.data.seo;
+
+  const seo = page?.data?.seo;
   const canonicalUrl = request.url;
+
   return json({
     page,
     canonicalUrl,
@@ -69,7 +70,7 @@ export default function Page() {
   const {data, encodeDataAttribute} = useSanityData({
     initial: page,
   });
-
+  const {locale} = LoaderData();
   const locationSecondSection = data?.locationSecondSection;
   const cards = locationSecondSection?.cards || [];
   const locationThirdSection = data?.locationThirdSection;
@@ -458,7 +459,7 @@ export default function Page() {
             </svg>
           </div>
         </section>
-        <div className="main-location-curry">
+        <div className="main-location-curry aos-init aos-animate">
           <div className="container">
             <div
               className="curry-image-content"
@@ -476,7 +477,12 @@ export default function Page() {
                     <div className="c-right">
                       <h2>{card?.title}</h2>
                       <p className="same-height">{card?.description}</p>
-                      <Link href={card?.buttonLink} className="yellow-btn">
+                      <Link
+                        to={stegaClean(
+                          `${locale.pathPrefix}${card?.buttonLink}`,
+                        )}
+                        className="yellow-btn"
+                      >
                         {card?.buttonText}
                       </Link>
                     </div>
@@ -486,15 +492,19 @@ export default function Page() {
             </div>
             <div className="follow-currywolf">
               <div
-                data-aos-once="true"
-                data-aos="fade-up"
                 data-aos-duration="1500"
+                data-aos="fade-up"
+                data-aos-once="true"
               >
-                <h2>{locationThirdSection?.title}</h2>
+                <h2
+                  dangerouslySetInnerHTML={{
+                    __html: locationThirdSection?.title,
+                  }}
+                />
                 <div className="curry-new-btn">
                   <a
-                    href={locationThirdSection?.buttonLink}
                     className="yellow-border-btn"
+                    href="https://www.instagram.com/curry_wolf/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -503,25 +513,32 @@ export default function Page() {
                 </div>
               </div>
               <div className="follow-box">
-                <div
-                  className="c-s-image-section"
-                  data-aos="fade-right"
-                  data-aos-once="true"
-                  data-aos-duration="2000"
-                >
-                  {images?.map((image, index) => {
-                    const imageUrl = getImageUrl(image.image.asset._ref);
+                <div className="c-s-image-section aos-init aos-animate">
+                  {images?.map((item, index) => {
+                    const imageUrl = getImageUrl(item?.image?.asset?._ref);
+                    const aosType =
+                      index === 0
+                        ? 'fade-right'
+                        : index === 1
+                        ? 'zoom-in'
+                        : index === 2
+                        ? 'zoom-in'
+                        : index === 3
+                        ? 'fade-left'
+                        : 'fade-right';
                     return (
                       <div
-                        key={index}
-                        className="img-big-wrap"
-                        data-aos={`${
-                          index === 1 || index === 2 ? 'zoom-in' : ''
-                        }`}
+                        className="img-big-wrap aos-init aos-animate"
+                        data-aos-duration="2000"
+                        data-aos-once="true"
+                        data-aos={aosType}
                       >
                         <div className="img-one">
                           <div className="inner-white-box">
-                            <img src={imageUrl} alt="" />
+                            <img
+                              src={imageUrl}
+                              alt={`Curry Wolf Image ${index + 1}`}
+                            />
                           </div>
                         </div>
                       </div>
