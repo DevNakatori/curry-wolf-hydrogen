@@ -1,19 +1,25 @@
 import {json} from '@shopify/remix-oxygen';
 import {useLoaderData} from '@remix-run/react';
 import React, {lazy, useEffect, useRef, useState} from 'react';
-import {mergeMeta} from '../lib/meta';
 import {DEFAULT_LOCALE} from 'countries';
-import {getSeoMetaFromMatches} from '../lib/seo';
 import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
-import {seoPayload} from '../lib/seo.server';
 import {PAGE_QUERY} from '../qroq/queries';
 import {useSanityData} from '../hooks/useSanityData';
 const PageRoute = lazy(() => import('./($locale).$'));
 /**
  * @type {MetaFunction<typeof loader>}
  */
-export const meta = mergeMeta(({matches}) => getSeoMetaFromMatches(matches));
-
+export const meta = ({data}) => {
+  return [
+    {title: `Curry Wolf | ${data?.seo?.title ?? ''}`},
+    {name: 'description', content: data?.seo?.description},
+    {
+      tagName: 'link',
+      rel: 'canonical',
+      href: data.canonicalUrl,
+    },
+  ];
+};
 /**
  * @param {LoaderFunctionArgs}
  */
@@ -35,13 +41,7 @@ export async function loader({request, params, context}) {
       statusText: 'Not Found',
     });
   }
-  const seo = seoPayload.home({
-    page: page.data,
-    sanity: {
-      dataset: env.SANITY_STUDIO_DATASET,
-      projectId: env.SANITY_STUDIO_PROJECT_ID,
-    },
-  });
+  const seo = page?.data?.seo;
 
   return json({
     page,

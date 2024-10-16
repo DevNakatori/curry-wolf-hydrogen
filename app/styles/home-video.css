@@ -161,28 +161,27 @@ a.yellow-btn {
   background-size: 100%;
   transform: rotate(8deg);
 }
-
-.index-wrapper .img-big-wrap:nth-child(2) .img-one::before {
+.img-big-wrap:nth-child(2) .img-one::before {
   background: url(/app/assets/pushpin.svg) no-repeat center / contain;
   width: 65px;
   height: 94px;
   top: -52px;
 }
 
-.index-wrapper .img-big-wrap:nth-child(1) .img-one {
+.img-big-wrap:nth-child(1) .img-one {
   z-index: 1;
   transform: rotate(-9deg);
   margin-top: 30px;
   margin-left: 3px;
 }
 
-.index-wrapper .img-big-wrap:nth-child(2) .img-one {
+.img-big-wrap:nth-child(2) .img-one {
   transform: rotate(7deg);
   margin-top: 50px;
   margin-left: -5px;
 }
 
-.index-wrapper .img-big-wrap:nth-child(3) .img-one {
+.img-big-wrap:nth-child(3) .img-one {
   transform: rotate(-10deg);
   margin-top: -30px;
   margin-left: -20px;

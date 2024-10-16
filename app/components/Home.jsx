@@ -241,7 +241,12 @@ const Home = ({data}) => {
                   <span className="text-small">{stegaClean(video?.title)}</span>
                 )}
                 {video?.caption && (
-                  <span data-mce-fragment={1}>{stegaClean(video.caption)}</span>
+                  <span
+                    data-mce-fragment={1}
+                    dangerouslySetInnerHTML={{
+                      __html: stegaClean(video?.caption),
+                    }}
+                  />
                 )}
               </h1>
             </div>
@@ -324,11 +329,20 @@ const Home = ({data}) => {
                   >
                     {data?.homepageThirdSection?.images?.map((image, index) => {
                       const imageUrl = getImageUrl(image?.image?.asset?._ref);
+                      const aosType =
+                        index === 0
+                          ? 'fade-right'
+                          : index === 1
+                          ? 'zoom-in'
+                          : index === 2
+                          ? 'fade-left'
+                          : 'fade-right';
+
                       return (
                         <div
                           key={image?._key}
                           className="img-big-wrap"
-                          data-aos="fade-right"
+                          data-aos={aosType}
                           data-aos-once="true"
                           data-aos-duration={2000}
                         >

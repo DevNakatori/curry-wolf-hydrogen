@@ -1462,9 +1462,9 @@ img.footer-bg-img {
     width: 140px;
   }
 
-  /* .language-switcher {
-    width: 87px;
-  } */
+  .language-switcher {
+    display: none;
+  }
 
   .footer-contact span,
   .footer-contact a,
