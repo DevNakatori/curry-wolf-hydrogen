@@ -140,6 +140,7 @@ export function HeaderMenu({
               <div className="menu-item-wrapper">
                 <NavLink
                   end
+                  prefetch="intent"
                   className={({isActive}) => (isActive ? 'active' : '')}
                   to={url}
                   onClick={(e) => handleClick(e, url)}
@@ -188,6 +189,7 @@ export function HeaderMenu({
                         <NavLink
                           key={index}
                           end
+                          prefetch="intent"
                           className={({isActive}) => (isActive ? 'active' : '')}
                           to={url}
                           onClick={(e) => handleClick(e, url)}
