@@ -6,7 +6,6 @@ import {DEFAULT_LOCALE} from 'countries';
 import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
 import {LOCATION_PAGE_QUERY} from '../qroq/queries';
 import {useSanityData} from '../hooks/useSanityData';
-import {getPageHandle} from './($locale).$';
 import {getImageUrl} from '~/lib/utils';
 import '../styles/location-page.css';
 /**
@@ -458,7 +457,7 @@ export default function Page() {
             </svg>
           </div>
         </section>
-        <div className="main-location-curry">
+        <div className="main-location-curry aos-init aos-animate">
           <div className="container">
             <div
               className="curry-image-content"
@@ -486,6 +485,7 @@ export default function Page() {
             </div>
             <div className="follow-currywolf">
               <div
+                className="aos-init aos-animate"
                 data-aos-once="true"
                 data-aos="fade-up"
                 data-aos-duration="1500"
@@ -504,7 +504,7 @@ export default function Page() {
               </div>
               <div className="follow-box">
                 <div className="c-s-image-section aos-init aos-animate">
-                  {/* {images?.map((image, index) => {
+                  {images?.map((image, index) => {
                     const imageUrl = getImageUrl(image.image.asset._ref);
                     const aosType =
                       index === 0
@@ -526,90 +526,12 @@ export default function Page() {
                       >
                         <div className="img-one">
                           <div className="inner-white-box">
-                            <img src={imageUrl} alt="" />
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })} */}
-                  {images?.map((image, index) => {
-                    const imageUrl = getImageUrl(image.image.asset._ref);
-                    return (
-                      <div
-                        key={index}
-                        className="img-big-wrap aos-init aos-animate"
-                        data-aos-duration="2000"
-                        data-aos-once="true"
-                        data-aos="fade-right"
-                      >
-                        <div className="img-one">
-                          <div className="inner-white-box">
                             <img src={imageUrl} alt={`Image ${index}`} />
                           </div>
                         </div>
                       </div>
                     );
                   })}
-                  {/* <div
-                    className="img-big-wrap aos-init aos-animate"
-                    data-aos-duration="2000"
-                    data-aos-once="true"
-                    data-aos="fade-right"
-                  >
-                    <div className="img-one">
-                      <div className="inner-white-box">
-                        <img
-                          src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/2.jpg?v=1718713355"
-                          alt="Image 1"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="img-big-wrap aos-init aos-animate"
-                    data-aos-duration="2000"
-                    data-aos-once="true"
-                    data-aos="fade-left"
-                  >
-                    <div className="img-one">
-                      <div className="inner-white-box">
-                        <img
-                          src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/1.jpg?v=1718713355"
-                          alt="Image 2"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="img-big-wrap aos-init aos-animate"
-                    data-aos-duration="2000"
-                    data-aos-once="true"
-                    data-aos="fade-left"
-                  >
-                    <div className="img-one">
-                      <div className="inner-white-box">
-                        <img
-                          src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/1.jpg?v=1718713355"
-                          alt="Image 2"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="img-big-wrap aos-init aos-animate"
-                    data-aos-duration="2000"
-                    data-aos-once="true"
-                    data-aos="fade-left"
-                  >
-                    <div className="img-one">
-                      <div className="inner-white-box">
-                        <img
-                          src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/1.jpg?v=1718713355"
-                          alt="Image 2"
-                        />
-                      </div>
-                    </div>
-                  </div> */}
                 </div>
               </div>
             </div>

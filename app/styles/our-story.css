@@ -367,7 +367,7 @@
   }
 
   .our-story-box h2 span {
-    text-align: center;
+    text-align: center !important;
   }
 
   .line {

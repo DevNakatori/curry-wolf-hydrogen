@@ -12,14 +12,12 @@ import {
   useAnalytics,
 } from '@shopify/hydrogen';
 import {getVariantUrl} from '~/lib/variants';
-import '../styles/product.css';
-import dhlLogo from '../assets/logo_dhl-gogreen.svg';
-import certifiedBadge from '../assets/trustedlogo.png';
 import decorativegarland from '../assets/decorativegarland.png';
 import {Fancybox} from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
 import {useSanityRoot} from '~/hooks/useSanityRoot';
 import {getImageUrl} from '~/lib/utils';
+import '../styles/product.css';
 
 export const meta = ({data}) => {
   return [
