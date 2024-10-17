@@ -266,6 +266,7 @@ function ProductItem({product, loading, ProductsLength}) {
   const {locale} = LoaderData();
   const variant = product.variants.nodes[0];
   const variantUrl = useVariantUrl(product.handle, variant.selectedOptions);
+  // const variantUrl2 =locale.pathPrefix
   function classifyValue(value) {
     // Regular expression to match strings like "3+1", "8x", "48x", "4x"
     const regexPattern = /^(\d+(\.\d+)?([x]|\+\d+)?)$/;
@@ -318,7 +319,7 @@ function ProductItem({product, loading, ProductsLength}) {
       style={ProductsLength === 1 ? {width: '100%'} : {}}
       key={product.id}
       prefetch="intent"
-      to={variantUrl}
+      to={`${locale.pathPrefix}${variantUrl}`}
       data-aos="fade-up"
       data-aos-duration="1500"
       data-aos-once="true"

@@ -224,37 +224,7 @@ export default function App() {
 
       let maxHeight = 0;
       boxes.forEach((box) => {
-        box.style.height = 'auto';
-      });
-
-      boxes.forEach((box) => {
-        const boxHeight = box.clientHeight;
-        if (boxHeight > maxHeight) {
-          maxHeight = boxHeight;
-        }
-      });
-
-      boxes.forEach((box) => {
-        box.style.height = `260px`;
-      });
-    }
-
-    setEqualHeight();
-    window.addEventListener('onload', setEqualHeight);
-    return () => {
-      window.removeEventListener('onload', setEqualHeight);
-    };
-  }, [location]);
-  useEffect(() => {
-    function setEqualHeight() {
-      const boxes = document.querySelectorAll('.same-height');
-      if (boxes.length === 0) {
-        return;
-      }
-
-      let maxHeight = 0;
-      boxes.forEach((box) => {
-        box.style.height = 'auto';
+        box.style.height = '260px';
       });
 
       boxes.forEach((box) => {
