@@ -71,6 +71,8 @@ export default function Page() {
     initial: page,
   });
 
+  const location = useLocation();
+
   useEffect(() => {
     function setEqualHeight() {
       const boxes = document.querySelectorAll('.same-height');
@@ -78,15 +80,13 @@ export default function Page() {
         return;
       }
 
-      const screenWidth = window.innerWidth;
-
-      let maxHeight = screenWidth < 768 ? 260 : 160;
-      console.log(maxHeight);
+      let maxHeight = 0;
 
       boxes.forEach((box) => {
-        box.style.minHeight = screenWidth < 768 ? '80px' : '100px';
+        box.style.minHeight = '100px';
         box.style.height = 'auto';
       });
+
       boxes.forEach((box) => {
         const boxHeight = box.clientHeight;
         if (boxHeight > maxHeight) {
@@ -101,44 +101,11 @@ export default function Page() {
 
     setEqualHeight();
     window.addEventListener('resize', setEqualHeight);
+
     return () => {
       window.removeEventListener('resize', setEqualHeight);
     };
-  }, [data]);
-  useEffect(() => {
-    function setEqualHeight() {
-      const boxes = document.querySelectorAll('.same-height');
-      if (boxes.length === 0) {
-        return;
-      }
-
-      const screenWidth = window.innerWidth;
-
-      let maxHeight = screenWidth < 768 ? 260 : 160;
-      console.log(maxHeight);
-
-      boxes.forEach((box) => {
-        box.style.minHeight = screenWidth < 768 ? '80px' : '100px';
-        box.style.height = 'auto';
-      });
-      boxes.forEach((box) => {
-        const boxHeight = box.clientHeight;
-        if (boxHeight > maxHeight) {
-          maxHeight = boxHeight;
-        }
-      });
-
-      boxes.forEach((box) => {
-        box.style.height = `${maxHeight}px`;
-      });
-    }
-
-    setEqualHeight();
-    window.addEventListener('onload', setEqualHeight);
-    return () => {
-      window.removeEventListener('onload', setEqualHeight);
-    };
-  }, [data]);
+  }, [location]);
 
   const {locale} = LoaderData();
   const cateringPageImages = data?.cateringPageImages;
