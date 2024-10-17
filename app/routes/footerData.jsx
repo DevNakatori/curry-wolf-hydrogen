@@ -43,13 +43,13 @@ export function KeepInTouch({
           </div>
         </div>
         <div className="footer-sub-block">
-          <p className="footer-flex footer-location">
+          <div className="footer-flex footer-location">
             {footerAddress?.address && (
               <span>
                 {<PortableText value={footerAddress?.address?.address} />}
               </span>
             )}
-          </p>
+          </div>
         </div>
       </div>
       <div
