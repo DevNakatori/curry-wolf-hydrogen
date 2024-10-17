@@ -1,5 +1,5 @@
 import {json} from '@shopify/remix-oxygen';
-import {Link, useLoaderData} from '@remix-run/react';
+import {Link, useLoaderData, useParams} from '@remix-run/react';
 import React, {useEffect, useRef, useMemo} from 'react';
 import {mergeMeta} from '../lib/meta';
 import {DEFAULT_LOCALE} from 'countries';
@@ -113,6 +113,8 @@ export default function Policy() {
   //     };
   //   }
   // }, [policy.handle]);
+  const {handle} = useParams();
+  console.log(handle);
   const components = useMemo(
     () => ({
       marks: {
@@ -139,8 +141,8 @@ export default function Policy() {
         <div className="top-title">
           <h1>{data?.title}</h1>
         </div>
-        <div className="policy-sec">
-          <div className="container">
+        <div className={handle === 'terms-of-service' ? 'policy-sec' : ''}>
+          <div className={handle === 'terms-of-service' ? 'container' : ''}>
             <PortableText components={components} value={data?.content} />
           </div>
         </div>
