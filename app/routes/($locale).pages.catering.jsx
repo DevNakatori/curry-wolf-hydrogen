@@ -71,39 +71,37 @@ export default function Page() {
     initial: page,
   });
 
-  useEffect(() => {
-    function setEqualHeight() {
-      const boxes = document.querySelectorAll('.same-height');
-      if (boxes.length === 0) {
-        return;
-      }
+  // useEffect(() => {
+  //   function setEqualHeight() {
+  //     const boxes = document.querySelectorAll('.same-height');
+  //     if (boxes.length === 0) {
+  //       return;
+  //     }
 
-      let maxHeight = 0;
+  //     let maxHeight = 260;
+  //     boxes.forEach((box) => {
+  //       box.style.minHeight = '100px';
+  //       box.style.height = 'auto';
+  //     });
 
-      boxes.forEach((box) => {
-        box.style.minHeight = '100px';
-        box.style.height = 'auto';
-      });
+  //     boxes.forEach((box) => {
+  //       const boxHeight = box.clientHeight;
+  //       if (boxHeight > maxHeight) {
+  //         maxHeight = boxHeight;
+  //       }
+  //     });
 
-      boxes.forEach((box) => {
-        const boxHeight = box.clientHeight;
-        if (boxHeight > maxHeight) {
-          maxHeight = boxHeight;
-        }
-      });
+  //     boxes.forEach((box) => {
+  //       box.style.height = `${maxHeight}px`;
+  //     });
+  //   }
 
-      boxes.forEach((box) => {
-        box.style.height = `${maxHeight}px`;
-      });
-    }
-
-    setEqualHeight();
-    window.addEventListener('resize', setEqualHeight);
-
-    return () => {
-      window.removeEventListener('resize', setEqualHeight);
-    };
-  }, [data]);
+  //   setEqualHeight();
+  //   window.addEventListener('resize', setEqualHeight);
+  //   return () => {
+  //     window.removeEventListener('resize', setEqualHeight);
+  //   };
+  // }, [data]);
 
   const {locale} = LoaderData();
   const cateringPageImages = data?.cateringPageImages;
