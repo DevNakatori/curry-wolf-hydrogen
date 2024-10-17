@@ -139,7 +139,11 @@ export default function Policy() {
         <div className="top-title">
           <h1>{data?.title}</h1>
         </div>
-        <PortableText components={components} value={data?.content} />
+        <div className="policy-sec">
+          <div className="container">
+            <PortableText components={components} value={data?.content} />
+          </div>
+        </div>
       </div>
     </div>
   );

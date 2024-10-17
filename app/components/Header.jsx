@@ -112,15 +112,15 @@ export function HeaderMenu({
               case 'page':
                 return `${locale.pathPrefix}/pages/${slug}`;
               case 'contact':
-                return `${locale.pathPrefix}/pages/${slug}`;
+                return `${locale.pathPrefix}/pages/contact`;
               case 'locations':
                 return `${locale.pathPrefix}/pages/locations`;
               case 'catering':
-                return `${locale.pathPrefix}/pages/${slug}`;
+                return `${locale.pathPrefix}/pages/catering`;
               case 'ourStory':
-                return `${locale.pathPrefix}/pages/${slug}`;
+                return `${locale.pathPrefix}/pages/ourStory`;
               case 'ourCurrywurst':
-                return `${locale.pathPrefix}/pages/${slug}`;
+                return `${locale.pathPrefix}/pages/ourCurrywurst`;
               case 'product':
                 return `${locale.pathPrefix}/products/${slug2}`;
               case 'collection':
@@ -128,7 +128,7 @@ export function HeaderMenu({
               case 'home':
                 return locale.pathPrefix || '/';
               case 'polices':
-                return `${locale.pathPrefix}/polices/${slug}`;
+                return `${locale.pathPrefix}/polices/polices`;
               default:
                 return '';
             }

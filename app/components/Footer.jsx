@@ -89,15 +89,15 @@ function FooterMenu({menu, footerLogo, primaryDomainUrl}) {
                 case 'page':
                   return `${locale.pathPrefix}/pages/${slug}`;
                 case 'job':
-                  return `${locale.pathPrefix}/pages/${slug}`;
+                  return `${locale.pathPrefix}/pages/job`;
                 case 'locations':
                   return `${locale.pathPrefix}/pages/locations`;
                 case 'catering':
-                  return `${locale.pathPrefix}/pages/${slug}`;
+                  return `${locale.pathPrefix}/pages/catering`;
                 case 'ourStory':
-                  return `${locale.pathPrefix}/pages/${slug}`;
+                  return `${locale.pathPrefix}/pages/ourStory`;
                 case 'ourCurrywurst':
-                  return `${locale.pathPrefix}/pages/${slug}`;
+                  return `${locale.pathPrefix}/pages/ourCurrywurst`;
                 case 'product':
                   return `${locale.pathPrefix}/products/${slug2}`;
                 case 'collection':

@@ -8,6 +8,7 @@ import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
 import {seoPayload} from '../lib/seo.server';
 import {PAGE_QUERY} from '../qroq/queries';
 import {useSanityData} from '../hooks/useSanityData';
+import '../styles/home-video.css';
 import Home from '~/components/Home';
 /**
  * @param {LoaderFunctionArgs}
