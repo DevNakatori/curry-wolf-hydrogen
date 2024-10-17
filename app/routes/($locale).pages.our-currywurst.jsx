@@ -146,7 +146,7 @@ export default function Page() {
                   <Link
                     className="yellow-btn"
                     to={stegaClean(
-                      `${locale.pathPrefix}/pages/${sectionFirst?.buttonLink}`,
+                      `${locale.pathPrefix}/${sectionFirst?.buttonLink}`,
                     )}
                   >
                     {sectionFirst?.buttonText}
@@ -192,7 +192,7 @@ export default function Page() {
               {sectionThird?.cards?.map((item, index) => {
                 const imgUrl = getImageUrl(item?.image?.asset?._ref);
                 const url = stegaClean(
-                  `${locale.pathPrefix}/pages/${item?.buttonLink}`,
+                  `${locale.pathPrefix}${item?.buttonLink}`,
                 );
                 return (
                   <div key={item?._key} className="c-two-box">
