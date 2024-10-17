@@ -115,7 +115,6 @@ export default function Page() {
   const Rating = data?.Rating;
   const Accordions = data?.Accordions;
   useEffect(() => {
-    // Set the first item to be opened by default if available
     if (Accordions?.accordion?.groups?.length > 0) {
       setOpenTabs([Accordions.accordion.groups[0]._key]);
     }
@@ -154,7 +153,6 @@ export default function Page() {
           <div className="curywolf-catering-box">
             {cateringPageImages?.map((item, index) => {
               const Imgurl = getImageUrl(item?.image?.asset?._ref);
-              // Determine AOS attributes conditionally
               const url = stegaClean(
                 `${locale.pathPrefix}/pages/${item?.link}`,
               );
@@ -225,7 +223,7 @@ export default function Page() {
               <div className="ref-wrap">
                 {Referenzen?.ReferenzenContent.map((item) => {
                   return (
-                    <div className="ref-box">
+                    <div key={item?._key} className="ref-box">
                       <p className="same-height">{item?.description}</p>
                       <div className="ref-title">
                         <h4 dangerouslySetInnerHTML={{__html: item?.title}} />
@@ -269,7 +267,7 @@ export default function Page() {
               {Rating?.image?.map((item) => {
                 const Imgurl = getImageUrl(item?.Image?.asset?._ref);
                 return (
-                  <div className="logo-box">
+                  <div key={item?._key} className="logo-box">
                     <img src={Imgurl} />
                   </div>
                 );
