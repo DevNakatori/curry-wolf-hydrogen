@@ -5,7 +5,8 @@ import {DEFAULT_LOCALE} from 'countries';
 import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
 import {PAGE_QUERY} from '../qroq/queries';
 import {useSanityData} from '../hooks/useSanityData';
-const PageRoute = lazy(() => import('./($locale).$'));
+import '../styles/home-video.css';
+import PageRoute from './($locale).$';
 /**
  * @type {MetaFunction<typeof loader>}
  */

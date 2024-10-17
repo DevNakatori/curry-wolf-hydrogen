@@ -118,9 +118,9 @@ export function HeaderMenu({
               case 'catering':
                 return `${locale.pathPrefix}/pages/catering`;
               case 'ourStory':
-                return `${locale.pathPrefix}/pages/ourStory`;
+                return `${locale.pathPrefix}/pages/our-story`;
               case 'ourCurrywurst':
-                return `${locale.pathPrefix}/pages/ourCurrywurst`;
+                return `${locale.pathPrefix}/pages/our-currywurst`;
               case 'product':
                 return `${locale.pathPrefix}/products/${slug2}`;
               case 'collection':
