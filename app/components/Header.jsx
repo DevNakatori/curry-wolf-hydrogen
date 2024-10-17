@@ -243,7 +243,7 @@ function HeaderCtas({isLoggedIn, logo, cart, toggle, setToggle}) {
         <img className="mobile-logo" src={logo} alt="logo" />
       </NavLink>
       <CartToggle cart={cart} />
-      {/* <LanguageSwitcher /> */}
+      <LanguageSwitcher />
     </nav>
   );
 }
