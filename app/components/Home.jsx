@@ -3,6 +3,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {getImageUrl} from '~/lib/utils';
 import {stegaClean} from '@sanity/client/stega';
 import {useRootLoaderData as LoaderData} from '~/root';
+import '../styles/home-video.css';
 const Home = ({data}) => {
   const videoRef = useRef(null);
   const indicatorRef = useRef(null);
