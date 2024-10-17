@@ -269,7 +269,7 @@ const Home = ({data}) => {
                   const imageUrl = getImageUrl(image?.asset?._ref);
                   return (
                     <div
-                      kay={card?._key}
+                      key={card?._key}
                       className="slide aos-init"
                       data-aos-duration={1500}
                       data-aos="fade-up"
@@ -283,12 +283,10 @@ const Home = ({data}) => {
                       >
                         <div className="inner-slider">
                           <h3>
-                            <meta charSet="UTF-8" />
                             <span>{title}</span>
                           </h3>
                           <img alt="Hungry like a wolf" src={imageUrl} />
                           <p className="same-height">
-                            <meta charSet="UTF-8" />
                             <span>{description}</span>
                           </p>
                           <div className="btn-wrap">
