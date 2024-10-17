@@ -411,7 +411,7 @@ export default function Product() {
                   }
                 >
                   <Await
-                    errorElement="There was a problem loading product variants"
+                    // errorElement="There was a problem loading product variants"
                     resolve={variants}
                   >
                     {(data) => (
@@ -583,9 +583,7 @@ function ProductForm({
               : []
           }
         >
-          {selectedVariant?.availableForSale
-            ? addToCartButton
-            : {soldOutButton}}
+          {selectedVariant?.availableForSale ? addToCartButton : soldOutButton}
         </AddToCartButton>
       </div>
     </div>
