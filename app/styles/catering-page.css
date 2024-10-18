@@ -731,7 +731,7 @@ div#faq {
 
   .ref-wrap {
     flex-wrap: wrap;
-    gap: 25px;
+    gap: 15px;
   }
 
   .ref-title {
@@ -1009,7 +1009,7 @@ div#faq {
     min-width: 50%;
     box-sizing: border-box;
     padding: 10px;
-    margin: 10px;
+    margin: 0px;
     background-color: #ff3e34;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
