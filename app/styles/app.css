@@ -905,6 +905,7 @@ span.yellow-head {
   columns: 2;
   -webkit-columns: 2;
   -moz-columns: 2;
+  width: 100%;
 }
 
 .footer-inner ul li {
@@ -1088,6 +1089,7 @@ select#custom-dropdown option {
   flex-wrap: wrap;
   padding-left: 20px;
   padding-top: 18px;
+  width: 100%;
 }
 
 .footer-menu span.yellow-head {
