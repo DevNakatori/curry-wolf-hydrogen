@@ -178,8 +178,13 @@ export default function Product() {
   const addToCartButton = globalContent?.addToCartButton;
   const soldOutButton = globalContent?.soldOutButton;
   const BackToAllProductsButton = globalContent?.BackToAllProducts;
+  const ingredientsTranslation = globalContent?.ingredientsText;
+  const moreInformationTranslation = globalContent?.moreInformation;
+  const nutritionalValuesTranslation = globalContent?.nutritionalValues;
+  const reparationsTranslation = globalContent?.reparation;
   const {product, variants} = useLoaderData();
   const {selectedVariant} = product;
+  console.log(globalContent);
   const getMetafieldText = (metafield) => {
     if (!metafield) return '';
 
@@ -309,7 +314,7 @@ export default function Product() {
                     data-aos-duration="1500"
                     data-aos-once="true"
                   >
-                    <h2>Zubereitung</h2>
+                    <h2>{reparationsTranslation}</h2>
                     <div
                       dangerouslySetInnerHTML={{
                         __html: preparationText.props.children,
@@ -325,7 +330,7 @@ export default function Product() {
                     data-aos-duration="1500"
                     data-aos-once="true"
                   >
-                    <h2>Nährwerte</h2>
+                    <h2>{nutritionalValuesTranslation}</h2>
                     <div
                       dangerouslySetInnerHTML={{
                         __html: nutritionalValuesText.props.children,
@@ -433,7 +438,7 @@ export default function Product() {
                   >
                     {ingredientsText && (
                       <div className="ingridiant-box">
-                        <h2>Zutaten</h2>
+                        <h2>{ingredientsTranslation}</h2>
                         <div
                           dangerouslySetInnerHTML={{
                             __html: ingredientsText.props.children,
@@ -444,7 +449,7 @@ export default function Product() {
 
                     {additionalInformationText && (
                       <div className="ingridiant-box">
-                        <h2>Weitere Informationen</h2>
+                        <h2>{moreInformationTranslation}</h2>
                         <div
                           dangerouslySetInnerHTML={{
                             __html: additionalInformationText.props.children,
