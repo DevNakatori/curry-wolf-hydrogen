@@ -1,6 +1,6 @@
 import {json} from '@shopify/remix-oxygen';
 import {Link, useLoaderData} from '@remix-run/react';
-import {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {mergeMeta} from '../lib/meta';
 import {DEFAULT_LOCALE} from 'countries';
 import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
@@ -167,12 +167,12 @@ export default function Page() {
                 <div className="c-brand-content">
                   {Brandenburger?.content?.map((item, index) => {
                     return (
-                      <>
+                      <React.Fragment key={item._key}>
                         <p>
                           <span>{item?.title}</span>
                         </p>
                         <p>{item?.description}</p>
-                      </>
+                      </React.Fragment>
                     );
                   })}
                 </div>

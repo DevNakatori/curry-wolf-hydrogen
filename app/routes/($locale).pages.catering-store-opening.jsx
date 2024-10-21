@@ -167,12 +167,12 @@ export default function Page() {
                 <div className="c-brand-content">
                   {Brandenburger?.content?.map((item, index) => {
                     return (
-                      <>
+                      <React.Fragment key={item._key}>
                         <p>
                           <span>{item?.title}</span>
                         </p>
                         <p>{item?.description}</p>
-                      </>
+                      </React.Fragment>
                     );
                   })}
                 </div>

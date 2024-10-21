@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Sedgwick+Ave&display=swap');
+body {
+  background: linear-gradient(180deg, #d02523 0%, #9b2220 44.72%);
+}
 
 .main-catering-page {
   overflow: hidden;
