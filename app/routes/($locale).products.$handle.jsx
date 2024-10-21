@@ -20,9 +20,10 @@ import {getImageUrl} from '~/lib/utils';
 import '../styles/product.css';
 
 export const meta = ({data}) => {
+  console.log(data);
   return [
     {title: `Curry Wolf | ${data?.product.title ?? ''}`},
-    {name: 'description', content: data?.product?.seo?.description || ''},
+    {name: 'description', content: data?.product?.description || ''},
     {
       tagName: 'link',
       rel: 'canonical',
