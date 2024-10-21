@@ -221,10 +221,10 @@ export default function App() {
       if (boxes.length === 0) {
         return;
       }
-      const screenWidth = window.innerWidth;
-      let maxHeight = screenWidth < 468 ? 260 : 'auto';
+
+      let maxHeight = 0;
       boxes.forEach((box) => {
-        box.style.height = maxHeight;
+        box.style.height = 'auto';
       });
 
       boxes.forEach((box) => {
