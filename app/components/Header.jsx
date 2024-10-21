@@ -14,16 +14,10 @@ export function Header({header, isLoggedIn, cart, toggle, setToggle}) {
   const [path, setPath] = useState('');
   const location = useLocation();
   const {data} = useSanityRoot();
+  const {locale} = LoaderData();
   useEffect(() => {
     setPath(location.pathname);
   }, [location.pathname]);
-  const getPath = () => {
-    if (location.pathname.startsWith('/en')) {
-      return '/en';
-    } else {
-      return '/';
-    }
-  };
   const logo = data?.header?.logo;
   const logourl = getImageUrl(logo?._ref);
   const {shop} = header;
@@ -31,7 +25,7 @@ export function Header({header, isLoggedIn, cart, toggle, setToggle}) {
     <header className="header">
       <div className="container">
         <div className="inner-header">
-          <NavLink prefetch="intent" to={getPath()} style={activeLinkStyle} end>
+          <NavLink prefetch="intent" to={`${locale.pathPrefix}`} end>
             <img
               className="desktop-logo"
               src={logourl}
@@ -80,6 +74,7 @@ export function HeaderMenu({
   const navigate = useNavigate();
   const {locale} = LoaderData();
   const menu1 = menu?.header?.menu;
+  const location = useLocation();
   const handleClick = useCallback(
     (event, url) => {
       if (viewport === 'mobile') {
@@ -91,12 +86,9 @@ export function HeaderMenu({
     },
     [viewport, navigate, setToggle, setOpenSubmenus],
   );
-
+  const isLinkActive = (url) => location.pathname.startsWith(url);
   return (
     <>
-      {/* <button className="menu-drawer-toggle" onClick={toggleDrawer}>
-        {isDrawerOpen ? 'Close' : 'Menu'}
-      </button> */}
       <nav
         className={`${className} ${isDrawerOpen ? 'open' : ''}`}
         role="navigation"
@@ -134,13 +126,25 @@ export function HeaderMenu({
             }
           };
           const url = stegaClean(`${path()}${anchor}`);
+          const isParentActive = isLinkActive(url);
+          const isChildActive = item.childLinks?.some((subItem) =>
+            isLinkActive(
+              stegaClean(
+                `${locale.pathPrefix}/pages/${subItem?.link?.slug}${
+                  subItem?.anchor ? `#${subItem.anchor}` : ''
+                }`,
+              ),
+            ),
+          );
           return (
             <div key={index} className="header-menu-item">
               <div className="menu-item-wrapper">
                 <NavLink
                   end
                   prefetch="intent"
-                  className={({isActive}) => (isActive ? 'active' : '')}
+                  className={`header-menu-item ${
+                    isParentActive || isChildActive ? 'active' : ''
+                  }`}
                   to={url}
                   onClick={(e) => handleClick(e, url)}
                 >
@@ -215,12 +219,7 @@ function HeaderCtas({isLoggedIn, logo, cart, toggle, setToggle}) {
   return (
     <nav className="header-ctas" role="navigation">
       <HeaderMenuMobileToggle toggle={toggle} setToggle={setToggle} />
-      <NavLink
-        prefetch="intent"
-        className="mobile-hide"
-        to="/account"
-        style={activeLinkStyle}
-      >
+      <NavLink prefetch="intent" className="mobile-hide" to="/account">
         <Suspense fallback="Sign in">
           <Await resolve={isLoggedIn} errorElement="Sign in">
             <svg
@@ -241,7 +240,7 @@ function HeaderCtas({isLoggedIn, logo, cart, toggle, setToggle}) {
           </Await>
         </Suspense>
       </NavLink>
-      <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
+      <NavLink prefetch="intent" to="/" end>
         <img className="mobile-logo" src={logo} alt="logo" />
       </NavLink>
       <CartToggle cart={cart} />
@@ -363,19 +362,6 @@ const FALLBACK_HEADER_MENU = {
     },
   ],
 };
-
-/**
- * @param {{
- *   isActive: boolean;
- *   isPending: boolean;
- * }}
- */
-function activeLinkStyle({isActive, isPending}) {
-  return {
-    fontWeight: isActive ? 'bold' : undefined,
-    color: isPending ? 'grey' : 'black',
-  };
-}
 
 /** @typedef {Pick<LayoutProps, 'header' | 'cart' | 'isLoggedIn'>} HeaderProps */
 /** @typedef {'desktop' | 'mobile'} Viewport */
