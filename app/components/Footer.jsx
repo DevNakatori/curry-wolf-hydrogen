@@ -77,7 +77,16 @@ function FooterMenu({menu, footerLogo, primaryDomainUrl}) {
         >
           {footerMenuTitle}
         </span>
-        <ul data-aos="fade-up" data-aos-duration="1500" data-aos-once="true">
+        <ul
+          data-aos="fade-up"
+          style={
+            locale.pathPrefix === '/en'
+              ? {paddingBottom: '10px'}
+              : {paddingBottom: '0px'}
+          }
+          data-aos-duration="1500"
+          data-aos-once="true"
+        >
           {(footermenu || FALLBACK_HEADER_MENU.items).map((item) => {
             const link = item?.link;
             const documentType = link?.documentType;
@@ -106,8 +115,6 @@ function FooterMenu({menu, footerLogo, primaryDomainUrl}) {
                   return locale.pathPrefix || '/';
                 case 'policiesInnerPage':
                   return `${locale.pathPrefix}/policies/${slug}`;
-                case 'legalNoticePage':
-                  return `${locale.pathPrefix}/pages/legal-notice`;
                 default:
                   return '';
               }
