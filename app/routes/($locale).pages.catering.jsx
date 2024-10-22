@@ -76,88 +76,116 @@ export default function Page() {
   useEffect(() => {
     function setEqualHeight() {
       const boxes = document.querySelectorAll('.same-height');
-      if (boxes.length === 0) {
-        return;
-      }
+      if (boxes.length === 0) return;
 
       let maxHeight = 0;
 
+      // First loop: Reset and find the max height
       boxes.forEach((box) => {
-        box.style.minHeight = '100px';
-        box.style.height = 'auto';
-      });
-
-      boxes.forEach((box) => {
+        box.style.height = 'auto'; // Reset height
         const boxHeight = box.clientHeight;
         if (boxHeight > maxHeight) {
           maxHeight = boxHeight;
         }
       });
 
+      // Second loop: Set the new equal height
       boxes.forEach((box) => {
         box.style.height = `${maxHeight}px`;
       });
     }
 
     setEqualHeight();
-    window.addEventListener('resize', setEqualHeight);
+
+    const debouncedSetEqualHeight = debounce(setEqualHeight, 200);
+
+    window.addEventListener('resize', debouncedSetEqualHeight);
 
     return () => {
-      window.removeEventListener('resize', setEqualHeight);
+      window.removeEventListener('resize', debouncedSetEqualHeight);
+      debouncedSetEqualHeight.cancel();
     };
   }, [location]);
   useEffect(() => {
     if (window.innerWidth < 768) {
-      setTimeout(function () {
-        const sliderContainer = document.querySelector('.ref-wrap');
-        const slides = document.querySelectorAll('.ref-box');
-        let currentIndex = 0;
-        let slidesToShow = 1;
+      let autoplayInterval;
+      let currentIndex = 0;
+      const slidesToShowMobile = 1.2;
+      const slidesToShowDesktop = 1;
 
-        function updateSlider() {
-          if (window.innerWidth < 768) {
-            slidesToShow = 1.2;
-          } else {
-            slidesToShow = 1;
-          }
+      // Cache DOM elements
+      const sliderContainer = document.querySelector('.ref-wrap');
+      const slides = document.querySelectorAll('.ref-box');
 
-          const width = sliderContainer.clientWidth / slidesToShow;
-          slides.forEach((slide) => {
-            slide.style.minWidth = `${width}px`;
-          });
-          sliderContainer.style.transform = `translateX(${
-            -width * currentIndex
-          }px)`;
-        }
+      const updateSlider = () => {
+        const slidesToShow =
+          window.innerWidth < 768 ? slidesToShowMobile : slidesToShowDesktop;
+        const width = sliderContainer.clientWidth / slidesToShow;
 
-        function nextSlide() {
-          if (currentIndex < slides.length - slidesToShow) {
-            currentIndex += 1;
-          } else {
-            currentIndex = 0;
-          }
-          updateSlider();
-        }
-
-        function startAutoplay() {
-          setInterval(nextSlide, 3000);
-        }
-
-        function resetAutoplay() {
-          clearInterval(autoplayInterval);
-          startAutoplay();
-        }
-
-        window.addEventListener('resize', function () {
-          updateSlider();
-          currentIndex = 0;
+        slides.forEach((slide) => {
+          slide.style.minWidth = `${width}px`;
         });
+        sliderContainer.style.transform = `translateX(${
+          -width * currentIndex
+        }px)`;
+      };
 
+      const nextSlide = () => {
+        const maxIndex = slides.length - slidesToShowMobile;
+        currentIndex = currentIndex < maxIndex ? currentIndex + 1 : 0;
+        updateSlider();
+      };
+
+      const startAutoplay = () => {
+        autoplayInterval = setInterval(nextSlide, 3000);
+      };
+
+      const resetAutoplay = () => {
+        clearInterval(autoplayInterval);
+        startAutoplay();
+      };
+
+      // Debounced resize event handler
+      const debouncedResize = debounce(() => {
+        currentIndex = 0; // Reset to first slide on resize
+        updateSlider();
+      }, 300);
+
+      window.addEventListener('resize', debouncedResize);
+
+      // Initial setup
+      setTimeout(() => {
         updateSlider();
         startAutoplay();
       }, 2000);
+
+      // Cleanup function
+      return () => {
+        clearInterval(autoplayInterval);
+        debouncedResize.cancel(); // Cancel any pending debounce calls
+        window.removeEventListener('resize', debouncedResize);
+      };
     }
   }, []);
+
+  function debounce(func, delay) {
+    let timeoutId;
+
+    const debounced = function (...args) {
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func.apply(this, args);
+      }, delay);
+    };
+    debounced.cancel = function () {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+      }
+    };
+
+    return debounced;
+  }
 
   const {locale} = LoaderData();
   const cateringPageImages = data?.cateringPageImages;
