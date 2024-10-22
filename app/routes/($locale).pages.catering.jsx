@@ -11,6 +11,7 @@ import {useRootLoaderData as LoaderData} from '~/root';
 import {stegaClean} from '@sanity/client/stega';
 import {PortableText} from '@portabletext/react';
 import '../styles/catering-page.css';
+import CateringSlider from '~/components/CateringSlider';
 /**
  * @type {MetaFunction<typeof loader>}
  */
@@ -70,123 +71,6 @@ export default function Page() {
   const {data, encodeDataAttribute} = useSanityData({
     initial: page,
   });
-
-  const location = useLocation();
-
-  useEffect(() => {
-    function setEqualHeight() {
-      const boxes = document.querySelectorAll('.same-height');
-      if (boxes.length === 0) return;
-
-      let maxHeight = 0;
-
-      // First loop: Reset and find the max height
-      boxes.forEach((box) => {
-        box.style.height = 'auto'; // Reset height
-        const boxHeight = box.clientHeight;
-        if (boxHeight > maxHeight) {
-          maxHeight = boxHeight;
-        }
-      });
-
-      // Second loop: Set the new equal height
-      boxes.forEach((box) => {
-        box.style.height = `${maxHeight}px`;
-      });
-    }
-
-    setEqualHeight();
-
-    const debouncedSetEqualHeight = debounce(setEqualHeight, 200);
-
-    window.addEventListener('resize', debouncedSetEqualHeight);
-
-    return () => {
-      window.removeEventListener('resize', debouncedSetEqualHeight);
-      debouncedSetEqualHeight.cancel();
-    };
-  }, [location]);
-  useEffect(() => {
-    if (window.innerWidth < 768) {
-      let autoplayInterval;
-      let currentIndex = 0;
-      const slidesToShowMobile = 1.2;
-      const slidesToShowDesktop = 1;
-
-      // Cache DOM elements
-      const sliderContainer = document.querySelector('.ref-wrap');
-      const slides = document.querySelectorAll('.ref-box');
-
-      const updateSlider = () => {
-        const slidesToShow =
-          window.innerWidth < 768 ? slidesToShowMobile : slidesToShowDesktop;
-        const width = sliderContainer.clientWidth / slidesToShow;
-
-        slides.forEach((slide) => {
-          slide.style.minWidth = `${width}px`;
-        });
-        sliderContainer.style.transform = `translateX(${
-          -width * currentIndex
-        }px)`;
-      };
-
-      const nextSlide = () => {
-        const maxIndex = slides.length - slidesToShowMobile;
-        currentIndex = currentIndex < maxIndex ? currentIndex + 1 : 0;
-        updateSlider();
-      };
-
-      const startAutoplay = () => {
-        autoplayInterval = setInterval(nextSlide, 3000);
-      };
-
-      const resetAutoplay = () => {
-        clearInterval(autoplayInterval);
-        startAutoplay();
-      };
-
-      // Debounced resize event handler
-      const debouncedResize = debounce(() => {
-        currentIndex = 0; // Reset to first slide on resize
-        updateSlider();
-      }, 300);
-
-      window.addEventListener('resize', debouncedResize);
-
-      // Initial setup
-      setTimeout(() => {
-        updateSlider();
-        startAutoplay();
-      }, 2000);
-
-      // Cleanup function
-      return () => {
-        clearInterval(autoplayInterval);
-        debouncedResize.cancel(); // Cancel any pending debounce calls
-        window.removeEventListener('resize', debouncedResize);
-      };
-    }
-  }, []);
-
-  function debounce(func, delay) {
-    let timeoutId;
-
-    const debounced = function (...args) {
-      if (timeoutId) clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        func.apply(this, args);
-      }, delay);
-    };
-    debounced.cancel = function () {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-        timeoutId = null;
-      }
-    };
-
-    return debounced;
-  }
-
   const {locale} = LoaderData();
   const cateringPageImages = data?.cateringPageImages;
   const ctaLink = stegaClean(`${locale.pathPrefix}/pages/${data?.link}`);
@@ -299,20 +183,7 @@ export default function Page() {
             <h3>
               <span data-mce-fragment="1">{Referenzen?.title}</span>
             </h3>
-            <div className="ref-slider">
-              <div className="ref-wrap">
-                {Referenzen?.ReferenzenContent.map((item) => {
-                  return (
-                    <div key={item?._key} className="ref-box">
-                      <p className="same-height">{item?.description}</p>
-                      <div className="ref-title">
-                        <h4 dangerouslySetInnerHTML={{__html: item?.title}} />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+            <CateringSlider Referenzen={Referenzen} />
           </div>
           <div
             className="wolf-logo"

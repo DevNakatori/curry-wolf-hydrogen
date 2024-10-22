@@ -115,7 +115,7 @@ export default function Collection() {
               {benefitsSection?.benefits.map((benefit, index) => {
                 const imgUrl = getImageUrl(benefit?.image?.asset?._ref);
                 return (
-                  <div className="benifits-content">
+                  <div key={benefit?._key} className="benifits-content">
                     <img src={imgUrl} alt="face smile icon" />
                     <div className="">
                       <h4>{benefit?.title}</h4>
