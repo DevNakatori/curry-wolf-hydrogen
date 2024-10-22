@@ -1,6 +1,7 @@
 import {json} from '@shopify/remix-oxygen';
 import {Link, useLoaderData} from '@remix-run/react';
-import React, {useEffect, useRef, useState} from 'react';
+import '../styles/catering-inner.css';
+import React from 'react';
 import {mergeMeta} from '../lib/meta';
 import {DEFAULT_LOCALE} from 'countries';
 import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
@@ -10,7 +11,8 @@ import {getImageUrl} from '~/lib/utils';
 import {useRootLoaderData as LoaderData} from '~/root';
 import {stegaClean} from '@sanity/client/stega';
 import {generateSanityImageUrl} from '~/components/sanity/SanityImage';
-import '../styles/catering-inner.css';
+import FaqBtn from '~/components/FaqBtn';
+import CateringSlider from '~/components/CateringSlider';
 /**
  * @type {MetaFunction<typeof loader>}
  */
@@ -75,58 +77,6 @@ export default function Page() {
   const Referenzen = data?.Referenzen;
   const Rating = data?.Rating;
   const ImagesSection = data?.ImagesSection;
-  useEffect(() => {
-    if (window.innerWidth < 768) {
-      setTimeout(function () {
-        const sliderContainer = document.querySelector('.ref-wrap');
-        const slides = document.querySelectorAll('.ref-box');
-        let currentIndex = 0;
-        let slidesToShow = 1;
-
-        function updateSlider() {
-          if (window.innerWidth < 768) {
-            slidesToShow = 1.2;
-          } else {
-            slidesToShow = 1;
-          }
-
-          const width = sliderContainer.clientWidth / slidesToShow;
-          slides.forEach((slide) => {
-            slide.style.minWidth = `${width}px`;
-          });
-          sliderContainer.style.transform = `translateX(${
-            -width * currentIndex
-          }px)`;
-        }
-
-        function nextSlide() {
-          if (currentIndex < slides.length - slidesToShow) {
-            currentIndex += 1;
-          } else {
-            currentIndex = 0;
-          }
-          updateSlider();
-        }
-
-        function startAutoplay() {
-          setInterval(nextSlide, 3000);
-        }
-
-        function resetAutoplay() {
-          clearInterval(autoplayInterval);
-          startAutoplay();
-        }
-
-        window.addEventListener('resize', function () {
-          updateSlider();
-          currentIndex = 0;
-        });
-
-        updateSlider();
-        startAutoplay();
-      }, 2000);
-    }
-  }, []);
   return (
     <div className="page catering-inner">
       <main>
@@ -227,20 +177,7 @@ export default function Page() {
               <h3>
                 <span data-mce-fragment="1">{Referenzen?.title}</span>
               </h3>
-              <div className="ref-slider">
-                <div className="ref-wrap">
-                  {Referenzen?.ReferenzenContent.map((item) => {
-                    return (
-                      <div className="ref-box">
-                        <p className="same-height">{item?.description}</p>
-                        <div className="ref-title">
-                          <h4 dangerouslySetInnerHTML={{__html: item?.title}} />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
+              <CateringSlider Referenzen={Referenzen} />
             </div>
             <div
               className="wolf-logo"
@@ -275,7 +212,7 @@ export default function Page() {
                 {Rating?.image?.map((item) => {
                   const Imgurl = getImageUrl(item?.Image?.asset?._ref);
                   return (
-                    <div className="logo-box">
+                    <div key={item._key} className="logo-box">
                       <img src={Imgurl} />
                     </div>
                   );
@@ -348,16 +285,12 @@ export default function Page() {
                   {ImagesSection?.buttons?.[0]?.buttonText}
                 </Link>
               </div>
-              <div className="faq-btn">
-                <Link
-                  className="yellow-border-btn"
-                  to={stegaClean(
-                    `${locale.pathPrefix}/pages/${ImagesSection?.buttons?.[1]?.buttonLink}`,
-                  )}
-                >
-                  {ImagesSection?.buttons?.[1]?.buttonText}
-                </Link>
-              </div>
+              <FaqBtn
+                to={stegaClean(
+                  `${locale.pathPrefix}/pages/${ImagesSection?.buttons?.[1]?.buttonLink}`,
+                )}
+                ButtonText={ImagesSection?.buttons?.[1]?.buttonText}
+              />
             </div>
           </div>
         </div>

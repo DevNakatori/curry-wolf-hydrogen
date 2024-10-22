@@ -1,5 +1,5 @@
 import {json} from '@shopify/remix-oxygen';
-import {Link, useLoaderData, useLocation} from '@remix-run/react';
+import {Link, useLoaderData, useLocation, useParams} from '@remix-run/react';
 import {useEffect, useState} from 'react';
 import {mergeMeta} from '../lib/meta';
 import {DEFAULT_LOCALE} from 'countries';
@@ -78,6 +78,27 @@ export default function Page() {
   const Referenzen = data?.Referenzen;
   const Rating = data?.Rating;
   const Accordions = data?.Accordions;
+  const location = useLocation();
+  const params = useParams();
+
+  useEffect(() => {
+    const hash = location.hash;
+    if (hash) {
+      const element = document.querySelector(hash);
+      if (element) {
+        const offset = 120; // Set the offset in pixels
+
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.scrollY - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        });
+      }
+    }
+  }, [location]);
+
   useEffect(() => {
     if (Accordions?.accordion?.groups?.length > 0) {
       setOpenTabs([Accordions.accordion.groups[0]._key]);
