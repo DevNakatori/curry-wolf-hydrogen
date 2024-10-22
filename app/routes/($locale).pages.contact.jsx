@@ -340,6 +340,7 @@ export default function Page() {
                   return (
                     <div
                       data-aos-once="true"
+                      key={image?._key}
                       className="img-big-wrap aos-init aos-animate"
                       data-aos={aosType}
                       data-aos-duration="1500"

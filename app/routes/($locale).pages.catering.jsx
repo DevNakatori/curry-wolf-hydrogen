@@ -86,8 +86,7 @@ export default function Page() {
     if (hash) {
       const element = document.querySelector(hash);
       if (element) {
-        const offset = 120; // Set the offset in pixels
-
+        const offset = 120;
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.scrollY - offset;
 
