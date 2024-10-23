@@ -1,3 +1,4 @@
+import '../styles/catering-page.css';
 import {json} from '@shopify/remix-oxygen';
 import {Link, useLoaderData, useLocation, useParams} from '@remix-run/react';
 import {useEffect, useState} from 'react';
@@ -10,8 +11,8 @@ import {getImageUrl} from '~/lib/utils';
 import {useRootLoaderData as LoaderData} from '~/root';
 import {stegaClean} from '@sanity/client/stega';
 import {PortableText} from '@portabletext/react';
-import '../styles/catering-page.css';
 import CateringSlider from '~/components/CateringSlider';
+// import stylesUrl from '../styles/catering-page.css';
 /**
  * @type {MetaFunction<typeof loader>}
  */
