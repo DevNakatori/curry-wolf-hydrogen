@@ -1,15 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Sedgwick+Ave&display=swap');
+.main-catering-page {
+  overflow: hidden;
+}
 body {
   background: linear-gradient(180deg, #d02523 0%, #9b2220 44.72%);
 }
 
-.main-catering-page {
-  overflow: hidden;
-}
-
-.catering-main {
+/* .catering-main {
   background: linear-gradient(180deg, #d02523 0%, #9b2220 44.72%);
-}
+} */
 
 .left-content {
   max-width: 37.09vw;
