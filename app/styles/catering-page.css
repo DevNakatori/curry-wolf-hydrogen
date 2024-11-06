@@ -1,12 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Sedgwick+Ave&display=swap');
-
 .main-catering-page {
   overflow: hidden;
 }
-
-.catering-main {
+body {
   background: linear-gradient(180deg, #d02523 0%, #9b2220 44.72%);
 }
+
+/* .catering-main {
+  background: linear-gradient(180deg, #d02523 0%, #9b2220 44.72%);
+} */
 
 .left-content {
   max-width: 37.09vw;
@@ -731,7 +732,7 @@ div#faq {
 
   .ref-wrap {
     flex-wrap: wrap;
-    gap: 25px;
+    gap: 15px;
   }
 
   .ref-title {
@@ -1009,7 +1010,7 @@ div#faq {
     min-width: 50%;
     box-sizing: border-box;
     padding: 10px;
-    margin: 10px;
+    margin: 0px;
     background-color: #ff3e34;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

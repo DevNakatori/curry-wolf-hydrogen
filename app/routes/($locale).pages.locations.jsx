@@ -387,7 +387,10 @@ export default function Page() {
             {data?.imagesLabels?.map((item) => {
               const slug = item?.link?.slug;
               return (
-                <Link key={item?._key} to={`/pages/${slug}`}>
+                <Link
+                  key={item?._key}
+                  to={`${locale.pathPrefix}/pages/${slug}`}
+                >
                   <img
                     className="overlayImage"
                     src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/CurryWolf-BerlinMap-StoreButton.png?v=1718286508"

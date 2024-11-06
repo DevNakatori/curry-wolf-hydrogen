@@ -1,5 +1,6 @@
+import '../styles/catering-page.css';
 import {json} from '@shopify/remix-oxygen';
-import {Link, useLoaderData, useLocation} from '@remix-run/react';
+import {Link, useLoaderData, useLocation, useParams} from '@remix-run/react';
 import {useEffect, useState} from 'react';
 import {mergeMeta} from '../lib/meta';
 import {DEFAULT_LOCALE} from 'countries';
@@ -10,7 +11,8 @@ import {getImageUrl} from '~/lib/utils';
 import {useRootLoaderData as LoaderData} from '~/root';
 import {stegaClean} from '@sanity/client/stega';
 import {PortableText} from '@portabletext/react';
-import '../styles/catering-page.css';
+import CateringSlider from '~/components/CateringSlider';
+// import stylesUrl from '../styles/catering-page.css';
 /**
  * @type {MetaFunction<typeof loader>}
  */
@@ -70,43 +72,6 @@ export default function Page() {
   const {data, encodeDataAttribute} = useSanityData({
     initial: page,
   });
-
-  const location = useLocation();
-
-  useEffect(() => {
-    function setEqualHeight() {
-      const boxes = document.querySelectorAll('.same-height');
-      if (boxes.length === 0) {
-        return;
-      }
-
-      let maxHeight = 0;
-
-      boxes.forEach((box) => {
-        box.style.minHeight = '100px';
-        box.style.height = 'auto';
-      });
-
-      boxes.forEach((box) => {
-        const boxHeight = box.clientHeight;
-        if (boxHeight > maxHeight) {
-          maxHeight = boxHeight;
-        }
-      });
-
-      boxes.forEach((box) => {
-        box.style.height = `${maxHeight}px`;
-      });
-    }
-
-    setEqualHeight();
-    window.addEventListener('resize', setEqualHeight);
-
-    return () => {
-      window.removeEventListener('resize', setEqualHeight);
-    };
-  }, [location]);
-
   const {locale} = LoaderData();
   const cateringPageImages = data?.cateringPageImages;
   const ctaLink = stegaClean(`${locale.pathPrefix}/pages/${data?.link}`);
@@ -114,6 +79,26 @@ export default function Page() {
   const Referenzen = data?.Referenzen;
   const Rating = data?.Rating;
   const Accordions = data?.Accordions;
+  const location = useLocation();
+  const params = useParams();
+
+  useEffect(() => {
+    const hash = location.hash;
+    if (hash) {
+      const element = document.querySelector(hash);
+      if (element) {
+        const offset = 120;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.scrollY - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        });
+      }
+    }
+  }, [location]);
+
   useEffect(() => {
     if (Accordions?.accordion?.groups?.length > 0) {
       setOpenTabs([Accordions.accordion.groups[0]._key]);
@@ -219,20 +204,7 @@ export default function Page() {
             <h3>
               <span data-mce-fragment="1">{Referenzen?.title}</span>
             </h3>
-            <div className="ref-slider">
-              <div className="ref-wrap">
-                {Referenzen?.ReferenzenContent.map((item) => {
-                  return (
-                    <div key={item?._key} className="ref-box">
-                      <p className="same-height">{item?.description}</p>
-                      <div className="ref-title">
-                        <h4 dangerouslySetInnerHTML={{__html: item?.title}} />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+            <CateringSlider Referenzen={Referenzen} />
           </div>
           <div
             className="wolf-logo"

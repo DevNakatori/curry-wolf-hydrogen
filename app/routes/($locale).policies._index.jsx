@@ -88,8 +88,6 @@ export default function Policies() {
               switch (documentType) {
                 case 'policiesInnerPage':
                   return `${locale?.pathPrefix}/policies/${slug}`;
-                case 'legalNoticePage':
-                  return `${locale.pathPrefix}/pages/legal-notice`;
                 default:
                   return '';
               }

@@ -1,5 +1,5 @@
 import {json} from '@shopify/remix-oxygen';
-import {useLoaderData} from '@remix-run/react';
+import {Link, useLoaderData} from '@remix-run/react';
 import React, {useEffect, useRef, useMemo} from 'react';
 import {mergeMeta} from '../lib/meta';
 import {DEFAULT_LOCALE} from 'countries';
@@ -92,7 +92,14 @@ export default function Page() {
             data-aos="fade-up"
             data-aos-duration="1500"
           >
-            <a className="yellow-border-btn">{sectionFirst?.buttonText}</a>
+            <Link
+              to={stegaClean(
+                `${locale.pathPrefix}/pages/${sectionFirst?.buttonLink}`,
+              )}
+              className="yellow-border-btn"
+            >
+              {sectionFirst?.buttonText}
+            </Link>
           </div>
           <div
             className="top-job-detail"
@@ -149,7 +156,14 @@ export default function Page() {
             data-aos-duration="1500"
           >
             <div className="detail-mail-left">
-              <a className="yellow-btn">{sectionFourth?.buttonText}</a>
+              <Link
+                to={stegaClean(
+                  `${locale.pathPrefix}/pages/${sectionFourth?.buttonLink}`,
+                )}
+                className="yellow-border-btn"
+              >
+                {sectionFourth?.buttonText}
+              </Link>
             </div>
             <div className="detail-mail-right">
               <PortableText value={sectionFourth?.content} />

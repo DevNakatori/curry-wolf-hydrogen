@@ -43,10 +43,11 @@ export async function loader({request, params, context}) {
     });
   }
   const seo = page?.data?.seo;
-
+  const canonicalUrl = request.url;
   return json({
     page,
     seo,
+    canonicalUrl,
     ...sanityPreviewPayload({
       context,
       params: queryParams,
