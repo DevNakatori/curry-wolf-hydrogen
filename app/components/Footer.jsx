@@ -87,6 +87,16 @@ function FooterMenu({menu, footerLogo, primaryDomainUrl}) {
           data-aos-duration="1500"
           data-aos-once="true"
         >
+         <li >
+                <NavLink
+                  prefetch="intent"
+                  end
+                  style={activeLinkStyle}
+                  to={`${locale.pathPrefix}/`}
+                >
+                  Home
+                </NavLink>
+              </li>
           {(footermenu || FALLBACK_HEADER_MENU.items).map((item) => {
             const link = item?.link;
             const documentType = link?.documentType;
@@ -111,8 +121,6 @@ function FooterMenu({menu, footerLogo, primaryDomainUrl}) {
                   return `${locale.pathPrefix}/products/${slug2}`;
                 case 'collection':
                   return `${locale.pathPrefix}/collections/${slug2}`;
-                case 'home':
-                  return locale.pathPrefix;
                 case 'policiesInnerPage':
                   return `${locale.pathPrefix}/policies/${slug}`;
                 default:
