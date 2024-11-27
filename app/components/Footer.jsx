@@ -112,7 +112,7 @@ function FooterMenu({menu, footerLogo, primaryDomainUrl}) {
                 case 'collection':
                   return `${locale.pathPrefix}/collections/${slug2}`;
                 case 'home':
-                  return `${locale.pathPrefix}/`;
+                  return locale.pathPrefix;
                 case 'policiesInnerPage':
                   return `${locale.pathPrefix}/policies/${slug}`;
                 default:
