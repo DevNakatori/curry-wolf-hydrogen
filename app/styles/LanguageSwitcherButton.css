@@ -102,6 +102,9 @@
         font-weight: 500;
         align-items: center;
   }
+  .LanguageSwitcherButton .LanguageSwitcherButton_slider .LanguageSwitcherButton_el .perspectiveText p:nth-of-type(2) svg.arrow {
+    margin-bottom: 5px;
+  }
   @media (max-width: 768px) {
     .lang.perspectiveText p{
      font-size: 12px;
