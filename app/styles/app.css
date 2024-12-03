@@ -80,6 +80,8 @@ aside header {
   padding-top: 5px;
 }
 .langWarp li{
+  display: flex;
+  align-items: center;
   color: #fff;
   font-family: 'Gotham-Medium';
   font-weight: 500;
@@ -90,12 +92,12 @@ aside header {
 .langWarp li:hover{
   color: #fede03;
 }
-@media (max-width: 768px) {
-  .langWarp li{
-    padding: 6px 10px;
-    font-size: 12px;
-  }
+.langWarp li img{
+  width: 25px;
+  height: auto;
+  margin-right: 8px;
 }
+
 
 aside header h3 {
   margin: 0;

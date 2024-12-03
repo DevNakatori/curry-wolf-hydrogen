@@ -3,7 +3,7 @@ import {Link, useLoaderData} from '@remix-run/react';
 
 import {useMemo} from 'react';
 import {mergeMeta} from '../lib/meta';
-import {DEFAULT_LOCALE} from 'countries';
+import {DEFAULT_LOCALE} from 'countries/index';
 import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
 import {CATERING_CTA_FORM_PAGE_QUERY} from '../qroq/queries';
 import {useSanityData} from '../hooks/useSanityData';

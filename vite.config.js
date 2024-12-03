@@ -44,5 +44,6 @@ export default defineConfig({
     optimizeDeps: {
       include: [],
     },
-  },
+  }, 
+  assetsInclude: ['**/*.webp'],
 });

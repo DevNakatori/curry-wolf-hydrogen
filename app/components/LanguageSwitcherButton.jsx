@@ -6,12 +6,12 @@ import { AnimatePresence, motion } from 'framer-motion';
 import '../styles/LanguageSwitcherButton.css';
 import Languages from "./Languages";
 import { useLocation } from "@remix-run/react";
-import { getAllLanguages, getAllLocales } from "countries";
+import { getAllLanguages, getAllLocales } from "countries/index";
 
 const langMenu = {
     open: {
         width: "140px",
-        height: "180px",
+        height: "170px",
         top: "-11px",
         right: "-4px",
         zIndex: 9,

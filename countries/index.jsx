@@ -1,5 +1,10 @@
-/* eslint perfectionist/sort-objects: 0 */
+// import { GermanyFlag } from "../app/assets/flag/germany-flag.webp";
+// import { UkFlag } from "../app/assets/flag/united-kingdom-flag.webp";
+// import { NetherlandsFlag } from "../app/assets/flag/the-netherlands-flag.webp";
+// import { ChinaFlag } from "../app/assets/flag/china-flag.webp";
 
+
+/* eslint perfectionist/sort-objects: 0 */
 export const countries = {
   default: {
     country: 'FR',
@@ -9,7 +14,7 @@ export const countries = {
     language: 'DE',
     languageLabel: 'German',
     salesChannel: 'hydrogen',
-    flag: '🇩🇪'
+    flag: "/app/assets/flag/germany-flag.webp"
   },
   '/en': {
     country: 'US',
@@ -19,7 +24,7 @@ export const countries = {
     language: 'EN',
     languageLabel: 'English',
     salesChannel: 'hydrogen',
-    flag: '🇬🇧'
+    flag: "/app/assets/flag/united-kingdom-flag.webp"
   },
   '/nl': {
     country: 'NL',
@@ -29,7 +34,7 @@ export const countries = {
     language: 'NL',
     languageLabel: 'Dutch',
     salesChannel: 'hydrogen',
-    flag: '🇳🇱'
+    flag: "/app/assets/flag/the-netherlands-flag.webp"
   },
   '/cn': {
     country: 'CN',
@@ -39,7 +44,7 @@ export const countries = {
     language: 'CN',
     languageLabel: 'Chinese',
     salesChannel: 'hydrogen',
-    flag: '🇨🇳'
+   flag: "/app/assets/flag/china-flag.webp"
   },
 };
 

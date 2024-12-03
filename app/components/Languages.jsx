@@ -1,9 +1,8 @@
 
 import {motion} from 'framer-motion';
-import {getAllLanguages, getAllLocales} from 'countries';
 import { useEffect, useState } from 'react';
 import { useLocation ,} from '@remix-run/react';
-
+import { getAllLanguages, getAllLocales } from 'countries/index';
 const perspective = {
   initial: {
     opacity: 0,
@@ -39,7 +38,19 @@ export default function Languages({isActive,setIsActive  , setSelectedValue}) {
     const currentLang = supportedLanguages.find((lang) => location.pathname.startsWith(`/${lang}`)) || defaultLanguage;
     setSelectedValue(currentLang);
   }, [location.pathname]);
-  
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const targetElement = event.target;
+      if (!targetElement.closest(".LanguageSwitcher")) {
+        setIsActive(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   const handleLanguageChange = (event) => {
     const newValue = event.currentTarget.getAttribute('data-value');
     setSelectedValue(newValue);
@@ -79,7 +90,7 @@ export default function Languages({isActive,setIsActive  , setSelectedValue}) {
                 data-value={id}
                 onClick={handleLanguageChange}
               >
-                {flag} {title}
+                { <img src={flag} alt={title} />} {title}
               </motion.li>
             );
           })}
