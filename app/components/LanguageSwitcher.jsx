@@ -9,11 +9,14 @@ const LanguageSwitcher = () => {
 
   useEffect(() => {
     const path = location.pathname;
+    console.log(selectedValue)
     setSelectedValue(path.startsWith('/en') ? 'en-de' : 'de-de');
   }, [location.pathname]); // Update when the path changes
 
   const handleLanguageChange = (event) => {
+
     const newValue = event.currentTarget.getAttribute('data-value');
+    console.log(newValue)
     setSelectedValue(newValue);
     setIsDropdownOpen(false);
 

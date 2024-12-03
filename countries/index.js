@@ -7,8 +7,9 @@ export const countries = {
     isoCode: 'de-de',
     label: 'Germany (EUR €)',
     language: 'DE',
-    languageLabel: 'Deutsch',
+    languageLabel: 'German',
     salesChannel: 'hydrogen',
+    flag: '🇩🇪'
   },
   '/en': {
     country: 'US',
@@ -18,6 +19,27 @@ export const countries = {
     language: 'EN',
     languageLabel: 'English',
     salesChannel: 'hydrogen',
+    flag: '🇬🇧'
+  },
+  '/nl': {
+    country: 'NL',
+    currency: 'EUR',
+    isoCode: 'nl-nl',
+    label: 'Dutch (EUR €)',
+    language: 'NL',
+    languageLabel: 'Dutch',
+    salesChannel: 'hydrogen',
+    flag: '🇳🇱'
+  },
+  '/cn': {
+    country: 'CN',
+    currency: 'USD',
+    isoCode: 'zh-us',
+    label: 'chinese (USD $)',
+    language: 'CN',
+    languageLabel: 'Chinese',
+    salesChannel: 'hydrogen',
+    flag: '🇨🇳'
   },
 };
 
@@ -38,6 +60,8 @@ export function getAllLanguages() {
       uniqueLanguages.push({
         id: language.toLocaleLowerCase(),
         title: countries[key].languageLabel,
+        flag: countries[key].flag,
+        label: language
       });
       seenLanguages.add(language);
     }
