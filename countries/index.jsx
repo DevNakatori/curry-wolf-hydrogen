@@ -36,16 +36,16 @@ export const countries = {
     salesChannel: 'hydrogen',
     flag: NetherlandsFlag
   },
-  '/cn': {
-    country: 'CN',
-    currency: 'USD',
-    isoCode: 'zh-us',
-    label: 'chinese (USD $)',
-    language: 'CN',
-    languageLabel: 'Chinese',
-    salesChannel: 'hydrogen',
-   flag: ChinaFlag
-  },
+  '/zh': {
+  country: 'CN',
+  currency: 'USD',
+  isoCode: 'zh-CN', // Corrected ISO code for Chinese
+  label: 'Chinese (USD $)',
+  language: 'ZH', // Shopify's LanguageCode
+  languageLabel: 'Chinese',
+  salesChannel: 'hydrogen',
+  flag: ChinaFlag,
+},
 };
 
 export const DEFAULT_LOCALE = Object.freeze({

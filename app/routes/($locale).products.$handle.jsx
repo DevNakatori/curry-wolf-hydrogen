@@ -20,7 +20,6 @@ import {getImageUrl} from '~/lib/utils';
 import '../styles/product.css';
 
 export const meta = ({data}) => {
-  console.log(data);
   return [
     {title: `Curry Wolf | ${data?.product.title ?? ''}`},
     {name: 'description', content: data?.product?.description || ''},
@@ -34,7 +33,14 @@ export const meta = ({data}) => {
 
 export async function loader({params, request, context}) {
   const {handle} = params;
-  const {storefront} = context;
+  const {storefront, locale} = context;
+  const pathname = new URL(request.url).pathname;
+  const segments = pathname.split('/').filter(Boolean);
+
+  var language = locale?.language
+  if ( 'ZH'===language) {
+    language = 'ZH_CN';
+  }
   const canonicalUrl = request.url;
   const selectedOptions = getSelectedProductOptions(request).filter(
     (option) =>
@@ -51,7 +57,7 @@ export async function loader({params, request, context}) {
   }
 
   const {product} = await storefront.query(PRODUCT_QUERY, {
-    variables: {handle, selectedOptions},
+    variables: {handle, selectedOptions,language},
   });
 
   if (!product?.id) {
@@ -67,14 +73,15 @@ export async function loader({params, request, context}) {
 
   if (firstVariantIsDefault) {
     product.selectedVariant = firstVariant;
+    console.log(product.selectedVariant);
   } else {
-    if (!product.selectedVariant) {
-      throw redirectToFirstVariant({product, request});
-    }
+    // if (!product.selectedVariant) {
+    //   throw redirectToFirstVariant({product, request});
+    // }
   }
 
   const variants = storefront.query(VARIANTS_QUERY, {
-    variables: {handle},
+    variables: {handle,language},
   });
 
   return defer({
@@ -185,7 +192,6 @@ export default function Product() {
   const reparationsTranslation = globalContent?.reparation;
   const {product, variants} = useLoaderData();
   const {selectedVariant} = product;
-  console.log(globalContent);
   const getMetafieldText = (metafield) => {
     if (!metafield) return '';
 

@@ -37,17 +37,24 @@ export const meta = ({data}) => {
  */
 export async function loader({request, params, context}) {
   const {handle} = params;
-  const {storefront} = context;
+  const {storefront, locale} = context;
   const paginationVariables = getPaginationVariables(request, {
     pageBy: 25,
   });
+  const pathname = new URL(request.url).pathname;
+  const segments = pathname.split('/').filter(Boolean);
+
+  var language = locale?.language
+  if ( 'ZH'===language) {
+    language = 'ZH_CN';
+  }
 
   if (!handle) {
     return redirect('/collections');
   }
 
   const {collection} = await storefront.query(COLLECTION_QUERY, {
-    variables: {handle, ...paginationVariables},
+    variables: {handle,language, ...paginationVariables},
   });
 
   if (!collection) {
@@ -60,6 +67,7 @@ export async function loader({request, params, context}) {
     cache: storefront.CacheLong(),
     variables: {
       customMenuHandle: 'collection-menu',
+      language 
     },
   });
   const canonicalUrl = request.url;

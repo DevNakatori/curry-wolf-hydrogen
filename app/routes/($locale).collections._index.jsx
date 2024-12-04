@@ -25,7 +25,6 @@ export async function loader({context, request}) {
   const {collections} = await context.storefront.query(COLLECTIONS_QUERY, {
     variables: paginationVariables,
   });
-
   return json({collections, canonicalUrl});
 }
 
