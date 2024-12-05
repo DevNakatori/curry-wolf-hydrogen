@@ -4,7 +4,7 @@ import '../styles/location-inner.css';
 import {useEffect, useRef, useState} from 'react';
 
 import {mergeMeta} from '../lib/meta';
-import {DEFAULT_LOCALE} from 'countries';
+import {DEFAULT_LOCALE} from 'countries/index';
 import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
 import {LOCATION_INNER_PAGE_QUERY} from '../qroq/queries';
 import {useSanityData} from '../hooks/useSanityData';

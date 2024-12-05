@@ -15,7 +15,7 @@ import {SanitySession} from './app/lib/sanity/sanity.session.server.js';
 import {createSanityClient} from './app/lib/sanity/sanity.server.js';
 import {CART_QUERY_FRAGMENT} from './app/lib/fragments.js';
 import {AppSession} from './app/lib/session.js';
-import {getLocaleFromRequest} from './countries/index.js';
+import {getLocaleFromRequest} from './countries/index.jsx';
 
 export default {
   /**

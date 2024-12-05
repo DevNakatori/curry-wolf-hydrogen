@@ -7,6 +7,8 @@ import {useSanityRoot} from '~/hooks/useSanityRoot';
 import {useRootLoaderData as LoaderData} from '~/root';
 import {stegaClean} from '@sanity/client/stega';
 import {getImageUrl} from '~/lib/utils';
+import LanguageSwitcherButton from './LanguageSwitcherButton';
+
 /**
  * @param {HeaderProps}
  */
@@ -216,6 +218,8 @@ export function HeaderMenu({
  * @param {Pick<HeaderProps, 'isLoggedIn' | 'cart'>}
  */
 function HeaderCtas({isLoggedIn, logo, cart, toggle, setToggle}) {
+  const [isActive, setIsActive] = useState(false);
+  const [selectedValue, setSelectedValue] = useState('');
   return (
     <nav className="header-ctas" role="navigation">
       <HeaderMenuMobileToggle toggle={toggle} setToggle={setToggle} />
@@ -244,7 +248,10 @@ function HeaderCtas({isLoggedIn, logo, cart, toggle, setToggle}) {
         <img className="mobile-logo" src={logo} alt="logo" />
       </NavLink>
       <CartToggle cart={cart} />
-      <LanguageSwitcher />
+      {/* <LanguageSwitcher /> */}
+     <div className="LanguageSwitcher">
+     <LanguageSwitcherButton isActive={isActive} setIsActive={setIsActive} toggleMenu={() => {setIsActive(!isActive)}} selectedValue={selectedValue} setSelectedValue={setSelectedValue}/>
+     </div>
     </nav>
   );
 }

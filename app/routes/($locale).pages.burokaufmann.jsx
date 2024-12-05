@@ -2,7 +2,7 @@ import {json} from '@shopify/remix-oxygen';
 import {Link, useLoaderData} from '@remix-run/react';
 import React, {useEffect, useRef, useMemo} from 'react';
 import {mergeMeta} from '../lib/meta';
-import {DEFAULT_LOCALE} from 'countries';
+import {DEFAULT_LOCALE} from 'countries/index';
 import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
 import {JOB_INNER_PAGE_QUERY} from '../qroq/queries';
 import {useSanityData} from '../hooks/useSanityData';

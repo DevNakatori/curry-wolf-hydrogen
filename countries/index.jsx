@@ -1,5 +1,10 @@
-/* eslint perfectionist/sort-objects: 0 */
+ import  GermanyFlag  from "../app/assets/flag/germany-flag.webp";
+ import  UkFlag  from "../app/assets/flag/united-kingdom-flag.webp";
+ import  NetherlandsFlag  from "../app/assets/flag/the-netherlands-flag.webp";
+ import  ChinaFlag  from "../app/assets/flag/china-flag.webp";
 
+
+/* eslint perfectionist/sort-objects: 0 */
 export const countries = {
   default: {
     country: 'FR',
@@ -7,8 +12,9 @@ export const countries = {
     isoCode: 'de-de',
     label: 'Germany (EUR €)',
     language: 'DE',
-    languageLabel: 'Deutsch',
+    languageLabel: 'German',
     salesChannel: 'hydrogen',
+    flag: GermanyFlag
   },
   '/en': {
     country: 'US',
@@ -18,7 +24,28 @@ export const countries = {
     language: 'EN',
     languageLabel: 'English',
     salesChannel: 'hydrogen',
+    flag: UkFlag
   },
+  '/nl': {
+    country: 'NL',
+    currency: 'EUR',
+    isoCode: 'nl-nl',
+    label: 'Dutch (EUR €)',
+    language: 'NL',
+    languageLabel: 'Dutch',
+    salesChannel: 'hydrogen',
+    flag: NetherlandsFlag
+  },
+  '/zh': {
+  country: 'CN',
+  currency: 'USD',
+  isoCode: 'zh-CN', // Corrected ISO code for Chinese
+  label: 'Chinese (USD $)',
+  language: 'ZH', // Shopify's LanguageCode
+  languageLabel: 'Chinese',
+  salesChannel: 'hydrogen',
+  flag: ChinaFlag,
+},
 };
 
 export const DEFAULT_LOCALE = Object.freeze({
@@ -38,6 +65,8 @@ export function getAllLanguages() {
       uniqueLanguages.push({
         id: language.toLocaleLowerCase(),
         title: countries[key].languageLabel,
+        flag: countries[key].flag,
+        label: language
       });
       seenLanguages.add(language);
     }

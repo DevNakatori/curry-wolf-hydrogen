@@ -62,6 +62,42 @@ aside header {
   justify-content: space-between;
   padding: 0 20px;
 }
+.LanguageSwitcher{
+  position: relative;
+  margin-bottom: 7px;
+}
+
+.LanguageSwitcher .lang-menu{
+  width: 480px;
+  height: 650px;
+  background-color:rgba(168, 10, 21, 1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  position: absolute;
+ 
+}
+.langWarp{
+  padding-top: 5px;
+}
+.langWarp li{
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-family: 'Gotham-Medium';
+  font-weight: 500;
+  padding: 10px 10px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.langWarp li:hover{
+  color: #fede03;
+}
+.langWarp li img{
+  width: 25px;
+  height: auto;
+  margin-right: 8px;
+}
+
 
 aside header h3 {
   margin: 0;
@@ -799,7 +835,7 @@ a.header-menu-item.active {
 .header-menu-desktop {
   display: flex;
   gap: 2.1875em;
-  margin-left: 2.5rem;
+  margin-left: 1rem;
   padding: 0px 0;
 }
 
@@ -1510,9 +1546,16 @@ img.footer-bg-img {
 
 @media (max-width: 768px) {
   .header-menu-desktop {
-    grid-gap: 0.87em;
+    grid-gap: 11px;
   }
+  img.desktop-logo {
+    margin-right: 14px;
 }
+}
+@media (max-width: 767px) {
+  .LanguageSwitcher {
+    margin-bottom:0px;
+  }}
 
 @media (max-width: 767px) {
   .route-error .thank-you-btn {

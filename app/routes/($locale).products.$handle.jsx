@@ -20,7 +20,6 @@ import {getImageUrl} from '~/lib/utils';
 import '../styles/product.css';
 
 export const meta = ({data}) => {
-  console.log(data);
   return [
     {title: `Curry Wolf | ${data?.product.title ?? ''}`},
     {name: 'description', content: data?.product?.description || ''},
@@ -32,9 +31,19 @@ export const meta = ({data}) => {
   ];
 };
 
-export async function loader({params, request, context}) {
-  const {handle} = params;
-  const {storefront} = context;
+export async function loader({ params, request, context }) {
+  const { handle } = params;
+  const { storefront, locale } = context;
+
+  const pathname = new URL(request.url).pathname;
+  const segments = pathname.split('/').filter(Boolean);
+
+  const languageMap = {
+    ZH: 'ZH_CN',
+    NL: 'NL',
+  };
+  const language = languageMap[locale?.language] || locale?.language;
+
   const canonicalUrl = request.url;
   const selectedOptions = getSelectedProductOptions(request).filter(
     (option) =>
@@ -43,38 +52,33 @@ export async function loader({params, request, context}) {
       !option.name.startsWith('_psq') &&
       !option.name.startsWith('_ss') &&
       !option.name.startsWith('_v') &&
-      !option.name.startsWith('fbclid'),
+      !option.name.startsWith('fbclid')
   );
 
   if (!handle) {
     throw new Error('Expected product handle to be defined');
   }
 
-  const {product} = await storefront.query(PRODUCT_QUERY, {
-    variables: {handle, selectedOptions},
+  const { product } = await storefront.query(PRODUCT_QUERY, {
+    variables: { handle, selectedOptions, language },
   });
-
   if (!product?.id) {
-    throw new Response(null, {status: 404});
+    throw new Response(null, { status: 404 });
   }
 
-  const firstVariant = product.variants.nodes[0];
-  const firstVariantIsDefault = Boolean(
-    firstVariant.selectedOptions.find(
-      (option) => option.name === 'Title' && option.value === 'Default Title',
-    ),
+  const firstVariant = product.variants.nodes.find(
+    (variant) => variant.availableForSale
   );
 
-  if (firstVariantIsDefault) {
-    product.selectedVariant = firstVariant;
-  } else {
-    if (!product.selectedVariant) {
-      throw redirectToFirstVariant({product, request});
-    }
+  if (!firstVariant) {
+    console.warn('No available variants found.');
+    throw new Error('No variants available for this product in the selected locale.');
   }
 
-  const variants = storefront.query(VARIANTS_QUERY, {
-    variables: {handle},
+  product.selectedVariant = firstVariant;
+
+  const variants = await storefront.query(VARIANTS_QUERY, {
+    variables: { handle, language },
   });
 
   return defer({
@@ -83,6 +87,7 @@ export async function loader({params, request, context}) {
     variants,
   });
 }
+
 
 function ProductMedia({media}) {
   const [mainImage, setMainImage] = useState(
@@ -185,7 +190,6 @@ export default function Product() {
   const reparationsTranslation = globalContent?.reparation;
   const {product, variants} = useLoaderData();
   const {selectedVariant} = product;
-  console.log(globalContent);
   const getMetafieldText = (metafield) => {
     if (!metafield) return '';
 

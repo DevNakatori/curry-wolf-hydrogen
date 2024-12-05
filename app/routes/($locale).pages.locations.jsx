@@ -2,7 +2,7 @@ import {json} from '@shopify/remix-oxygen';
 import {Link, NavLink, useLoaderData} from '@remix-run/react';
 import {useEffect, useRef, useState} from 'react';
 import {mergeMeta} from '../lib/meta';
-import {DEFAULT_LOCALE} from 'countries';
+import {DEFAULT_LOCALE} from 'countries/index';
 import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
 import {LOCATION_PAGE_QUERY} from '../qroq/queries';
 import {useSanityData} from '../hooks/useSanityData';
@@ -78,7 +78,7 @@ export default function Page() {
 
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
-
+console.log(data)
   useEffect(() => {
     if (isPlaying && videoRef.current) {
       videoRef.current.play();
@@ -113,7 +113,7 @@ export default function Page() {
             label:
               '<img src="https://cdn.shopify.com/oxygen-v2/32730/22017/45614/725053/assets/CurryWolf_Logo_footer-BNigDRwe.svg" />',
             additionalLabel: 'Steglitz',
-            additionalLabel2: 'Mehr Info',
+            additionalLabel2: 'More Info',
           },
           {
             x: 22,
@@ -121,7 +121,7 @@ export default function Page() {
             label:
               '<img src="https://cdn.shopify.com/oxygen-v2/32730/22017/45614/725053/assets/CurryWolf_Logo_footer-BNigDRwe.svg" />',
             additionalLabel: 'Potsdam',
-            additionalLabel2: 'Mehr Info',
+            additionalLabel2: 'More Info',
           },
           {
             x: 33.5,
@@ -129,7 +129,7 @@ export default function Page() {
             label:
               '<img src="https://cdn.shopify.com/oxygen-v2/32730/22017/45614/725053/assets/CurryWolf_Logo_footer-BNigDRwe.svg" />',
             additionalLabel: 'Brandenburger Tor',
-            additionalLabel2: 'Mehr Info',
+            additionalLabel2: 'More Info',
           },
           {
             x: 32,
@@ -137,7 +137,7 @@ export default function Page() {
             label:
               '<img src="https://cdn.shopify.com/oxygen-v2/32730/22017/45614/725053/assets/CurryWolf_Logo_footer-BNigDRwe.svg" />',
             additionalLabel: 'Kudamm',
-            additionalLabel2: 'Mehr Info',
+            additionalLabel2: 'More Info',
           },
           {
             x: 40,
@@ -145,7 +145,7 @@ export default function Page() {
             label:
               '<img src="https://cdn.shopify.com/oxygen-v2/32730/22017/45614/725053/assets/CurryWolf_Logo_footer-BNigDRwe.svg" />',
             additionalLabel: 'Lichtenrade',
-            additionalLabel2: 'Mehr Info',
+            additionalLabel2: 'More Info',
           },
         ]
       : [
@@ -155,7 +155,7 @@ export default function Page() {
             label:
               '<img src="https://cdn.shopify.com/oxygen-v2/32730/22017/45614/725053/assets/CurryWolf_Logo_footer-BNigDRwe.svg" />',
             additionalLabel: 'Steglitz',
-            additionalLabel2: 'Mehr Info',
+            additionalLabel2: 'More Info',
           },
           {
             x: 9,
@@ -163,7 +163,7 @@ export default function Page() {
             label:
               '<img src="https://cdn.shopify.com/oxygen-v2/32730/22017/45614/725053/assets/CurryWolf_Logo_footer-BNigDRwe.svg" />',
             additionalLabel: 'Potsdam',
-            additionalLabel2: 'Mehr Info',
+            additionalLabel2: 'More Info',
           },
           {
             x: 24,
@@ -171,7 +171,7 @@ export default function Page() {
             label:
               '<img src="https://cdn.shopify.com/oxygen-v2/32730/22017/45614/725053/assets/CurryWolf_Logo_footer-BNigDRwe.svg" />',
             additionalLabel: 'Brandenburger Tor',
-            additionalLabel2: 'Mehr Info',
+            additionalLabel2: 'More Info',
           },
           {
             x: 22,
@@ -179,7 +179,7 @@ export default function Page() {
             label:
               '<img src="https://cdn.shopify.com/oxygen-v2/32730/22017/45614/725053/assets/CurryWolf_Logo_footer-BNigDRwe.svg" />',
             additionalLabel: 'Kudamm',
-            additionalLabel2: 'Mehr Info',
+            additionalLabel2: 'More Info',
           },
           {
             x: 31,
@@ -187,24 +187,20 @@ export default function Page() {
             label:
               '<img src="https://cdn.shopify.com/oxygen-v2/32730/22017/45614/725053/assets/CurryWolf_Logo_footer-BNigDRwe.svg" />',
             additionalLabel: 'Lichtenrade',
-            additionalLabel2: 'Mehr Info',
+            additionalLabel2: 'More Info',
           },
         ];
 
-    const apiData =
-      data?.imagesLabels ||
-      []?.map(({name, anchor}) => ({
-        additionalLabel: name,
-        additionalLabel2: anchor,
-      }));
-
-    const updatedPositions = positions.map((position, index) => ({
-      ...position, // Keep the existing position data
-      additionalLabel:
-        apiData[index]?.additionalLabel || position.additionalLabel, // Merge or fallback to original
-      additionalLabel2:
-        apiData[index]?.additionalLabel2 || position.additionalLabel2, // Merge or fallback to original
-    }));
+        const apiData = (data?.imagesLabels || []).map(({ name, anchor }) => ({
+          additionalLabel: name,
+          additionalLabel2: anchor,
+        }));
+        
+        const updatedPositions = positions.map((position, index) => ({
+          ...position, // Keep the existing position data
+          additionalLabel: apiData[index]?.additionalLabel,
+          additionalLabel2: apiData[index]?.additionalLabel2,
+        }));
     const overlayLabels = [];
 
     function positionOverlayImages() {

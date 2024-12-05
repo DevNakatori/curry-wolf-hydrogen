@@ -1,0 +1,119 @@
+.LanguageSwitcherButton {
+    width: 67px;
+    height: 25px;
+    cursor: pointer;
+    border-radius: 25px;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    font-family: 'Gotham-Medium';
+    font-weight: 500;
+    border: 2px solid #fede03 !important;
+    overflow: hidden;
+}
+  
+  .LanguageSwitcherButton .LanguageSwitcherButton_slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .LanguageSwitcherButton .LanguageSwitcherButton_slider .LanguageSwitcherButton_el {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    transition: background-color 0.85s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+  .LanguageSwitcherButton .LanguageSwitcherButton_slider .LanguageSwitcherButton_el:hover{
+    background-color: #fede03;
+    color: #9b2220;
+  }
+  .LanguageSwitcherButton .LanguageSwitcherButton_slider .LanguageSwitcherButton_el:hover .perspectiveText p{
+    color: #9b2220;
+  }
+  
+  .LanguageSwitcherButton .LanguageSwitcherButton_slider .LanguageSwitcherButton_el p {
+    margin: 0px;
+  }
+  
+  .LanguageSwitcherButton .LanguageSwitcherButton_slider .LanguageSwitcherButton_el:nth-of-type(2) {
+    background-color: #fede03;
+  
+  }
+  
+  .LanguageSwitcherButton .LanguageSwitcherButton_slider .LanguageSwitcherButton_el:nth-of-type(2) p {
+    color: #ffffff;
+  }
+  .LanguageSwitcherButton .LanguageSwitcherButton_slider .LanguageSwitcherButton_el:hover .close.perspectiveText{
+    transform: rotateX(90deg);
+
+  }
+  .LanguageSwitcherButton .LanguageSwitcherButton_slider .LanguageSwitcherButton_el:hover .lang.perspectiveText{
+    transform: rotateX(65deg);
+
+  }
+  
+  .LanguageSwitcherButton .LanguageSwitcherButton_slider .LanguageSwitcherButton_el:hover .perspectiveText p:nth-of-type(1) {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  
+  .LanguageSwitcherButton .LanguageSwitcherButton_slider .LanguageSwitcherButton_el:hover .perspectiveText p:nth-of-type(2) {
+    opacity: 1;
+  }
+  
+  .perspectiveText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.85s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+  .lang.perspectiveText{
+    padding-left: 1px;
+    padding-top: 2px;
+  }
+  .lang.perspectiveText span{
+    padding-top: 2px;
+  }
+  .close.perspectiveText{
+    padding-top: 3px;
+    justify-content: flex-end;
+  }
+  
+  .perspectiveText p {
+    transition: all 0.85s cubic-bezier(0.76, 0, 0.24, 1);
+    pointer-events: none;
+    text-transform: uppercase;
+  }
+  .LanguageSwitcherButton_el.close{
+    background-color: transparent !important;
+  }
+  .perspectiveText p:nth-of-type(2) {
+    position: absolute;
+    transform-origin: bottom center;
+    transform: rotateX(-90deg) translateY(9px);
+    opacity: 0;
+  }
+  
+  .perspectiveText p{
+        display: flex;
+        font-family: 'Gotham-Medium';
+        font-weight: 500;
+        align-items: center;
+  }
+  .LanguageSwitcherButton .LanguageSwitcherButton_slider .LanguageSwitcherButton_el .perspectiveText p:nth-of-type(2) svg.arrow {
+    margin-bottom: 5px;
+  }
+  @media (max-width: 768px) {
+    .lang.perspectiveText p{
+     font-size: 12px;
+    }
+    .LanguageSwitcherButton {
+      width: 55px;
+      height: 21px;}
+      .lang.perspectiveText {
+        padding-left: 4px;
+        padding-top: 1px;
+    }
+  }
