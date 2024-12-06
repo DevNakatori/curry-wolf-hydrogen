@@ -36,6 +36,7 @@
   position: absolute;
   width: calc(var(--aside-width) - 40px);
   color: #fff;
+  left: 17px;
 }
 
 .cart-line-quantity {
