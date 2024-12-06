@@ -14,7 +14,6 @@ export function SanityInternalLink(props) {
   const documentType = link?.documentType;
   const slug = link?.slug;
   const anchor = data.anchor ? `#${data.anchor}` : '';
-
   const path = () => {
     switch (documentType) {
       case 'page':

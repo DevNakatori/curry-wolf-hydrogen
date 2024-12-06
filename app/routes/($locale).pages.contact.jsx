@@ -1,5 +1,5 @@
 import {json} from '@shopify/remix-oxygen';
-import {useLoaderData} from '@remix-run/react';
+import {Link, useLoaderData} from '@remix-run/react';
 import React, {useEffect, useRef, useMemo} from 'react';
 import {mergeMeta} from '../lib/meta';
 import {DEFAULT_LOCALE} from 'countries/index';
@@ -95,9 +95,9 @@ export default function Page() {
         linkInternal: ({value, children}) => {
           const {reference} = value;
           return (
-            <InternalLinkAnnotation reference={reference}>
+            <Link to={stegaClean(`${locale.pathPrefix}/policies/privacy-policy`)}>
               {children}
-            </InternalLinkAnnotation>
+            </Link>
           );
         },
       },

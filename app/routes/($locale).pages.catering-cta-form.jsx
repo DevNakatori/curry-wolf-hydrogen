@@ -10,9 +10,9 @@ import {useSanityData} from '../hooks/useSanityData';
 import {getImageUrl} from '~/lib/utils';
 import {useRootLoaderData as LoaderData} from '~/root';
 import {stegaClean} from '@sanity/client/stega';
-import {PortableText} from '@portabletext/react';
 import {InternalLinkAnnotation} from '~/components/sanity/richtext/InternalLinkAnnotation';
 import '../styles/catering-cta-form.css';
+import { PortableText } from '@portabletext/react';
 /**
  * @type {MetaFunction<typeof loader>}
  */
@@ -82,9 +82,9 @@ export default function Page() {
         linkInternal: ({value, children}) => {
           const {reference} = value;
           return (
-            <InternalLinkAnnotation reference={reference}>
+            <Link to={stegaClean(`${locale.pathPrefix}/policies/privacy-policy`)}>
               {children}
-            </InternalLinkAnnotation>
+            </Link>
           );
         },
       },
@@ -465,7 +465,7 @@ export default function Page() {
                               />
                               <label htmlFor="checkbox13">
                                 <PortableText
-                                  components={components}
+                                   components={components}
                                   value={
                                     sectionSecond?.commentsSection
                                       ?.privacyPolicyCheckbox
