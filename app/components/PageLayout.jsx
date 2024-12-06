@@ -23,7 +23,7 @@ export function PageLayout({
   publicStoreDomain,
 }) {
   const {data} = useSanityRoot();
-  console.log(data);
+
   return (
     <Aside.Provider>
       <CartAside cart={cart} />

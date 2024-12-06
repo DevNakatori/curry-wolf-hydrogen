@@ -111,11 +111,21 @@ export async function loader({context, request}) {
   const publicStoreDomain = context.env.PUBLIC_STORE_DOMAIN;
 
   const isLoggedInPromise = customerAccount.isLoggedIn();
-  const cartPromise = cart.get();
+
   const queryParams = {
     defaultLanguage: DEFAULT_LOCALE.language.toLowerCase(),
     language,
   };
+
+  const languageMap = {
+    ZH: 'ZH_CN',
+    NL: 'NL',
+  };
+  const headerLang = languageMap[locale?.language] ||  locale?.language
+  const cartPromise = cart.get({
+    country: locale.country,
+    language: headerLang,
+  });
   const rootData = Promise.all([
     sanity.query({
       groqdQuery: ROOT_QUERY,
@@ -130,16 +140,17 @@ export async function loader({context, request}) {
     `),
   ]);
   const footerPromise = storefront.query(FOOTER_QUERY, {
-    cache: storefront.CacheLong(),
+    // cache: storefront.CacheLong(),
     variables: {
       footerMenuHandle: 'footer-1',
     },
   });
 
   const headerPromise = storefront.query(HEADER_QUERY, {
-    cache: storefront.CacheLong(),
+    // cache: storefront.CacheLong(),
     variables: {
       headerMenuHandle: 'new-menu',
+      language: headerLang
     },
   });
   const [sanityRoot, layout] = await rootData;

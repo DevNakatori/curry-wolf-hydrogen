@@ -3,6 +3,7 @@ import {Link} from '@remix-run/react';
 import {useVariantUrl} from '~/lib/variants';
 import '../styles/cart.css';
 import {useSanityRoot} from '~/hooks/useSanityRoot';
+import {useRootLoaderData as LoaderData} from '~/root';
 /**
  * @param {CartMainProps}
  */
@@ -83,7 +84,7 @@ function CartLineItem({layout, line}) {
   const {id, merchandise} = line;
   const {product, title, image, selectedOptions} = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
-
+  const {locale} = LoaderData();
   return (
     <li key={id} className="cart-line">
       {image && (
@@ -100,11 +101,11 @@ function CartLineItem({layout, line}) {
       <div>
         <Link
           prefetch="intent"
-          to={lineItemUrl}
+          to={`${locale.pathPrefix}${lineItemUrl}`}
           onClick={() => {
             if (layout === 'aside') {
               // close the drawer
-              window.location.href = lineItemUrl;
+              window.location.href = `${locale.pathPrefix}${lineItemUrl}`
             }
           }}
         >

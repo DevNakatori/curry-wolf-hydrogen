@@ -3,7 +3,7 @@ import {useVariantUrl} from '~/lib/variants';
 import {Link} from '@remix-run/react';
 import {ProductPrice} from './ProductPrice';
 import {useAside} from './Aside';
-
+import {useRootLoaderData as LoaderData} from '~/root';
 /**
  * A single line item in the cart. It displays the product image, title, price.
  * It also provides controls to update the quantity or remove the line item.
@@ -17,7 +17,7 @@ export function CartLineItem({layout, line}) {
   const {product, title, image, selectedOptions} = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
   const {close} = useAside();
-
+  const {locale} = LoaderData();
   return (
     <li key={id} className="cart-line">
       {image && (
@@ -34,7 +34,7 @@ export function CartLineItem({layout, line}) {
       <div>
         <Link
           prefetch="intent"
-          to={lineItemUrl}
+          to={`${locale.pathPrefix}/${lineItemUrl}`}
           onClick={() => {
             if (layout === 'aside') {
               close();
