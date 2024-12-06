@@ -574,6 +574,7 @@ function ProductForm({
         <AddToCartButton
           disabled={!selectedVariant || !selectedVariant.availableForSale}
           onClick={() => {
+            fbq('track', 'AddToCart', { currency: selectedVariant?.price.currencyCode , value: selectedVariant?.price.amount, content_type: 'product', content_id: selectedVariant?.id });
             publish('cart_viewed', {
               cart,
               prevCart,
