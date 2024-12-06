@@ -54,39 +54,38 @@ export async function loader({ params, request, context }) {
       !option.name.startsWith('_v') &&
       !option.name.startsWith('fbclid')
   );
-
   if (!handle) {
     throw new Error('Expected product handle to be defined');
   }
-
   const { product } = await storefront.query(PRODUCT_QUERY, {
     variables: { handle, selectedOptions, language },
   });
   if (!product?.id) {
     throw new Response(null, { status: 404 });
   }
-
-  const firstVariant = product.variants.nodes.find(
+  const availableVariants = product.variants.nodes.filter(
     (variant) => variant.availableForSale
   );
-
-  if (!firstVariant) {
-    console.warn('No available variants found.');
-    throw new Error('No variants available for this product in the selected locale.');
+  const variantsToShow = product.variants.nodes;
+  if (variantsToShow.length === 0) {
+    console.warn('No variants available for this product in the selected locale.');
+    return {
+      status: 404,
+      message: 'No variants are available for this product in the selected locale.',
+    };
   }
-
+  const firstVariant = availableVariants.length > 0 ? availableVariants[0] : variantsToShow[0];
   product.selectedVariant = firstVariant;
-
   const variants = await storefront.query(VARIANTS_QUERY, {
     variables: { handle, language },
   });
-
   return defer({
     canonicalUrl,
     product,
     variants,
   });
 }
+
 
 
 function ProductMedia({media}) {

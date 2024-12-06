@@ -19,22 +19,20 @@ export function SanityInternalLink(props) {
     switch (documentType) {
       case 'page':
         return `${locale.pathPrefix}/pages/${slug}`;
+      case 'job':
+        return `${locale.pathPrefix}/pages/job`;
       case 'locations':
-        return `${locale.pathPrefix}/pages/${slug}`;
+        return `${locale.pathPrefix}/pages/locations`;
       case 'catering':
-        return `${locale.pathPrefix}/pages/${slug}`;
+        return `${locale.pathPrefix}/pages/catering`;
       case 'ourStory':
-        return `${locale.pathPrefix}/pages/${slug}`;
+        return `${locale.pathPrefix}/pages/our-story`;
       case 'ourCurrywurst':
-        return `${locale.pathPrefix}/pages/${slug}`;
-      case 'product':
-        return `${locale.pathPrefix}/products/${slug}`;
-      case 'collection':
-        return `${locale.pathPrefix}/collections/${slug}`;
+        return `${locale.pathPrefix}/pages/our-currywurst`;
       case 'home':
-        return locale.pathPrefix || '/';
-      case 'polices':
-        return `${locale.pathPrefix}/polices/${slug}`;
+        return `${locale.pathPrefix}/`;
+      case 'policiesInnerPage':
+        return `${locale.pathPrefix}/policies/${slug}`;
       default:
         return '';
     }
