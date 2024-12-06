@@ -37,7 +37,7 @@ function CartDetails({layout, cartContent, cart}) {
 
   return (
     <div className="cart-details">
-      <CartLines lines={cart?.lines} layout={layout} />
+      <CartLines cartContent={cartContent} lines={cart?.lines} layout={layout} />
       {cartHasItems && (
         <CartSummary cartContent={cartContent} cost={cart.cost} layout={layout}>
           <CartDiscounts
@@ -60,14 +60,14 @@ function CartDetails({layout, cartContent, cart}) {
  *   lines: CartApiQueryFragment['lines'] | undefined;
  * }}
  */
-function CartLines({lines, layout}) {
+function CartLines({lines, layout , cartContent}) {
   if (!lines) return null;
 
   return (
     <div className="cart-lines" aria-labelledby="cart-lines">
       <ul>
         {lines.nodes.map((line) => (
-          <CartLineItem key={line.id} line={line} layout={layout} />
+          <CartLineItem key={line.id} line={line} cartContent={cartContent} layout={layout} />
         ))}
       </ul>
     </div>
@@ -80,7 +80,7 @@ function CartLines({lines, layout}) {
  *   line: CartLine;
  * }}
  */
-function CartLineItem({layout, line}) {
+function CartLineItem({layout, line, cartContent}) {
   const {id, merchandise} = line;
   const {product, title, image, selectedOptions} = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
@@ -123,7 +123,7 @@ function CartLineItem({layout, line}) {
             </li>
           ))}
         </ul>
-        <CartLineQuantity line={line} />
+        <CartLineQuantity cartContent={cartContent} line={line} />
       </div>
     </li>
   );
@@ -194,15 +194,14 @@ function CartLineRemoveButton({lineIds}) {
 /**
  * @param {{line: CartLine}}
  */
-function CartLineQuantity({line}) {
+function CartLineQuantity({line ,cartContent}) {
   if (!line || typeof line?.quantity === 'undefined') return null;
   const {id: lineId, quantity} = line;
   const prevQuantity = Math.max(0, quantity - 1);
   const nextQuantity = quantity + 1;
-
   return (
     <div className="cart-line-quantity">
-      <small>Anzahl: {quantity} &nbsp;&nbsp;</small>
+      <small>{cartContent?.anzahl}: {quantity} &nbsp;&nbsp;</small>
       <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
         <button
           aria-label="Decrease quantity"

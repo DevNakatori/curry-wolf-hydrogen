@@ -36,6 +36,7 @@
   position: absolute;
   width: calc(var(--aside-width) - 40px);
   color: #fff;
+  left: 17px;
 }
 
 .cart-line-quantity {
@@ -252,6 +253,8 @@
     min-width: 320px;
     max-width: 320px;
   }
+  .cart-summary-aside {
+    width: calc(var(--aside-width) - 60px);}
 
   .cart-line img {
     margin-right: 15px;

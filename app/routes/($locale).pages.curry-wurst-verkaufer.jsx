@@ -158,7 +158,7 @@ export default function Page() {
             <div className="detail-mail-left">
               <Link
                 to={stegaClean(
-                  `${locale.pathPrefix}/pages/${sectionFourth?.buttonLink}`,
+                  sectionFourth?.buttonLink,
                 )}
                 className="yellow-border-btn"
               >

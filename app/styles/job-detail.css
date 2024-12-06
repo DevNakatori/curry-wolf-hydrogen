@@ -166,6 +166,12 @@
  .job-detail-das {
 	width: 65%;
  }
+ html[lang="nl"] .job-detail-ans {
+	margin-top: 52px;
+ }
+ html[lang="zh"] .job-detail-ans {
+	margin-top: 110px;
+ }
  
  .job-detail-ans {
 	width: 35%;
