@@ -11,6 +11,9 @@ import {
 import {useRootLoaderData} from '~/lib/root-data';
 import {useSanityRoot} from '~/hooks/useSanityRoot';
 import {useRootLoaderData as LoaderData} from '~/root';
+import Truck from '../assets/Truck.svg';
+import Tree from '../assets/christmas-tree.svg';
+import Marquee from './Marquee';
 
 /**
  * @param {LayoutProps}
@@ -38,6 +41,27 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
           setToggle={setToggle}
         />
       )}
+      <Marquee duration={30} >
+        <span className="clipped-text">
+          We will be closed for Christmas from 15th December
+        </span>
+        
+        <img src={Tree} alt="Tree" />
+        <span className="clipped-text">
+          Orders will resume after the holidays, thank you for your
+          understanding!
+        </span>
+        <img className="truck" src={Truck} alt="Truck" />
+        <span className="clipped-text">
+          We will be closed for Christmas from 15th December
+        </span>
+        <img src={Tree} alt="Tree" />
+        <span className="clipped-text">
+          Orders will resume after the holidays, thank you for your
+          understanding!
+        </span>
+        <img className="truck" src={Truck} alt="Truck" />
+      </Marquee>
       <main>{children}</main>
       <Suspense>
         <Await resolve={footer}>

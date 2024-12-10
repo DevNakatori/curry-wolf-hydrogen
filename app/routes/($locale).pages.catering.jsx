@@ -12,6 +12,7 @@ import {useRootLoaderData as LoaderData} from '~/root';
 import {stegaClean} from '@sanity/client/stega';
 import {PortableText} from '@portabletext/react';
 import CateringSlider from '~/components/CateringSlider';
+import MagneticGSApp from '~/components/MagneticGSApp';
 // import stylesUrl from '../styles/catering-page.css';
 /**
  * @type {MetaFunction<typeof loader>}
@@ -124,16 +125,77 @@ export default function Page() {
               <h1 dangerouslySetInnerHTML={{__html: data?.heroTitle}} />
             </div>
             <div className="right-logo">
-              <img src={getImageUrl(data?.image?.asset?._ref)} />
+              {/* <img src={getImageUrl(data?.image?.asset?._ref)} /> */}
               <h3>
-                <span data-mce-fragment="1">{data?.Description}</span>
+                {data?.Description}
               </h3>
             </div>
-          </div>
-          <div className="c-bottom-btn">
+            <div className="s-wrap">
+                  <div
+                    data-aos-duration="2000"
+                    data-aos-once="true"
+                    data-aos="fade-up"
+                    className="c-s-image-section aos-init aos-animate"
+                  >
+                    <MagneticGSApp>
+                    <div
+                      // data-aos-duration="2000"
+                      // data-aos-once="true"
+                      // data-aos="fade-right"
+                      className="img-big-wrap "
+                    >
+                      <div className="img-one">
+                        <div className="inner-white-box">
+                          <img
+                            src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/2.png?v=1716978818"
+                            alt="Image 1"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    </MagneticGSApp>
+                    <MagneticGSApp>
+                    <div
+                      // data-aos-duration="2000"
+                      // data-aos-once="true"
+                      // data-aos="zoom-in"
+                      className="img-big-wrap "
+                    >
+                      <div className="img-one">
+                        <div className="inner-white-box">
+                          <img
+                            src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/unsere_story_01_1.webp?v=1721392013"
+                            alt="Image 2"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    </MagneticGSApp>
+                    <MagneticGSApp>
+                    <div
+                      // data-aos-duration="2000"
+                      // data-aos-once="true"
+                      // data-aos="fade-left"
+                      className="img-big-wrap "
+                    >
+                      <div className="img-one">
+                        <div className="inner-white-box">
+                          <img
+                            src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/458245312-foto-fur-catering-brandenburger-tor2.webp?v=1721730189"
+                            alt="Image 3"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    </MagneticGSApp>
+                  </div>
+              </div>
+              <h4>Jetzt auch 100% vegane Auswahl. Wolf Bestellt. Vegan geworden.</h4>
+            <div className="c-bottom-btn">
             <Link to={ctaLink} className="yellow-btn">
               <span data-mce-fragment="1">{data?.ctaButtontext}</span>
             </Link>
+          </div>
           </div>
           <div className="curywolf-catering-box">
             {cateringPageImages?.map((item, index) => {
