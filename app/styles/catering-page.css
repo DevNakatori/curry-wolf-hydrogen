@@ -141,6 +141,7 @@ padding-bottom: 30px;
 
 .inner-wolf-bestell .s-wrap {
   max-width: 63.85vw;
+  position: relative;
 }
 @media (max-width: 1440px) {
   .left-content {
@@ -170,6 +171,7 @@ padding-bottom: 30px;
 
 }
 
+
 .inner-wolf-bestell h3 {
   color: #fff;
   font-family: 'Gotham';
@@ -178,11 +180,17 @@ padding-bottom: 30px;
   font-weight: bold;
   text-align: center;
   line-height: 24px;
+  max-width: 55rem;
+}
+@media (max-width: 1600px) {
+  .inner-wolf-bestell h3 {
+    max-width: 47rem;
+}
 }
 .inner-wolf-bestell h4 {
   color: #fff;
   font-family: 'BertholdBlock';
-  max-width:126.02vh;
+  max-width:88vh;
   margin: 0 0 0px 0;
   font-size:2.8rem;
   font-weight: 400;
@@ -193,11 +201,17 @@ padding-bottom: 30px;
   display: flex;
   justify-content: center;
   max-width: 1194px;
-  margin: 90px auto 70px;
+  margin: 0px auto 70px;
   position: relative;
   z-index: 1;
   gap: 20px;
 }
+.inner-wolf-bestell .s-wrap img.naturlich-image {
+  width: 77.88px;
+  height: 82.18px;
+  position: absolute;
+  right: 0px;
+  bottom: -12px;}
 
 .inner-wolf-bestell .s-wrap .img-big-wrap:nth-child(1) .img-one {
   z-index: 1;
@@ -246,12 +260,12 @@ padding-bottom: 30px;
 .brandenburg .brand-right .b-btn-wrap {
   padding-bottom: 80px;
 }
+
 @media (max-width: 767px) {
    .inner-wolf-bestell .s-wrap .img-big-wrap {
     width:50%;
     z-index: 10;
 }
-
   .inner-wolf-bestell .s-wrap .img-big-wrap:nth-child(3) .img-one {
     margin-top: 0px; 
     transform: translateY(19px) rotate(10deg);
@@ -269,14 +283,18 @@ padding-bottom: 30px;
     line-height: 2rem;
   }
   .inner-wolf-bestell .s-wrap .c-s-image-section {
-    margin: 70px auto 70px;
+    margin: 70px auto 90px;
   }
+  .inner-wolf-bestell h3 {
+    max-width: 22rem;
+}
   }
   @media screen and (max-width: 400px) {
     .inner-wolf-bestell h4 {
         font-size: 1.5rem;
         line-height: 1.5rem;
     }
+
 }
 .brand-left h2 {
   font-size: 60px;
@@ -458,8 +476,9 @@ padding-bottom: 30px;
 }
 
 .inner-wolf-bestell .right-logo {
-  width: 64%;
+  width: 75%;
   margin-bottom: 8px;
+  display: flex;
 }
 
 .logo-box {
@@ -629,9 +648,8 @@ padding-bottom: 30px;
 }
 
 .inner-wolf-bestell .right-logo img {
-  width: 220px;
-  margin-left: -30px;
-  margin-bottom: 10px;
+  width: 11.978rem;
+  height: 11.186rem;
 }
 
 .curywolf-catering-box .img-big-wrap .img-one img:hover {
@@ -660,8 +678,11 @@ padding-bottom: 30px;
 @media (max-width: 1440px) {
   .inner-wolf-bestell .right-logo {
     margin-bottom: 12px;
+    width: 90%;
   }
-
+  .inner-wolf-bestell h3 {
+    max-width: 43rem;
+}
   .logo-box img {
     width: 70%;
   }
@@ -735,6 +756,9 @@ padding-bottom: 30px;
   .inner-wolf-bestell {
     margin-bottom: 0px;
   }
+      .inner-wolf-bestell h3 {
+        max-width: 36rem;
+    }
 
   .brand-left h2 {
     margin-bottom: 30px;
@@ -804,7 +828,12 @@ padding-bottom: 30px;
   .main-catering-page .container {
     overflow: hidden;
   }
-
+  .inner-wolf-bestell h3 {
+   display: none;
+}
+.inner-wolf-bestell .s-wrap .c-s-image-section {
+  margin: 50px auto 70px;
+}
   .c-bottom-btn {
     margin-bottom: 20px;
     text-align: center;
@@ -1141,8 +1170,15 @@ padding-bottom: 30px;
     padding: 10px;
     cursor: pointer;
   }
+  .inner-wolf-bestell .right-logo {
+    display: none;
+    }
 }
-
+@media screen and (max-width: 768px) {
+  .inner-wolf-bestell h3 {
+    max-width: 22rem;
+}
+  }
 @media (max-width: 575px) {
   .inner-wolf-bestell {
     flex-wrap: wrap;

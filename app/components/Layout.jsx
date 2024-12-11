@@ -43,7 +43,7 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
       )}
       <Marquee duration={80} >
         <span className="clipped-text">
-          We will be closed for Christmas from 15th December
+          We will be closed for Christmas from 19th December To 6th January
         </span>
         
         <img src={Tree} alt="Tree" />
@@ -53,7 +53,7 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
         </span>
         <img className="truck" src={Truck} alt="Truck" />
         <span className="clipped-text">
-          We will be closed for Christmas from 15th December
+          We will be closed for Christmas from 19th December To 6th January
         </span>
         <img src={Tree} alt="Tree" />
         <span className="clipped-text">

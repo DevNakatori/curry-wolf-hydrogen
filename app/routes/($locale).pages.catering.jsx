@@ -13,7 +13,7 @@ import {stegaClean} from '@sanity/client/stega';
 import {PortableText} from '@portabletext/react';
 import CateringSlider from '~/components/CateringSlider';
 import MagneticGSApp from '~/components/MagneticGSApp';
-// import stylesUrl from '../styles/catering-page.css';
+ import naturalImage from '../assets/natural.png';
 /**
  * @type {MetaFunction<typeof loader>}
  */
@@ -125,7 +125,7 @@ export default function Page() {
               <h1 dangerouslySetInnerHTML={{__html: data?.heroTitle}} />
             </div>
             <div className="right-logo">
-              {/* <img src={getImageUrl(data?.image?.asset?._ref)} /> */}
+              <img src={getImageUrl(data?.image?.asset?._ref)} />
               <h3>
                 {data?.Description}
               </h3>
@@ -189,6 +189,7 @@ export default function Page() {
                     </div>
                     </MagneticGSApp>
                   </div>
+                  <img className='naturlich-image' alt='naturlichLogo' src={naturalImage} />
               </div>
               <h4>Jetzt auch 100% vegane Auswahl. Wolf Bestellt. Vegan geworden.</h4>
             <div className="c-bottom-btn">
