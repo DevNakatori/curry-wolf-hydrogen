@@ -41,7 +41,7 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
           setToggle={setToggle}
         />
       )}
-      <Marquee duration={30} >
+      <Marquee duration={80} >
         <span className="clipped-text">
           We will be closed for Christmas from 15th December
         </span>

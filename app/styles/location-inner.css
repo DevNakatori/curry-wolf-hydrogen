@@ -606,6 +606,9 @@ div#closeBtn {
     top: -50px;
     left: -90px;
   }
+  .popup-r-time ul li span {
+    width: 150px;
+}
 }
 
 @media (max-width: 1920px) {

@@ -172,12 +172,12 @@ padding-bottom: 30px;
 
 .inner-wolf-bestell h3 {
   color: #fff;
-  font-family: 'BertholdBlock';
+  font-family: 'Gotham';
   margin: 0 0 0px 0;
-  font-size:22px;
-  font-weight: 400;
+  font-size:20px;
+  font-weight: bold;
   text-align: center;
-  line-height: 23px;
+  line-height: 24px;
 }
 .inner-wolf-bestell h4 {
   color: #fff;
@@ -458,7 +458,7 @@ padding-bottom: 30px;
 }
 
 .inner-wolf-bestell .right-logo {
-  width: 50%;
+  width: 64%;
   margin-bottom: 8px;
 }
 

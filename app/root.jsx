@@ -390,7 +390,7 @@ export function ErrorBoundary({error}) {
   const nonce = useNonce(); // Safely use nonce without loader context
   const errorMessage = error?.message || 'An unknown error occurred';
   const errorStatus = error?.status || 500;
-
+  const {locale} = useRootLoaderData();
   // Fallback locale if loader data is not available
   const fallbackLocale = {language: 'en'}; // Default to English if no locale data
 
@@ -413,7 +413,7 @@ export function ErrorBoundary({error}) {
               </fieldset>
             )}
             <div className="thank-you-btn">
-              <a href="/" className="yellow-btn">
+              <a href={`${locale.pathPrefix}/`} className="yellow-btn">
                 Zurück zur Startseite
               </a>
             </div>
