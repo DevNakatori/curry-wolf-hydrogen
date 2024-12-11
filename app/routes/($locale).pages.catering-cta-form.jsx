@@ -1,7 +1,6 @@
 import {json} from '@shopify/remix-oxygen';
 import {Link, useLoaderData} from '@remix-run/react';
 
-import {useMemo} from 'react';
 import {mergeMeta} from '../lib/meta';
 import {DEFAULT_LOCALE} from 'countries/index';
 import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
@@ -76,21 +75,6 @@ export default function Page() {
   const sectionFirst = data?.sectionFirst;
   const sectionSecond = data?.sectionSecond;
 
-  const components = useMemo(
-    () => ({
-      marks: {
-        linkInternal: ({value, children}) => {
-          const {reference} = value;
-          return (
-            <Link to={stegaClean(`${locale.pathPrefix}/policies/privacy-policy`)}>
-              {children}
-            </Link>
-          );
-        },
-      },
-    }),
-    [],
-  );
   return (
     <div className="page catering-cta-form-page">
       <>
@@ -465,7 +449,6 @@ export default function Page() {
                               />
                               <label htmlFor="checkbox13">
                                 <PortableText
-                                   components={components}
                                   value={
                                     sectionSecond?.commentsSection
                                       ?.privacyPolicyCheckbox

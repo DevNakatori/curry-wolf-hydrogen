@@ -1,6 +1,6 @@
 import {json} from '@shopify/remix-oxygen';
 import {Link, useLoaderData} from '@remix-run/react';
-import React, {useEffect, useRef, useMemo} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {mergeMeta} from '../lib/meta';
 import {DEFAULT_LOCALE} from 'countries/index';
 import {sanityPreviewPayload} from '../lib/sanity/sanity.payload.server';
@@ -89,21 +89,6 @@ export default function Page() {
       };
     }
   }, [page]);
-  const components = useMemo(
-    () => ({
-      marks: {
-        linkInternal: ({value, children}) => {
-          const {reference} = value;
-          return (
-            <Link to={stegaClean(`${locale.pathPrefix}/policies/privacy-policy`)}>
-              {children}
-            </Link>
-          );
-        },
-      },
-    }),
-    [],
-  );
   return (
     <div className="page contact-page">
       <div className="klaviyo-form-WcMX8a"></div>
@@ -216,7 +201,6 @@ export default function Page() {
                     />
                     <label htmlFor="data-collection">
                       <PortableText
-                        components={components}
                         value={
                           sectionSecond?.commentsSection?.privacyPolicyCheckbox
                         }
