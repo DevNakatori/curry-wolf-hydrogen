@@ -22,7 +22,7 @@ const Marquee = ({duration, children}) => {
       // Animate all content elements
       marqueeContentAll.forEach((element, index) => {
         const animation = gsap.to(element, {
-          x: '-101%',
+          x: '-65%',
           repeat: -1,
           duration,
           ease: 'linear',
