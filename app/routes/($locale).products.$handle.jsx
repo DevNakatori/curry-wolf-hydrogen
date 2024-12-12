@@ -18,6 +18,7 @@ import '@fancyapps/ui/dist/fancybox/fancybox.css';
 import {useSanityRoot} from '~/hooks/useSanityRoot';
 import {getImageUrl} from '~/lib/utils';
 import '../styles/product.css';
+import HolidayBanner from '~/components/HolidayBanner';
 
 export const meta = ({data}) => {
   return [
@@ -236,6 +237,18 @@ export default function Product() {
     }
   };
 
+  const shopHolidays = data?.global?.ShopHolidays;
+
+  const currentDate = new Date();
+  const startDate = new Date(shopHolidays?.start);
+  const endDate = new Date(shopHolidays?.end);
+
+  // Check if the announcement is active
+  const shopIsActive = currentDate >= startDate && currentDate <= endDate;
+    
+  // console.log(endDate)
+  // console.log(startDate)
+
   const preparationText = getMetafieldText(
     product.metafields?.find(
       (metafield) =>
@@ -285,6 +298,7 @@ export default function Product() {
 
   return (
     <div className="main-product-sec">
+      {/* <HolidayBanner /> */}
       <div className="food-decorative-garland">
         <img src={decorativegarland} alt="food-decorative-garland" />
       </div>

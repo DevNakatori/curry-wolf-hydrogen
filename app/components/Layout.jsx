@@ -27,9 +27,12 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
   const currentDate = new Date();
   const startDate = new Date(announcement?.start);
   const endDate = new Date(announcement?.end);
+  // console.log(startDate)
+  // console.log(endDate)
 
   // Check if the announcement is active
   const isActive = currentDate >= startDate && currentDate <= endDate;
+  console.log(isActive)
 
   return (
     <>

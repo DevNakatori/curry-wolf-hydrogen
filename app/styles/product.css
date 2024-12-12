@@ -3,7 +3,9 @@ main {
   background: #9b2220;
   margin-top: 0;
 }
-
+.main-product-sec{
+  position: relative;
+}
 .main-product-sec .product-container {
   padding: 0px 0px 20px 0px;
 }
