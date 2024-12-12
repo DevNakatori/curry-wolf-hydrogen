@@ -1,5 +1,5 @@
 import {Await} from '@remix-run/react';
-import {lazy, Suspense, useState} from 'react';
+import React, {lazy, Suspense, useState} from 'react';
 import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
 import {Header, HeaderMenu} from '~/components/Header';
@@ -22,6 +22,15 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
   const [toggle, setToggle] = useState(false);
   const {env, locale, sanityPreviewMode} = useRootLoaderData();
   const {data} = useSanityRoot();
+  const announcement = data?.global?.Announcement;
+
+  const currentDate = new Date();
+  const startDate = new Date(announcement?.start);
+  const endDate = new Date(announcement?.end);
+
+  // Check if the announcement is active
+  const isActive = currentDate >= startDate && currentDate <= endDate;
+
   return (
     <>
       <CartAside cart={cart} />
@@ -41,27 +50,20 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
           setToggle={setToggle}
         />
       )}
-      <Marquee duration={80} >
-        <span className="clipped-text">
-          We will be closed for Christmas from 19th December To 6th January
-        </span>
-        
-        <img src={Tree} alt="Tree" />
-        <span className="clipped-text">
-          Orders will resume after the holidays, thank you for your
-          understanding!
-        </span>
-        <img className="truck" src={Truck} alt="Truck" />
-        <span className="clipped-text">
-          We will be closed for Christmas from 19th December To 6th January
-        </span>
-        <img src={Tree} alt="Tree" />
-        <span className="clipped-text">
-          Orders will resume after the holidays, thank you for your
-          understanding!
-        </span>
-        <img className="truck" src={Truck} alt="Truck" />
-      </Marquee>
+      {isActive && (
+        <Marquee duration={announcement?.duration}>
+          {announcement?.content.map((text, index) => (
+            <React.Fragment key={index}>
+              <span className="clipped-text">{text}</span>
+              <img
+                src={index % 2 === 0 ? Tree : Truck}
+                alt={index % 2 === 0 ? 'Tree' : 'Truck'}
+                className={index % 2 !== 0 ? 'truck' : ''}
+              />
+            </React.Fragment>
+          ))}
+        </Marquee>
+      )}
       <main>{children}</main>
       <Suspense>
         <Await resolve={footer}>

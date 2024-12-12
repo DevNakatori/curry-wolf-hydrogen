@@ -991,7 +991,9 @@ div#faq {
 
 
 @media (max-width: 575px) {
-
+  .curywolf-catering-box {
+    padding-top: 88px;
+  }
   .inner-wolf-bestell {
     flex-wrap: wrap;
   }
@@ -1024,4 +1026,10 @@ div#faq {
     font-size: 13px;
     line-height: 14px;
 }
+}
+@media (max-width: 320px) {
+  .curywolf-catering-box {
+    padding-top: 60px;
+  }
+ 
 }

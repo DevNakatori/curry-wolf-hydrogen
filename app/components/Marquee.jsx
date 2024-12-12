@@ -47,12 +47,12 @@ const Marquee = ({duration, children}) => {
   return (
     <div 
     ref={marqueeRef}  
-    class="marquee" 
+    className="marquee" 
     marquee-duration={duration}
     onMouseEnter={handleMouseEnter}
     onMouseLeave={handleMouseLeave}
     >
-      <div  class="marquee__inner">
+      <div  className="marquee__inner">
         <div className="marquee__content">
           {children}
         </div>

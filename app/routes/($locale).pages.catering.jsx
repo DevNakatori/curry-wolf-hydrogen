@@ -13,7 +13,7 @@ import {stegaClean} from '@sanity/client/stega';
 import {PortableText} from '@portabletext/react';
 import CateringSlider from '~/components/CateringSlider';
 import MagneticGSApp from '~/components/MagneticGSApp';
- import naturalImage from '../assets/natural.png';
+import naturalImage from '../assets/natural.png';
 /**
  * @type {MetaFunction<typeof loader>}
  */
@@ -75,6 +75,7 @@ export default function Page() {
   });
   const {locale} = LoaderData();
   const cateringPageImages = data?.cateringPageImages;
+  const cateringPageBannerImages = data?.cateringPageBannerImages;
   const ctaLink = stegaClean(`${locale.pathPrefix}/pages/${data?.link}`);
   const [openTabs, setOpenTabs] = useState([]);
   const Referenzen = data?.Referenzen;
@@ -125,78 +126,43 @@ export default function Page() {
               <h1 dangerouslySetInnerHTML={{__html: data?.heroTitle}} />
             </div>
             <div className="right-logo">
-              <img src={getImageUrl(data?.image?.asset?._ref)} />
-              <h3>
-                {data?.Description}
-              </h3>
+              <img alt='cateringLogo' src={getImageUrl(data?.image?.asset?._ref)} />
+              <h3>{data?.Description}</h3>
             </div>
             <div className="s-wrap">
-                  <div
-                    data-aos-duration="2000"
-                    data-aos-once="true"
-                    data-aos="fade-up"
-                    className="c-s-image-section aos-init aos-animate"
-                  >
-                    <MagneticGSApp>
-                    <div
-                      // data-aos-duration="2000"
-                      // data-aos-once="true"
-                      // data-aos="fade-right"
-                      className="img-big-wrap "
-                    >
-                      <div className="img-one">
-                        <div className="inner-white-box">
-                          <img
-                            src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/2.png?v=1716978818"
-                            alt="Image 1"
-                          />
+              <div
+                data-aos-duration="2000"
+                data-aos-once="true"
+                data-aos="fade-up"
+                className="c-s-image-section aos-init aos-animate"
+              >
+                {cateringPageBannerImages?.map((image, index) => {
+                  const Imgurl = getImageUrl(image?.image?.asset?._ref);
+                  return (
+                    <MagneticGSApp key={index}>
+                      <div className="img-big-wrap ">
+                        <div className="img-one">
+                          <div className="inner-white-box">
+                            <img src={Imgurl} alt={`Image ${index + 1}`} />
+                          </div>
                         </div>
                       </div>
-                    </div>
                     </MagneticGSApp>
-                    <MagneticGSApp>
-                    <div
-                      // data-aos-duration="2000"
-                      // data-aos-once="true"
-                      // data-aos="zoom-in"
-                      className="img-big-wrap "
-                    >
-                      <div className="img-one">
-                        <div className="inner-white-box">
-                          <img
-                            src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/unsere_story_01_1.webp?v=1721392013"
-                            alt="Image 2"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    </MagneticGSApp>
-                    <MagneticGSApp>
-                    <div
-                      // data-aos-duration="2000"
-                      // data-aos-once="true"
-                      // data-aos="fade-left"
-                      className="img-big-wrap "
-                    >
-                      <div className="img-one">
-                        <div className="inner-white-box">
-                          <img
-                            src="https://cdn.shopify.com/s/files/1/0661/7595/9260/files/458245312-foto-fur-catering-brandenburger-tor2.webp?v=1721730189"
-                            alt="Image 3"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    </MagneticGSApp>
-                  </div>
-                  <img className='naturlich-image' alt='naturlichLogo' src={naturalImage} />
+                  );
+                })}
               </div>
-              <h4>Jetzt auch 100% vegane Auswahl. Wolf Bestellt. Vegan geworden.</h4>
+              <img
+                className="naturlich-image"
+                alt="naturlichLogo"
+                src={getImageUrl(data?.naturlichVeganLogo?.asset?._ref)}
+              />
+            </div>
+            <h4>{data?.subTitle}</h4>
             <div className="c-bottom-btn">
-            <Link to={ctaLink} className="yellow-btn">
-              <span data-mce-fragment="1">{data?.ctaButtontext}</span>
-            </Link>
-          </div>
+              <Link to={ctaLink} className="yellow-btn">
+                <span data-mce-fragment="1">{data?.ctaButtontext}</span>
+              </Link>
+            </div>
           </div>
           <div className="curywolf-catering-box">
             {cateringPageImages?.map((item, index) => {

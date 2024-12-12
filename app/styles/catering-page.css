@@ -10,7 +10,7 @@ body {
 } */
 
 .left-content {
-  max-width: 60.73vw; /* Default for larger screens (1920px) */
+  max-width: 62.73vw; /* Default for larger screens (1920px) */
 }
 
 /* Core styles/functionality */
@@ -180,17 +180,17 @@ padding-bottom: 30px;
   font-weight: bold;
   text-align: center;
   line-height: 24px;
-  max-width: 55rem;
+  max-width: 68rem;
 }
-@media (max-width: 1600px) {
+@media (max-width: 1680px) {
   .inner-wolf-bestell h3 {
-    max-width: 47rem;
+    max-width: 56rem;
 }
 }
 .inner-wolf-bestell h4 {
   color: #fff;
   font-family: 'BertholdBlock';
-  max-width:88vh;
+  max-width:50rem;
   margin: 0 0 0px 0;
   font-size:2.8rem;
   font-weight: 400;
@@ -240,6 +240,8 @@ padding-bottom: 30px;
 }
 
 .inner-wolf-bestell .left-content h1 {
+  font-size: calc(32px + (120 - 30) * ((100vw - 320px) / (1920 - 320)));
+  line-height: calc(40px + (120 - 40) * ((100vw - 320px) / (1920 - 320)));
   margin-bottom: 0px;
   text-align: center;
 }
@@ -476,9 +478,12 @@ padding-bottom: 30px;
 }
 
 .inner-wolf-bestell .right-logo {
-  width: 75%;
+  width: 100%;
   margin-bottom: 8px;
   display: flex;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 115px;
 }
 
 .logo-box {
@@ -650,6 +655,8 @@ padding-bottom: 30px;
 .inner-wolf-bestell .right-logo img {
   width: 11.978rem;
   height: 11.186rem;
+  position: absolute;
+  left: 186px;
 }
 
 .curywolf-catering-box .img-big-wrap .img-one img:hover {
@@ -659,7 +666,7 @@ padding-bottom: 30px;
 }
 
 .c-bottom-btn {
-  margin-bottom: 100px;
+  margin-bottom: 40px;
   margin-top: 20px;
 }
 
@@ -668,6 +675,8 @@ padding-bottom: 30px;
     max-width: 1000px;
     justify-content: center;
     padding-bottom: 390px;
+    border-top: 1px solid #fff;
+    padding-top: 70px;
   }
 
   .img-big-wrap {
@@ -677,12 +686,15 @@ padding-bottom: 30px;
 
 @media (max-width: 1440px) {
   .inner-wolf-bestell .right-logo {
-    margin-bottom: 12px;
-    width: 90%;
+    margin-bottom: 100px;
+    width: 100%;
   }
-  .inner-wolf-bestell h3 {
-    max-width: 43rem;
-}
+  .inner-wolf-bestell .right-logo img{
+    left: 10px;
+  }
+  .inner-wolf-bestell h3{
+    max-width: 53rem;
+  }
   .logo-box img {
     width: 70%;
   }
@@ -717,7 +729,9 @@ padding-bottom: 30px;
   .brandenburg .brand-left {
     padding-right: 40px;
   }
-
+  .inner-wolf-bestell h3 {
+    max-width: 43rem;
+}
   .white-box-content {
     font-size: 26px;
     line-height: 30px;
@@ -757,7 +771,7 @@ padding-bottom: 30px;
     margin-bottom: 0px;
   }
       .inner-wolf-bestell h3 {
-        max-width: 36rem;
+        max-width: 42rem;
     }
 
   .brand-left h2 {
@@ -791,6 +805,8 @@ padding-bottom: 30px;
 
   .inner-wolf-bestell .right-logo img {
     width: 150px;
+    left: 39px;
+    top: -23px;
   }
 
   .b-btn-wrap a {
@@ -822,6 +838,12 @@ padding-bottom: 30px;
   .curywolf-catering-box .img-big-wrap:nth-child(1) a {
     transform: translate(-3%, 1%);
   }
+}
+@media (max-width: 960px) {
+  .inner-wolf-bestell .right-logo img {
+    left: 39px;
+    top: 22px;
+}
 }
 
 @media (max-width: 767px) {
@@ -1086,18 +1108,16 @@ padding-bottom: 30px;
     font-weight: 400;
   }
 
-  .curywolf-catering-box {
-    max-width: 92%;
-    margin: 0 auto;
-  }
 
   .curywolf-catering-box {
     padding-bottom: 0px;
+    border-bottom: 0;
+    max-width: 92%;
+    margin: 0 auto;
+    padding-top: 30px;
   }
 
-  .curywolf-catering-box {
-    border-bottom: 0;
-  }
+
 
   .more-img-text {
     max-width: 140px;
@@ -1176,14 +1196,29 @@ padding-bottom: 30px;
 }
 @media screen and (max-width: 768px) {
   .inner-wolf-bestell h3 {
-    max-width: 22rem;
+    max-width: 43rem;
+}
+.inner-wolf-bestell .s-wrap img.naturlich-image{
+  right: 32px;
+  bottom: 6px;
+}
+.inner-wolf-bestell .right-logo{
+  margin-bottom: 5px;
+}
+.inner-wolf-bestell .right-logo img{
+  width: 124px;
+  left: -21px;
+  top: 30px;
+
 }
   }
 @media (max-width: 575px) {
   .inner-wolf-bestell {
     flex-wrap: wrap;
   }
-
+  .inner-wolf-bestell .s-wrap img.naturlich-image{
+    right: 0px;
+  }
   .inner-wolf-bestell h3 {
     margin: 0 0 25px 0;
   }

@@ -28,6 +28,7 @@ import {useLocalePath} from './hooks/useLocalePath';
 import {sanityPreviewPayload} from './lib/sanity/sanity.payload.server';
 import {seoPayload} from './lib/seo.server';
 import {ROOT_QUERY} from './qroq/queries';
+import { useSanityRoot } from './hooks/useSanityRoot';
 export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {
   if (formMethod && formMethod !== 'GET') {
     return true;
@@ -393,7 +394,8 @@ export function ErrorBoundary({error}) {
   const {locale} = useRootLoaderData();
   // Fallback locale if loader data is not available
   const fallbackLocale = {language: 'en'}; // Default to English if no locale data
-
+  const {data} = useSanityRoot();
+  const notfoundPageData =data?.global?.notFoundPage
   return (
     <html lang={fallbackLocale.language.toLowerCase()}>
       <head>
@@ -405,7 +407,7 @@ export function ErrorBoundary({error}) {
       <body className="error-oops">
         <Layout>
           <div className="route-error">
-            <h1>Oops!</h1>
+            <h1>{notfoundPageData?.title}</h1>
             <h2>{errorStatus}</h2>
             {errorMessage && (
               <fieldset>
@@ -413,8 +415,8 @@ export function ErrorBoundary({error}) {
               </fieldset>
             )}
             <div className="thank-you-btn">
-              <a href={`${locale.pathPrefix}/`} className="yellow-btn">
-                Zurück zur Startseite
+              <a href={`${locale.pathPrefix}${notfoundPageData?.btnLink}`} className="yellow-btn">
+               {notfoundPageData?.btnText}
               </a>
             </div>
           </div>
