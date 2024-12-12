@@ -16,6 +16,7 @@ import {useSanityRoot} from '~/hooks/useSanityRoot';
 import {getImageUrl} from '~/lib/utils';
 import {PortableText} from '@portabletext/react';
 import {useRootLoaderData as LoaderData} from '~/root';
+import HolidayBanner from '~/components/HolidayBanner';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -88,6 +89,7 @@ export default function Collection() {
   const {collection, customMenu} = useLoaderData();
   return (
     <div className="collection">
+      {/* <HolidayBanner /> */}
       <div className="food-decorative-garland">
         <img
           src={decorativegarland}

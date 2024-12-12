@@ -1,8 +1,5 @@
 import {q, z} from 'groqd';
 import {
-  ANNOUCEMENT_BAR_ARRAY_FRAGMENT,
-  COLOR_SCHEME_FRAGMENT,
-  FONT_FRAGMENT,
   IMAGE_FRAGMENT,
   LOCATION_MENU_FRAGMENT,
   MENU_FRAGMENT,
@@ -11,6 +8,7 @@ import {
 import {THEME_CONTENT_FRAGMENT} from './themeContent';
 import {getIntValue} from './utils';
 import {LINKS_LIST_SELECTION} from './links';
+import { a } from 'framer-motion/client';
 
 export const HEADER_QUERY = q('*')
   .filter(`(_type == "header" &&  language == $language)`)
@@ -306,6 +304,13 @@ export const CATERING_PAGE_QUERY = q('*')
         link: q.string().nullable(),
       }),
     ),
+    naturlichVeganLogo: q('naturlichVeganLogo').grab(IMAGE_FRAGMENT).nullable(),
+    cateringPageBannerImages: q.array(
+      q.object({
+        image: q('image').grab(IMAGE_FRAGMENT).nullable(),
+      }),
+    ),
+    subTitle: q.string().nullable(),
     Referenzen: q.object({
       title: q.string().nullable(),
       ReferenzenContent: q.array(
@@ -705,9 +710,19 @@ export const GLOBAL_QUERY = q('*')
   .grab({
     notFoundPage: q('notFoundPage').nullable(),
     globalContent: q.object({}).nullable(),
+    Announcement: q.object([]).nullable(),
+    ShopHolidays: q.object([]).nullable(),
   })
   .slice(0)
   .nullable();
+  // export const ANNOUCEMENT_QUERY = q('*')
+  // .filter(`(_type == "settings" &&  language == $language)`)
+  // .grab({
+  //   notFoundPage: q('notFoundPage').nullable(),
+  //   globalContent: q.object({}).nullable(),
+  // })
+  // .slice(0)
+  // .nullable();
 
 export const ROOT_QUERY = q('')
   .grab({
