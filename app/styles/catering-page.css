@@ -893,10 +893,17 @@ padding-bottom: 20px;
   }
 }
 @media (max-width: 960px) {
-  .inner-wolf-bestell .right-logo img {
-    left: 39px;
-    top: 22px;
+
 }
+@media screen and (max-width: 960px) and (min-width: 820px) {
+  .inner-wolf-bestell .right-logo img {
+    left: 10px;
+    top: 34px;
+}
+.inner-wolf-bestell .s-wrap {
+  max-width: 90.14vw;
+}
+
 }
 @media screen and (max-width: 768px) {
   .inner-wolf-bestell h3 {
