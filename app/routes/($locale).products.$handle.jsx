@@ -298,7 +298,7 @@ export default function Product() {
 
   return (
     <div className="main-product-sec">
-      {/* <HolidayBanner /> */}
+     {/* <HolidayBanner />  */}
       <div className="food-decorative-garland">
         <img src={decorativegarland} alt="food-decorative-garland" />
       </div>

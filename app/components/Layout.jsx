@@ -61,7 +61,7 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
               <img
                 src={index % 2 === 0 ? Tree : Truck}
                 alt={index % 2 === 0 ? 'Tree' : 'Truck'}
-                className={index % 2 !== 0 ? 'truck' : ''}
+                className={index % 2 !== 0 ? 'truck' : 'tree'}
               />
             </React.Fragment>
           ))}

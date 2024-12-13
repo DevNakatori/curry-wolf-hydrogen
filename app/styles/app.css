@@ -52,12 +52,15 @@
   height: 32px;
 }
 .marquee .marquee__inner .marquee__content img.truck {
-margin: 0 10px ;
+margin: 0 30px ;
+}
+.marquee .marquee__inner .marquee__content img.tree {
+  margin: 0 20px ;
 }
 .marquee .marquee__inner .marquee__content span.clipped-text{
   font-family: 'Gotham-Medium';
   font-size: 1.125rem;
-  font-weight: 400;
+  font-weight: normal;
   display: inline-block;
   line-height: 1.35rem;
   text-align: left;
@@ -1302,7 +1305,7 @@ img.footer-bg-img {
 }
 
 .food-decorative-garland {
-  margin-top: -90px !important;
+  margin-top: -90px ;
 }
 
 /* @media not all and (min-resolution: 0.001dpcm) {

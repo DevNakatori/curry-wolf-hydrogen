@@ -5,6 +5,7 @@ body {
   background: linear-gradient(180deg, #d02523 0%, #9b2220 44.72%);
 }
 
+
 /* .catering-main {
   background: linear-gradient(180deg, #d02523 0%, #9b2220 44.72%);
 } */
@@ -131,12 +132,12 @@ div#faq {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 0px;
   align-content: center;
   flex-direction: column;
 }
 .inner-wolf-bestell .s-wrap .img-one{
-padding-bottom: 30px;
+padding-bottom: 20px;
 }
 
 .inner-wolf-bestell .s-wrap {
@@ -151,25 +152,10 @@ padding-bottom: 30px;
     max-width: 151.22vh;
   }
   .inner-wolf-bestell .s-wrap {
-    max-width: 76.14vw;
+    max-width: 63.14vw;
   }
 }
 
-@media (max-width: 1366px) {
-  .left-content {
-    max-width: 85.38vw;
-  }
-  .inner-wolf-bestell h4 {
-    max-width: 177.34vh;
-  }
-  .inner-wolf-bestell .s-wrap {
-    max-width: 89.75vw;
-  }
-  .inner-wolf-bestell .s-wrap .img-one {
-    padding-bottom: 18px;
-}
-
-}
 
 
 .inner-wolf-bestell h3 {
@@ -190,18 +176,18 @@ padding-bottom: 30px;
 .inner-wolf-bestell h4 {
   color: #fff;
   font-family: 'BertholdBlock';
-  max-width:50rem;
+  max-width:46rem;
   margin: 0 0 0px 0;
-  font-size:2.8rem;
+  font-size:2.2rem;
   font-weight: 400;
   text-align: center;
-  line-height:2.8rem;
+  line-height:2.2rem;
 }
 .inner-wolf-bestell .s-wrap .c-s-image-section {
   display: flex;
   justify-content: center;
   max-width: 1194px;
-  margin: 0px auto 70px;
+  margin: 0px auto 45px;
   position: relative;
   z-index: 1;
   gap: 20px;
@@ -243,10 +229,10 @@ padding-bottom: 30px;
 }
 
 .inner-wolf-bestell .left-content h1 {
-  font-size: calc(32px + (120 - 30) * ((100vw - 320px) / (1920 - 320)));
-  line-height: calc(40px + (120 - 40) * ((100vw - 320px) / (1920 - 320)));
   margin-bottom: 0px;
+  margin-top: 0px;
   text-align: center;
+  line-height:calc(40px + (85 - 40) * ((100vw - 320px) / (1920 - 320)));
 }
 
 .brandenburg {
@@ -487,7 +473,7 @@ padding-bottom: 30px;
   display: flex;
   justify-content: center;
   position: relative;
-  margin-bottom: 115px;
+  margin-bottom: 80px;
 }
 
 .logo-box {
@@ -657,10 +643,10 @@ padding-bottom: 30px;
 }
 
 .inner-wolf-bestell .right-logo img {
-  width: 11.978rem;
+  width: 7.978rem;
   height: 11.186rem;
   position: absolute;
-  left: 186px;
+  left: 256px;
 }
 
 .curywolf-catering-box .img-big-wrap .img-one img:hover {
@@ -672,6 +658,31 @@ padding-bottom: 30px;
 .c-bottom-btn {
   margin-bottom: 40px;
   margin-top: 20px;
+}
+@media (min-width: 1921px) {
+  .inner-wolf-bestell{
+    gap: 20px;
+  }
+  .inner-wolf-bestell .s-wrap{
+    max-width: 1170px;
+  }
+  .inner-wolf-bestell h4{
+    line-height: 2.8rem;
+    font-size: 2.8rem;
+    max-width: 50rem;
+  }
+}
+@media (min-width: 1920px) {
+  .curywolf-catering-box {
+    max-width: 1000px;
+    justify-content: center;
+    padding-bottom: 390px;
+    border-top: 1px solid #fff;
+    padding-top: 70px;
+  }
+  .main-catering-page .food-decorative-garland{
+    margin-top: -170px !important;
+  }
 }
 
 @media (max-width: 1920px) {
@@ -686,15 +697,26 @@ padding-bottom: 30px;
   .img-big-wrap {
     width: calc(100% / 3 - 30px);
   }
+
+}
+@media (max-width: 1760px) {
+  .main-catering-page .food-decorative-garland {
+    margin-top: -115px ;
+}
+.inner-wolf-bestell{
+  margin-top: -20px;
+}
 }
 
 @media (max-width: 1440px) {
   .inner-wolf-bestell .right-logo {
-    margin-bottom: 100px;
+    margin-bottom: 65px;
     width: 100%;
   }
   .inner-wolf-bestell .right-logo img{
-    left: 10px;
+    left: 95px;
+    width: 6.978rem;
+    height: 11.186rem;
   }
   .inner-wolf-bestell h3{
     max-width: 53rem;
@@ -728,6 +750,25 @@ padding-bottom: 30px;
     max-width: 1100px;
   }
 }
+@media (max-width: 1380px) {
+  .left-content {
+    max-width: 85.38vw;
+  }
+  .inner-wolf-bestell .s-wrap .img-one {
+    padding-bottom: 18px;
+}
+.main-catering-page .food-decorative-garland{
+  margin-top:-100px !important;
+}
+.inner-wolf-bestell .right-logo img{
+  left: 140px;
+  width: 6.978rem;
+  height: 6.186rem;
+  top: 37px;
+}
+
+}
+
 
 @media (max-width: 1200px) {
   .brandenburg .brand-left {
@@ -769,6 +810,11 @@ padding-bottom: 30px;
     gap: 55px;
   }
 }
+@media (max-width: 1100px) {
+  .inner-wolf-bestell .right-logo img {
+      top: 58px;
+  }
+}
 
 @media (max-width: 1024px) {
   .inner-wolf-bestell {
@@ -808,10 +854,10 @@ padding-bottom: 30px;
   }
 
   .inner-wolf-bestell .right-logo img {
-    width: 150px;
-    left: 39px;
-    top: -23px;
-  }
+    width: 115px;
+    left: 96px;
+    top: 53px;
+}
 
   .b-btn-wrap a {
     font-size: 16px;
@@ -833,6 +879,9 @@ padding-bottom: 30px;
   .img-one {
     padding: 10px 10px 5px 10px;
   }
+  .main-catering-page .food-decorative-garland {
+    margin-top: -70px !important;
+}
 
   .inner-content {
     padding-top: 10px;
@@ -849,8 +898,36 @@ padding-bottom: 30px;
     top: 22px;
 }
 }
-
+@media screen and (max-width: 768px) {
+  .inner-wolf-bestell h3 {
+    max-width: 43rem;
+}
+.inner-wolf-bestell .s-wrap img.naturlich-image{
+  right: 32px;
+  bottom: 6px;
+}
+.inner-wolf-bestell .right-logo{
+  margin-bottom: 5px;
+}
+.inner-wolf-bestell .right-logo img {
+  width: 110px;
+  left: 6px;
+  top: 65px;
+}
+.main-catering-page .food-decorative-garland {
+  margin-top: -50px !important;
+}
+.inner-wolf-bestell .s-wrap {
+  max-width: 78.14vw;
+}
+  }
 @media (max-width: 767px) {
+  .main-catering-page .food-decorative-garland {
+    margin-top: -38px !important;
+}
+  .inner-wolf-bestell {
+    margin-top: 0px;
+}
   .main-catering-page .container {
     overflow: hidden;
   }
@@ -1188,27 +1265,18 @@ padding-bottom: 30px;
     padding: 10px;
     cursor: pointer;
   }
+  .inner-wolf-bestell .right-logo img {
+    width: 109px;
+    left: 6px;
+    top: -40px;
+}
 
 }
-@media screen and (max-width: 768px) {
-  .inner-wolf-bestell h3 {
-    max-width: 43rem;
-}
-.inner-wolf-bestell .s-wrap img.naturlich-image{
-  right: 32px;
-  bottom: 6px;
-}
-.inner-wolf-bestell .right-logo{
-  margin-bottom: 5px;
-}
-.inner-wolf-bestell .right-logo img{
-  width: 124px;
-  left: -21px;
-  top: 30px;
-
-}
-  }
 @media (max-width: 575px) {
+  .main-catering-page .food-decorative-garland {
+    margin-top: -23px !important;
+}
+
   .inner-wolf-bestell {
     flex-wrap: wrap;
   }
@@ -1220,7 +1288,8 @@ padding-bottom: 30px;
   }
   .inner-wolf-bestell .right-logo img{
     width: 82px;
-    top: -77px;
+    top: -34px;
+    left: -30px;
   }
 }
 
