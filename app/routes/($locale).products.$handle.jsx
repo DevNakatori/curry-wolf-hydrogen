@@ -237,17 +237,17 @@ export default function Product() {
     }
   };
 
-  const shopHolidays = data?.global?.ShopHolidays;
+  // const shopHolidays = data?.global?.ShopHolidays;
 
-  const currentDate = new Date();
-  const startDate = new Date(shopHolidays?.start);
-  const endDate = new Date(shopHolidays?.end);
+  // const currentDate = new Date();
+  // const startDate = new Date(shopHolidays?.start);
+  // const endDate = new Date(shopHolidays?.end);
 
-  // Check if the announcement is active
-  const shopIsActive = currentDate >= startDate && currentDate <= endDate;
+  // // Check if the announcement is active
+  // const shopIsActive = currentDate >= startDate && currentDate <= endDate;
     
-  // console.log(endDate)
-  // console.log(startDate)
+  // // console.log(endDate)
+  // // console.log(startDate)
 
   const preparationText = getMetafieldText(
     product.metafields?.find(

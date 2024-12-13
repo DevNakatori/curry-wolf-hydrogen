@@ -107,7 +107,15 @@ margin: 0 30px ;
 }
 .holiday-banner img{
   width: 100%;
-  height: auto
+  height: auto;
+  position: fixed;
+}
+.holiday-banner-image{
+  position: relative;
+  height: 100%;
+  width: 100%;
+  margin-top: 120px;
+
 }
 
 
@@ -992,7 +1000,7 @@ nav.header-ctas a span {
   transform: none !important;
   transition: none !important;
   overflow: hidden;
-  z-index: 7;
+  z-index: 4;
 }
 
 .footer-icon a svg {

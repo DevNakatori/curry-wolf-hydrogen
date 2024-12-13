@@ -1,9 +1,9 @@
 import React from 'react'
-import Holidaybanner from '../assets/HolidayBanner.png'
+import Holidaybanner from '../assets/HolidayBanner.svg'
 const HolidayBanner = () => {
   return (
     <div className='holiday-banner'>
-        <img src={Holidaybanner} alt='holiday-banner' />
+       <div className="holiday-banner-image"> <img src={Holidaybanner} alt='holiday-banner' /></div>
     </div>
   )
 }
