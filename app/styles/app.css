@@ -50,10 +50,10 @@
   height: 32px;
 }
 .marquee .marquee__inner .marquee__content img.truck {
-margin: 0 30px ;
+  margin: 0 60px ;
 }
 .marquee .marquee__inner .marquee__content img.tree {
-  margin: 0 20px ;
+  margin: 0 40px ;
 }
 .marquee .marquee__inner .marquee__content span.clipped-text{
   font-family: 'Gotham-Book';
