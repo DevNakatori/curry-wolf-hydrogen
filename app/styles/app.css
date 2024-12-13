@@ -31,8 +31,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Gotham-Medium';
-  font-weight: 500;
   cursor: pointer;
 }
 
@@ -58,7 +56,7 @@ margin: 0 30px ;
   margin: 0 20px ;
 }
 .marquee .marquee__inner .marquee__content span.clipped-text{
-  font-family: 'Gotham-Medium';
+  font-family: 'Gotham-Book';
   font-size: 1.125rem;
   font-weight: normal;
   display: inline-block;
