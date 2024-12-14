@@ -686,6 +686,9 @@ padding-bottom: 20px;
   .inner-wolf-bestell{
    margin-top: -20px;
   }
+  .inner-wolf-bestell .s-wrap img.naturlich-image {
+    bottom: -25px;
+}
 }
 
 @media (max-width: 1920px) {
