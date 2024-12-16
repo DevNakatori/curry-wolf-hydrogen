@@ -30,6 +30,8 @@ export function Header({header, isLoggedIn, cart, toggle, setToggle}) {
           <NavLink prefetch="intent" to={`${locale.pathPrefix}`} end>
             <img
               className="desktop-logo"
+              width="100"
+              height="68.13"
               src={logourl}
               alt={logo?.altText || 'logo'}
               data-aos="zoom-in"
@@ -245,7 +247,7 @@ function HeaderCtas({isLoggedIn, logo, cart, toggle, setToggle}) {
         </Suspense>
       </NavLink>
       <NavLink prefetch="intent" to="/" end>
-        <img className="mobile-logo" src={logo} alt="logo" />
+        <img className="mobile-logo" src={logo} width="85" height="57.51" alt="logo" />
       </NavLink>
       <CartToggle cart={cart} />
       {/* <LanguageSwitcher /> */}

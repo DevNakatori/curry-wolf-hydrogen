@@ -89,6 +89,13 @@ export function links() {
       href: 'https://shop.app',
     },
     {rel: 'icon', type: 'image/png', href: favicon},
+    {
+      rel: 'preload',
+      as: 'image',
+      type: 'image/png/webp/svg',
+      href: 'https://cdn.sanity.io/images/vu17rm6q/production/f18e33a3d1beba4dcde02e818f7bd4b933b69f71-273x186.svg',
+      crossOrigin: 'anonymous',
+    }
   ];
 }
 
@@ -123,7 +130,6 @@ export async function loader({context, request}) {
   };
   const headerLang = languageMap[locale?.language] ||  locale?.language
   const cartPromise = cart.get({
-    country: locale.country,
     language: headerLang,
   });
   const rootData = Promise.all([
