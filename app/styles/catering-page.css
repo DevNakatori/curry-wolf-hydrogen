@@ -656,6 +656,7 @@ padding-bottom: 20px;
   margin-bottom: 40px;
   margin-top: 20px;
 }
+
 @media (min-width: 1921px) {
   .inner-wolf-bestell{
     gap: 20px;
@@ -686,6 +687,11 @@ padding-bottom: 20px;
   .inner-wolf-bestell .s-wrap img.naturlich-image {
     bottom: -25px;
 }
+}
+@media (min-width: 2520px) {
+  .main-catering-page .food-decorative-garland {
+      margin-top: -235px !important;
+  }
 }
 
 @media (max-width: 1920px) {
