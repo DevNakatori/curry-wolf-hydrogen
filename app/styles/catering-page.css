@@ -197,7 +197,7 @@ padding-bottom: 20px;
   height: 82.18px;
   position: absolute;
   right: 0px;
-  bottom: -12px;}
+  bottom: -22px;}
 
 .inner-wolf-bestell .s-wrap .img-big-wrap:nth-child(1) .img-one {
   z-index: 1;
@@ -210,9 +210,6 @@ padding-bottom: 20px;
 }
 .inner-wolf-bestell .s-wrap .img-big-wrap:nth-child(2) {
   z-index: 9;
-}
-.inner-wolf-bestell .s-wrap .img-big-wrap:nth-child(2) .img-one {
-  padding-bottom: 0px;
 }
 .inner-wolf-bestell .s-wrap .img-big-wrap:nth-child(3) .img-one {
   transform: rotate(-10deg);

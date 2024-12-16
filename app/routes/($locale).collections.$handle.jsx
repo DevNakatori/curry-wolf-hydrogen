@@ -88,14 +88,14 @@ export default function Collection() {
   const trustedShop = globalContent?.trustedShop;
   const {collection, customMenu} = useLoaderData();
   const shopHolidays = data?.global?.ShopHolidays;
-
+const bannerHoliday = shopHolidays?.banner
   const currentDate = new Date();
   const startDate = new Date(shopHolidays?.start);
   const endDate = new Date(shopHolidays?.end);
   const ShopIsActive = currentDate >= startDate && currentDate <= endDate;
   return (
     <div className="collection">
-     {ShopIsActive &&  <HolidayBanner />}
+     {ShopIsActive &&  <HolidayBanner bannerHoliday={bannerHoliday} />}
       <div className="food-decorative-garland">
         <img
           src={decorativegarland}
