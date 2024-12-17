@@ -481,7 +481,9 @@ padding-bottom: 20px;
 .logo-box img {
   max-height: 144px;
 }
-
+.inner-wolf-bestell-wrap{
+  min-height: calc(100vh - 281px);
+}
 .wolf-logo .w-left-content h3 {
   font-size: calc(25px + (70 - 25) * ((100vw - 320px) / (1920 - 320)));
   line-height: calc(25px + (70 - 25) * ((100vw - 320px) / (1920 - 320)));

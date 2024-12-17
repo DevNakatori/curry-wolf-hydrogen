@@ -116,6 +116,7 @@ export default function Page() {
           />
         </div>
         <div className="container">
+          <div className="inner-wolf-bestell-wrap">
           <div
             className="inner-wolf-bestell"
             data-aos-duration="1500"
@@ -163,6 +164,7 @@ export default function Page() {
                 <span data-mce-fragment="1">{data?.ctaButtontext}</span>
               </Link>
             </div>
+          </div>
           </div>
           <div className="curywolf-catering-box">
             {cateringPageImages?.map((item, index) => {
