@@ -104,7 +104,10 @@ body {
 .tab input:checked + .tab__label::after {
   transform: rotate(180deg);
 }
-
+.inner-wolf-bestell-wrap .inner-wolf-bestell.aos-init.aos-animate {
+  transform: scale(0.87);
+  transform-origin: top;
+}
 .tab__content p {
   margin: 0;
   padding: 0px 30px 25px 0px;
