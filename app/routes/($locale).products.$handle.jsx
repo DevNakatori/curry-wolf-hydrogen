@@ -239,10 +239,9 @@ export default function Product() {
 
   const shopHolidays = data?.global?.ShopHolidays;
   const bannerHoliday = shopHolidays?.banner
-  const currentDate = new Date();
-  const startDate = new Date(shopHolidays?.start);
-  const endDate = new Date(shopHolidays?.end);
-  const ShopIsNotActive = currentDate >= startDate && currentDate <= endDate;
+  const shopStartDate = new Date(shopHolidays?.start);
+  const shopCloseDate = new Date(shopHolidays?.end);
+  const ShopIsNotActive =  (!shopCloseDate || new Date(shopCloseDate) < new Date()) &&(!shopStartDate || new Date(shopStartDate) > new Date())
   const preparationText = getMetafieldText(
     product.metafields?.find(
       (metafield) =>
