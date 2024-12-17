@@ -104,7 +104,7 @@ body {
 .tab input:checked + .tab__label::after {
   transform: rotate(180deg);
 }
-.inner-wolf-bestell-wrap .inner-wolf-bestell.aos-init.aos-animate {
+.inner-wolf-bestell-wrap .inner-wolf-bestell{
   transform: scale(0.87);
   transform-origin: top;
 }
@@ -669,6 +669,12 @@ padding-bottom: 20px;
     max-width: 50rem;
   } */
 }
+@media screen and (min-device-width: 4479px) { 
+  .inner-wolf-bestell-wrap .inner-wolf-bestell {
+    transform: scale(1.1) !important;
+    transform-origin: 0% 90%!important;
+}
+}
 @media screen and (min-width: 2560px) {
   .container {
     max-width: 3000px!important;
@@ -700,6 +706,9 @@ padding-bottom: 20px;
   transform: scale(0.87);
   transform-origin: top;
 }
+.food-decorative-garland {
+  margin-top: -265px !important;
+}
 .inner-wolf-bestell h4 {
     color: #fff;
     font-family: "BertholdBlock";
@@ -715,6 +724,10 @@ padding-bottom: 20px;
   height: 200px;
   bottom: -22px;
   bottom: -130px;
+}
+.curywolf-catering-box {
+  -webkit-border-top: none;
+  border-top: none;
 }
 }
 @media screen and (max-width: 2048px) and (min-width: 1920px)  {
@@ -1489,7 +1502,7 @@ padding-bottom: 20px;
     left: 6px;
     top: -40px;
 }
-.inner-wolf-bestell-wrap .inner-wolf-bestell.aos-init.aos-animate {
+.inner-wolf-bestell-wrap .inner-wolf-bestell {
   transform: scale(.80);
   transform-origin: top;
 }
