@@ -104,24 +104,22 @@ export default function Page() {
   
 
 useEffect(() => {
-  function adjustInnerWolfWrapHeight() {
-    const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
-    const marqueeHeight = document.querySelector('.marquee')?.offsetHeight || 0;
-
-    // Calculate the remaining height
-    const availableHeight = window.innerHeight - headerHeight - marqueeHeight;
-    console.log(availableHeight)
-    // Apply the calculated height
-    const innerWrap = document.querySelector('.inner-wolf-bestell-wrap');
-    console.log(innerWrap)
-    if (innerWrap) {
-        innerWrap.style.height = `${availableHeight}px`;
-    }
-}
-
-// Adjust height on load and on resize
-window.addEventListener('load', adjustInnerWolfWrapHeight);
-window.addEventListener('resize', adjustInnerWolfWrapHeight);
+  function adjustInnerWolfHeight() {
+    const header = document.querySelector('.header');
+    const marquee = document.querySelector('.marquee');
+    const innerWolfWrap = document.querySelector('.inner-wolf-bestell-wrap');
+  
+    const headerHeight = header.offsetHeight;
+    const marqueeHeight = marquee.offsetHeight;
+  
+    const availableHeight = window.innerHeight - (headerHeight + marqueeHeight);
+    innerWolfWrap.style.height = `${availableHeight}px`;
+  }
+  
+  // Adjust on load and resize
+  window.addEventListener('load', adjustInnerWolfHeight);
+  window.addEventListener('resize', adjustInnerWolfHeight);
+  
 },[])
   useEffect(() => {
     if (Accordions?.accordion?.groups?.length > 0) {
