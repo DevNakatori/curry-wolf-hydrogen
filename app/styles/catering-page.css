@@ -776,6 +776,15 @@ padding-bottom: 20px;
 }
   
 }
+@media screen and (max-width: 1919px) and (min-width: 1680px)  {
+  .inner-wolf-bestell .right-logo img {
+    width: 8.978rem;
+    height: 8.186rem;
+    position: absolute;
+    left: -43px;
+    top: 28px;
+}
+}
 
 @media (max-width: 1440px) {
   .inner-wolf-bestell .right-logo {
@@ -913,6 +922,14 @@ padding-bottom: 20px;
   .ref-wrap {
     gap: 55px;
   }
+}
+@media screen and (max-width: 1379px) and (min-width: 1201px)  {
+  .inner-wolf-bestell .right-logo img {
+    left: 0px;
+    width: 4.978rem;
+    height: 4.186rem;
+    top: 43px;
+}
 }
 @media (max-width: 1100px) {
   .inner-wolf-bestell .right-logo img {
