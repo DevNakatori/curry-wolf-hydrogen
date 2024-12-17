@@ -740,7 +740,7 @@ padding-bottom: 20px;
 .inner-wolf-bestell .right-logo img {
   width: 5.978rem;
   height: 6.186rem;
-  left: 52px;
+  left: 76px;
   top: 32px;
 }
 .inner-wolf-bestell .s-wrap img.naturlich-image {
@@ -926,9 +926,28 @@ padding-bottom: 20px;
 @media screen and (max-width: 1379px) and (min-width: 1201px)  {
   .inner-wolf-bestell .right-logo img {
     left: 0px;
-    width: 4.978rem;
+    width: 9.978rem;
     height: 4.186rem;
     top: 43px;
+}
+.inner-wolf-bestell .s-wrap {
+  max-width: 630px;
+  margin-top: 0px;
+}
+.inner-wolf-bestell .s-wrap img.naturlich-image {
+  width: 63.88px;
+  height: 63.18px;
+  bottom: -66px;
+  right: 20px;
+}
+.inner-wolf-bestell .left-content h1 {
+  font-size: calc(32px + (40 - 30)*((100vw - 320px) / (1920 - 320)));
+  line-height: calc(40px + (40 - 40)*((100vw - 320px) / (1920 - 320)));
+}
+.inner-wolf-bestell h4 {
+  max-width: 68.22vh;
+  font-size: 1rem;
+  line-height: 1rem;
 }
 }
 @media (max-width: 1100px) {
