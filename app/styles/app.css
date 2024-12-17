@@ -20,7 +20,8 @@
   padding: 70px 0;
 }
 .marquee {
-  position: relative;
+  position: fixed;
+  top: 93px;
   z-index: 7;
   background-color: #FEDE03;
   overflow: hidden;
@@ -75,6 +76,11 @@
   .marquee .marquee__inner .marquee__content img{
     width: 30px;
     height: 30px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .marquee {
+    top: 62px;
   }
 }
 
