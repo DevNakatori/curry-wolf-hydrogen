@@ -33,6 +33,10 @@ body {
 .tab input:checked ~ label {
   font-weight: bold;
 }
+.curywolf-catering-box {
+  -webkit-border-top: 1px solid #fff;
+  border-top: 1px solid #fff;
+}
 
 .tab input {
   position: absolute;
@@ -260,6 +264,7 @@ padding-bottom: 20px;
   .inner-wolf-bestell h3 {
     max-width: 22rem;
 }
+
   }
   @media screen and (max-width: 400px) {
     .inner-wolf-bestell h4 {
@@ -997,9 +1002,6 @@ padding-bottom: 20px;
     margin-top: -10px;
 }
 }
-@media (max-width: 960px) {
-
-}
 @media screen and (max-width: 960px) and (min-width: 820px) {
   .inner-wolf-bestell .right-logo img {
     left: 10px;
@@ -1008,16 +1010,24 @@ padding-bottom: 20px;
 .inner-wolf-bestell .s-wrap {
   max-width: 90.14vw;
 }
-
+.inner-wolf-bestell{
+  gap: 35px;
 }
-@media screen and (max-width: 768px) {
+}
+@media screen and (max-width: 819px) and (min-width: 768px) {
   .inner-wolf-bestell h3 {
     max-width: 43rem;
 }
+.inner-wolf-bestell{
+  gap: 55px;
+}
+.inner-wolf-bestell .s-wrap{
+  margin-top: 20px;
+}
 .inner-wolf-bestell .s-wrap img.naturlich-image{
-  width: 95px;
+  width: 72px;
   right: 14px;
-  bottom: 6px;
+  bottom: -50px;
   height: 95.18px;
 }
 .inner-wolf-bestell .right-logo{
@@ -1049,7 +1059,8 @@ padding-bottom: 20px;
    display: none;
 }
 .inner-wolf-bestell .s-wrap .c-s-image-section {
-  margin: 50px auto 70px;
+  
+    margin: 10px auto 20px;
 }
   .c-bottom-btn {
     margin-bottom: 20px;
@@ -1392,9 +1403,15 @@ padding-bottom: 20px;
   .main-catering-page .food-decorative-garland {
     margin-top: -23px !important;
 }
-
+.inner-wolf-bestell .s-wrap .c-s-image-section {
+  margin: 10px auto 74px;
+}
   .inner-wolf-bestell {
     flex-wrap: wrap;
+  }
+  .inner-wolf-bestell h4 {
+    font-size: 1.6rem;
+    line-height: 1.6rem;
   }
   .inner-wolf-bestell .s-wrap img.naturlich-image{
     right: 0px;
@@ -1411,28 +1428,53 @@ padding-bottom: 20px;
     left: 9px;
   }
 }
+@media screen and (max-width: 428px) {
+  .inner-wolf-bestell .s-wrap {
+    max-width: 290px;
+    margin-top: -32px;
+}
+.inner-wolf-bestell h4 {
+  font-size: 16px;
+  line-height: 16px;
+}
+}
 @media (max-width: 390px) {
+  .inner-wolf-bestell .left-content h1 {
+    font-size: 24px;
+    line-height: 25px;
+  }
   .inner-wolf-bestell .s-wrap img.naturlich-image {
     right: 0px;
     bottom: 6px;
     height: 79.18px;
+}
+.inner-wolf-bestell .s-wrap .c-s-image-section {
+  margin: 10px auto 70px;
+}
+.inner-wolf-bestell h4 {
+  max-width: 86.22vh;
+  font-size: 16px;
+  line-height: 16px;
 }
 }
 
 
 @media (max-width: 375px) {
   .img-one {
-    width: 115px;
+    width: 110px;
   }
+  .inner-wolf-bestell .s-wrap .c-s-image-section {
+    margin: 10px auto 78px;
+}
   .inner-wolf-bestell{
     margin-top: 20px;
   }
   .inner-wolf-bestell .right-logo img {
-    width: 68px;
+    width: 55px;
     top: -26px;
 }
 .inner-wolf-bestell {
-  gap: 9px;
+  gap: 0px;
 }
 .inner-wolf-bestell .s-wrap img.naturlich-image{
   right: -9px;
@@ -1447,24 +1489,38 @@ padding-bottom: 20px;
 
 @media (max-width: 360px) {
   .inner-wolf-bestell .right-logo img {
-    width: 82px;
+    width: 50px;
     top: -19px;
+    left: -10px;
 }
 }
 @media (max-width: 320px) {
 
 .inner-wolf-bestell .s-wrap img.naturlich-image{
-  right: -26px;
+  right: 0px;
   width: 53.88px;
   height: 53.18px;
 }
+
 .inner-wolf-bestell .s-wrap {
-  margin-top: -16px;
+  margin-top: -40px;
 }
 .inner-wolf-bestell .right-logo img {
-  width: 79px;
-  top: -92px;
+  width: 50px;
+  top: -24px;
   left: -9px;
+}
+.inner-wolf-bestell .s-wrap .c-s-image-section {
+  margin: 10px auto 46px;
+}
+.img-one {
+  width: 70px;
+}
+.inner-wolf-bestell .s-wrap .img-one{
+  padding-bottom: 0px;
+}
+.inner-wolf-bestell .s-wrap .img-big-wrap {
+  width: 40%;
 }
 html[lang="nl"] .inner-wolf-bestell .right-logo img {
   width: 70px;
