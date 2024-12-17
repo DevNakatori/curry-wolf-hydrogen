@@ -100,7 +100,29 @@ export default function Page() {
       }
     }
   }, [location]);
+  
+  
 
+useEffect(() => {
+  function adjustInnerWolfWrapHeight() {
+    const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+    const marqueeHeight = document.querySelector('.marquee')?.offsetHeight || 0;
+
+    // Calculate the remaining height
+    const availableHeight = window.innerHeight - headerHeight - marqueeHeight;
+    console.log(availableHeight)
+    // Apply the calculated height
+    const innerWrap = document.querySelector('.inner-wolf-bestell-wrap');
+    console.log(innerWrap)
+    if (innerWrap) {
+        innerWrap.style.height = `${availableHeight}px`;
+    }
+}
+
+// Adjust height on load and on resize
+window.addEventListener('load', adjustInnerWolfWrapHeight);
+window.addEventListener('resize', adjustInnerWolfWrapHeight);
+},[])
   useEffect(() => {
     if (Accordions?.accordion?.groups?.length > 0) {
       setOpenTabs([Accordions.accordion.groups[0]._key]);

@@ -800,7 +800,13 @@ padding-bottom: 20px;
     line-height: 1.98rem;
 }
   .inner-wolf-bestell-wrap {
-    min-height: calc(100vh - 221px);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100vh;
   }
   .inner-wolf-bestell .s-wrap .img-one {
     padding-bottom: 10px;
