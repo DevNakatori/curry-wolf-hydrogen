@@ -103,26 +103,26 @@ export default function Page() {
   
   
 
-useEffect(() => {
-  function adjustInnerWolfHeight() {
-    const header = document.querySelector('.header');
-    const marquee = document.querySelector('.marquee');
-    const innerWolfWrap = document.querySelector('.inner-wolf-bestell-wrap');
+// useEffect(() => {
+//   function adjustInnerWolfHeight() {
+//     const header = document.querySelector('.header');
+//     const marquee = document.querySelector('.marquee');
+//     const innerWolfWrap = document.querySelector('.inner-wolf-bestell-wrap');
 
-    const headerHeight = header.offsetHeight;
-    const marqueeHeight = marquee.offsetHeight;
+//     const headerHeight = header.offsetHeight;
+//     const marqueeHeight = marquee.offsetHeight;
 
-    const availableHeight = window.innerHeight - (headerHeight + marqueeHeight);
+//     const availableHeight = window.innerHeight - (headerHeight + marqueeHeight);
 
-    // Use JavaScript to set the min-height directly with 'important' flag
-    innerWolfWrap.style.setProperty('min-height', `${availableHeight}px`, 'important');
-}
+//     // Use JavaScript to set the min-height directly with 'important' flag
+//     innerWolfWrap.style.setProperty('min-height', `${availableHeight}px`, 'important');
+// }
 
-// Call on load and resize
-window.addEventListener('load', adjustInnerWolfHeight);
-window.addEventListener('resize', adjustInnerWolfHeight);
+// // Call on load and resize
+// window.addEventListener('load', adjustInnerWolfHeight);
+// window.addEventListener('resize', adjustInnerWolfHeight);
 
-},[location,data])
+// },[location,data])
   useEffect(() => {
     if (Accordions?.accordion?.groups?.length > 0) {
       setOpenTabs([Accordions.accordion.groups[0]._key]);
