@@ -1502,6 +1502,10 @@ padding-bottom: 20px;
   .inner-wolf-bestell .s-wrap .c-s-image-section {
     margin: 10px auto 78px;
 }
+.img-one .inner-content p {
+  font-size: 12px;
+  line-height: 12px;
+}
   .inner-wolf-bestell{
     margin-top: 20px;
   }
@@ -1558,6 +1562,11 @@ padding-bottom: 20px;
 .inner-wolf-bestell .s-wrap .img-big-wrap {
   width: 40%;
 }
+.img-one .inner-content p {
+  font-size: 8px;
+  line-height: 8px;
+}
+
 html[lang="nl"] .inner-wolf-bestell .right-logo img {
   width: 70px;
   top: -32px;
