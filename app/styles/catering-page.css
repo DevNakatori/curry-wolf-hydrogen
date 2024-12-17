@@ -112,8 +112,7 @@ body {
   font-size: 0.75rem;
 }
 .inner-wolf-bestell .left-content h1 {
-  font-size: calc(32px + (85 - 30)*((100vw - 320px) / (1920 - 320)));
-  line-height:calc(40px + (75 - 40) * ((100vw - 320px) / (1920 - 320)));}
+ text-align: center;}
 
 div#faq {
   display: grid;
@@ -144,7 +143,7 @@ padding-bottom: 20px;
 }
 
 .inner-wolf-bestell .s-wrap {
-  max-width: 800px;
+  max-width: 1024px;
   position: relative;
 }
 
@@ -154,7 +153,7 @@ padding-bottom: 20px;
   color: #fff;
   font-family: 'Gotham';
   margin: 0 0 0px 0;
-  font-size:18px;
+  font-size:20px;
   font-weight: bold;
   text-align: center;
   line-height: 22px;
@@ -180,14 +179,14 @@ padding-bottom: 20px;
 }
 .inner-wolf-bestell h4 {
   color: #fff;
-  font-family: 'BertholdBlock';
-  max-width:46rem;
-  margin: 0 0 0px 0;
-  font-size:2.2rem;
-  font-weight: 400;
-  text-align: center;
-  line-height:2.2rem;
-  margin-top: 15px;
+    font-family: 'BertholdBlock';
+    max-width: 62rem;
+    margin: 0 0 0px 0;
+    font-size: 3.2rem;
+    font-weight: 400;
+    text-align: center;
+    line-height: 3.2rem;
+    margin-top: 30px;
 }
 .inner-wolf-bestell .s-wrap .c-s-image-section {
   display: flex;
@@ -199,11 +198,13 @@ padding-bottom: 20px;
   gap: 20px;
 }
 .inner-wolf-bestell .s-wrap img.naturlich-image {
-  width: 77.88px;
-  height: 82.18px;
+  width: 116.88px;
+  height: 116.18px;
   position: absolute;
   right: 0px;
-  bottom: -22px;}
+  bottom: -22px;
+  bottom: -86px;
+}
 
 .inner-wolf-bestell .s-wrap .img-big-wrap:nth-child(1) .img-one {
   z-index: 1;
@@ -483,6 +484,10 @@ padding-bottom: 20px;
 }
 .inner-wolf-bestell-wrap{
   min-height: calc(100vh - 281px);
+  display: grid;
+    place-items: center;
+    overflow: hidden;
+    margin-top: -45px;
 }
 .wolf-logo .w-left-content h3 {
   font-size: calc(25px + (70 - 25) * ((100vw - 320px) / (1920 - 320)));
@@ -642,10 +647,11 @@ padding-bottom: 20px;
 }
 
 .inner-wolf-bestell .right-logo img {
-  width: 7.978rem;
+  width: 11.978rem;
   height: 11.186rem;
   position: absolute;
-  left: 256px;
+  left: -90px;
+  top: -15px;
 }
 
 .curywolf-catering-box .img-big-wrap .img-one img:hover {
@@ -661,18 +667,18 @@ padding-bottom: 20px;
 
 @media (min-width: 1921px) {
   .inner-wolf-bestell{
-    gap: 20px;
+    gap: 40px;
   }
   /* .inner-wolf-bestell .s-wrap{
     max-width: 1170px;
   } */
-  .inner-wolf-bestell h4{
+  /* .inner-wolf-bestell h4{
     line-height: 2.8rem;
     font-size: 2.8rem;
     max-width: 50rem;
-  }
+  } */
 }
-@media (min-width: 1920px) {
+@media (max-width: 2048px) {
   .curywolf-catering-box {
     max-width: 1000px;
     justify-content: center;
@@ -681,25 +687,26 @@ padding-bottom: 20px;
     padding-top: 70px;
   }
   .inner-wolf-bestell .left-content h1 {
-    font-size: calc(32px + (70 - 30)*((100vw - 320px) / (1920 - 320)));
-    line-height:calc(40px + (60 - 40) * ((100vw - 320px) / (1920 - 320)));}
-  .main-catering-page .food-decorative-garland{
-    margin-top: -180px !important;
-  }
-  .inner-wolf-bestell{
-   margin-top: -20px;
-  }
-  .inner-wolf-bestell .s-wrap img.naturlich-image {
-    bottom: -25px;
+    text-align: center;
 }
+  .main-catering-page .food-decorative-garland{
+    margin-top: -110px !important;
+  }
+  .inner-wolf-bestell .right-logo img {
+    width: 9.978rem;
+    height: 13.186rem;
+  }
+  /* .inner-wolf-bestell .s-wrap img.naturlich-image {
+    bottom: -25px;
+} */
 }
 @media (min-width: 2520px) {
   .main-catering-page .food-decorative-garland {
-      margin-top: -235px !important;
+      margin-top: -190px !important;
   }
 }
 
-@media (max-width: 1920px) {
+@media (max-width: 1919px) {
   .curywolf-catering-box {
     max-width: 1000px;
     justify-content: center;
@@ -707,18 +714,30 @@ padding-bottom: 20px;
     border-top: 1px solid #fff;
     padding-top: 70px;
   }
+  .inner-wolf-bestell {
+    gap: 25px;
+}
 
   .img-big-wrap {
     width: calc(100% / 3 - 30px);
   }
 
 }
-@media (max-width: 1760px) {
+@media (max-width: 1680px) {
   .main-catering-page .food-decorative-garland {
     margin-top: -115px ;
 }
-.inner-wolf-bestell{
-  margin-top: -20px;
+.inner-wolf-bestell-wrap{
+  margin-top: 0px;
+}
+.inner-wolf-bestell .right-logo img {
+  width: 7.978rem;
+  height: 14.186rem;
+  left: 38px;
+  top: -15px;
+}
+.inner-wolf-bestell .s-wrap img.naturlich-image {
+  bottom: -75px;
 }
 }
 
@@ -731,25 +750,37 @@ padding-bottom: 20px;
     max-width: 80.97vw; 
   }
   .inner-wolf-bestell h4 {
-    max-width: 129.22vh;
+    max-width: 86.22vh;
     font-size: 2rem;
     line-height: 1.98rem;
+}
+  .inner-wolf-bestell-wrap {
+    min-height: calc(100vh - 221px);
   }
   .inner-wolf-bestell .s-wrap .img-one {
     padding-bottom: 10px;
    }
   .inner-wolf-bestell .s-wrap {
-    max-width: 700px;
+    max-width: 755px;
   }
   .inner-wolf-bestell .right-logo img{
-    left: 95px;
-    width: 6.978rem;
-    height: 11.186rem;
+    left: -13px;
+    width: 4.978rem;
+    height: 5.186rem;
+    top: 28px;
+  }
+  .inner-wolf-bestell .s-wrap img.naturlich-image{
+    width: 76.88px;
+    height: 76.18px;
+    bottom: -45px;
   }
   .inner-wolf-bestell h3{
     font-size: 16px;
     line-height:20px;
     max-width: 53rem;
+  }
+  .inner-wolf-bestell{
+    gap: 8px;
   }
   .logo-box img {
     width: 70%;

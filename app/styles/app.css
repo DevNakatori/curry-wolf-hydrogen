@@ -70,8 +70,8 @@
     height: 2.5rem;
   }
   .marquee .marquee__inner .marquee__content span.clipped-text{
-    font-size: 1rem;
-    line-height: 1.25rem;
+    font-size: 14px;
+    line-height: 16px;
   }
   .marquee .marquee__inner .marquee__content img{
     width: 30px;
