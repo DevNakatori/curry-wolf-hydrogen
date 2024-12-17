@@ -705,6 +705,7 @@ padding-bottom: 20px;
 .inner-wolf-bestell-wrap .inner-wolf-bestell {
   transform: scale(0.87);
   transform-origin: top;
+  border-bottom: 1px solid #fff;
 }
 .food-decorative-garland {
   margin-top: -265px !important;
