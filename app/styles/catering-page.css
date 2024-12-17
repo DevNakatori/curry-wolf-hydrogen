@@ -696,8 +696,8 @@ padding-bottom: 20px;
     z-index: 1;
     gap: 20px;
 }
-.inner-wolf-bestell-wrap .inner-wolf-bestell.aos-init.aos-animate {
-  transform: scale(1);
+.inner-wolf-bestell-wrap .inner-wolf-bestell {
+  transform: scale(0.87);
   transform-origin: top;
 }
 .inner-wolf-bestell h4 {
@@ -716,7 +716,6 @@ padding-bottom: 20px;
   bottom: -22px;
   bottom: -130px;
 }
-
 }
 @media screen and (max-width: 2048px) and (min-width: 1920px)  {
   .curywolf-catering-box {
@@ -753,11 +752,6 @@ padding-bottom: 20px;
   /* .inner-wolf-bestell .s-wrap img.naturlich-image {
     bottom: -25px;
 } */
-}
-@media (min-width: 2520px) {
-  .main-catering-page .food-decorative-garland {
-      margin-top: -190px !important;
-  }
 }
 
 @media (max-width: 1919px) {
