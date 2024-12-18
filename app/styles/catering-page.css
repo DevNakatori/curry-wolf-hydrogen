@@ -976,16 +976,16 @@ padding-bottom: 20px;
 
 @media (max-width: 1440px) {
   .inner-wolf-bestell .right-logo {
-    margin-bottom: 65px;
+    margin-bottom: 50px;
     width: 100%;
   }
   .left-content {
     max-width: 80.97vw; 
   }
   .inner-wolf-bestell h4 {
-    max-width: 86.22vh;
-    font-size: 2rem;
-    line-height: 1.98rem;
+    max-width: 57.22vh;
+    font-size: 1.2rem;
+    line-height: 1.3rem;
 }
   .inner-wolf-bestell-wrap {
     min-height: calc(100vh - 221px);
@@ -994,7 +994,7 @@ padding-bottom: 20px;
     padding-bottom: 10px;
    }
   .inner-wolf-bestell .s-wrap {
-    max-width: 755px;
+    max-width: 650px;
     margin-top: 0px;
   }
   .inner-wolf-bestell .right-logo img{
@@ -1004,14 +1004,15 @@ padding-bottom: 20px;
     top: 28px;
   }
   .inner-wolf-bestell .s-wrap img.naturlich-image{
-    width: 76.88px;
-    height: 76.18px;
-    bottom: -45px;
+    width: 71.88px;
+    height: 71.18px;
+    bottom: -82px;
+    right: 68px;
   }
   .inner-wolf-bestell h3{
     font-size: 16px;
     line-height:20px;
-    max-width: 53rem;
+    max-width: 45rem;
   }
   .inner-wolf-bestell{
     gap: 0px;
