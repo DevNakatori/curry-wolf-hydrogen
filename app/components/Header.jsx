@@ -32,7 +32,7 @@ export function Header({header, isLoggedIn, cart, toggle, setToggle}) {
               className="desktop-logo"
               src={logourl}
               alt={logo?.altText || 'logo'}
-              height="68.5"
+              height="68.13"
               width="100"
               data-aos="zoom-in"
               data-aos-duration="1500"
