@@ -656,6 +656,27 @@ padding-bottom: 20px;
   margin-top: 20px;
 }
 
+.curywolf-catering-box .img-big-wrap:nth-child(6) a {
+  transform: translate(-13%, 124%);
+}
+.curywolf-catering-box .img-big-wrap:nth-child(6) .img-one {
+  transform: rotate(1deg);
+}
+.curywolf-catering-box .img-big-wrap:nth-child(5) a {
+  transform: translate(96%, 20%);
+  /* / z-index: 9999999999; / */
+}
+.curywolf-catering-box .img-big-wrap:nth-child(5) .img-one {
+  transform: rotate(350deg);
+}
+.curywolf-catering-box .img-big-wrap:nth-child(7) a {
+  transform: translate(-26%, 11%);
+  z-index: 99;
+}
+.curywolf-catering-box .img-big-wrap:nth-child(7) .img-one {
+  transform: rotate(345deg);
+}
+
 @media (min-width: 1921px) {
   .inner-wolf-bestell{
     gap: 20px;
