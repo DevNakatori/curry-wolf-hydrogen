@@ -7,7 +7,6 @@ export async function loader({request, context}) {
   const url = new URL(request.url);
 
   const {shop} = await context.storefront.query(ROBOTS_QUERY);
-  brandenburg - gate;
   const shopId = parseGid(shop.id).id;
   const body = robotsTxtData({url: url.origin, shopId});
 

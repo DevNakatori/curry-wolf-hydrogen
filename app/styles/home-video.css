@@ -536,6 +536,11 @@ div#text2.hidden {
     max-width: 840px;
   }
 }
+@media (min-width: 1920px) {
+  .first-time-video-text h1 span:nth-child(2) {
+    max-width: 840px;
+  }
+}
 
 @media (max-width: 1380px) {
   .slide:nth-child(1) .s-img img {

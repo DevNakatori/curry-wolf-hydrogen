@@ -12,7 +12,8 @@ import {useRootLoaderData as LoaderData} from '~/root';
 import {stegaClean} from '@sanity/client/stega';
 import {PortableText} from '@portabletext/react';
 import CateringSlider from '~/components/CateringSlider';
-// import stylesUrl from '../styles/catering-page.css';
+import MagneticGSApp from '~/components/MagneticGSApp';
+import naturalImage from '../assets/natural.png';
 /**
  * @type {MetaFunction<typeof loader>}
  */
@@ -74,6 +75,7 @@ export default function Page() {
   });
   const {locale} = LoaderData();
   const cateringPageImages = data?.cateringPageImages;
+  const cateringPageBannerImages = data?.cateringPageBannerImages;
   const ctaLink = stegaClean(`${locale.pathPrefix}/pages/${data?.link}`);
   const [openTabs, setOpenTabs] = useState([]);
   const Referenzen = data?.Referenzen;
@@ -98,7 +100,29 @@ export default function Page() {
       }
     }
   }, [location]);
+  
+  
 
+// useEffect(() => {
+//   function adjustInnerWolfHeight() {
+//     const header = document.querySelector('.header');
+//     const marquee = document.querySelector('.marquee');
+//     const innerWolfWrap = document.querySelector('.inner-wolf-bestell-wrap');
+
+//     const headerHeight = header.offsetHeight;
+//     const marqueeHeight = marquee.offsetHeight;
+
+//     const availableHeight = window.innerHeight - (headerHeight + marqueeHeight);
+
+//     // Use JavaScript to set the min-height directly with 'important' flag
+//     innerWolfWrap.style.setProperty('min-height', `${availableHeight}px`, 'important');
+// }
+
+// // Call on load and resize
+// window.addEventListener('load', adjustInnerWolfHeight);
+// window.addEventListener('resize', adjustInnerWolfHeight);
+
+// },[location,data])
   useEffect(() => {
     if (Accordions?.accordion?.groups?.length > 0) {
       setOpenTabs([Accordions.accordion.groups[0]._key]);
@@ -114,6 +138,7 @@ export default function Page() {
           />
         </div>
         <div className="container">
+          <div className="inner-wolf-bestell-wrap">
           <div
             className="inner-wolf-bestell"
             data-aos-duration="1500"
@@ -124,16 +149,44 @@ export default function Page() {
               <h1 dangerouslySetInnerHTML={{__html: data?.heroTitle}} />
             </div>
             <div className="right-logo">
-              <img src={getImageUrl(data?.image?.asset?._ref)} />
-              <h3>
-                <span data-mce-fragment="1">{data?.Description}</span>
-              </h3>
+              <img alt='cateringLogo' src={getImageUrl(data?.image?.asset?._ref)} />
+              <h3>{data?.Description}</h3>
+            </div>
+            <div className="s-wrap">
+              <div
+                data-aos-duration="2000"
+                data-aos-once="true"
+                data-aos="fade-up"
+                className="c-s-image-section aos-init aos-animate"
+              >
+                {cateringPageBannerImages?.map((image, index) => {
+                  const Imgurl = getImageUrl(image?.image?.asset?._ref);
+                  return (
+                    <MagneticGSApp key={index}>
+                      <div className="img-big-wrap ">
+                        <div className="img-one">
+                          <div className="inner-white-box">
+                            <img src={Imgurl} alt={`Image ${index + 1}`} />
+                          </div>
+                        </div>
+                      </div>
+                    </MagneticGSApp>
+                  );
+                })}
+              </div>
+              <img
+                className="naturlich-image"
+                alt="naturlichLogo"
+                src={getImageUrl(data?.naturlichVeganLogo?.asset?._ref)}
+              />
+            </div>
+            <h4>{data?.subTitle}</h4>
+            <div className="c-bottom-btn">
+              <Link to={ctaLink} className="yellow-btn">
+                <span data-mce-fragment="1">{data?.ctaButtontext}</span>
+              </Link>
             </div>
           </div>
-          <div className="c-bottom-btn">
-            <Link to={ctaLink} className="yellow-btn">
-              <span data-mce-fragment="1">{data?.ctaButtontext}</span>
-            </Link>
           </div>
           <div className="curywolf-catering-box">
             {cateringPageImages?.map((item, index) => {

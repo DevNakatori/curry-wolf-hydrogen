@@ -1,5 +1,5 @@
 import {Await} from '@remix-run/react';
-import {lazy, Suspense, useState} from 'react';
+import React, {lazy, Suspense, useState} from 'react';
 import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
 import {Header, HeaderMenu} from '~/components/Header';
@@ -11,6 +11,9 @@ import {
 import {useRootLoaderData} from '~/lib/root-data';
 import {useSanityRoot} from '~/hooks/useSanityRoot';
 import {useRootLoaderData as LoaderData} from '~/root';
+import Truck from '../assets/Truck.svg';
+import Tree from '../assets/christmas-tree.svg';
+import Marquee from './Marquee';
 
 /**
  * @param {LayoutProps}
@@ -19,6 +22,14 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
   const [toggle, setToggle] = useState(false);
   const {env, locale, sanityPreviewMode} = useRootLoaderData();
   const {data} = useSanityRoot();
+  const announcement = data?.global?.Announcement;
+
+  const currentDate = new Date();
+  const startDate = new Date(announcement?.start);
+  const endDate = new Date(announcement?.end);
+  const isActive = currentDate >= startDate && currentDate <= endDate;
+
+
   return (
     <>
       <CartAside cart={cart} />
@@ -37,6 +48,20 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
           toggle={toggle}
           setToggle={setToggle}
         />
+      )}
+      {isActive && (
+        <Marquee duration={announcement?.duration}>
+          {announcement?.content.map((text, index) => (
+            <React.Fragment key={index}>
+              <span className="clipped-text">{text}</span>
+              <img
+                src={index % 2 === 0 ? Tree : Truck}
+                alt={index % 2 === 0 ? 'Tree' : 'Truck'}
+                className={index % 2 !== 0 ? 'truck' : 'tree'}
+              />
+            </React.Fragment>
+          ))}
+        </Marquee>
       )}
       <main>{children}</main>
       <Suspense>

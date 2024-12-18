@@ -16,6 +16,7 @@ import {useSanityRoot} from '~/hooks/useSanityRoot';
 import {getImageUrl} from '~/lib/utils';
 import {PortableText} from '@portabletext/react';
 import {useRootLoaderData as LoaderData} from '~/root';
+import HolidayBanner from '~/components/HolidayBanner';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -86,8 +87,14 @@ export default function Collection() {
   const benefitsSection = globalContent?.benefitsSection;
   const trustedShop = globalContent?.trustedShop;
   const {collection, customMenu} = useLoaderData();
+  const shopHolidays = data?.global?.ShopHolidays;
+  const bannerHoliday = shopHolidays?.banner
+  const shopStartDate = new Date(shopHolidays?.start);
+  const shopCloseDate = new Date(shopHolidays?.end);
+  const ShopIsNotActive =  (!shopCloseDate || new Date(shopCloseDate) < new Date()) &&(!shopStartDate || new Date(shopStartDate) > new Date())
   return (
     <div className="collection">
+     {ShopIsNotActive &&  <HolidayBanner bannerHoliday={bannerHoliday} />}
       <div className="food-decorative-garland">
         <img
           src={decorativegarland}
