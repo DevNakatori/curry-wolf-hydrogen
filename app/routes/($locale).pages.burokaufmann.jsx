@@ -156,14 +156,15 @@ export default function Page() {
             data-aos-duration="1500"
           >
             <div className="detail-mail-left">
-              <Link
-                to={stegaClean(
+              <a
+                href={stegaClean(
                 sectionFourth?.buttonLink
                 )}
+                target='_blank'
                 className="yellow-border-btn"
               >
                 {sectionFourth?.buttonText}
-              </Link>
+              </a>
             </div>
             <div className="detail-mail-right">
               <PortableText value={sectionFourth?.content} />
