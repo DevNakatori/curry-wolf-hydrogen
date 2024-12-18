@@ -812,7 +812,7 @@ padding-bottom: 20px;
     bottom: -25px;
 } */
 }
-@media screen and (max-width: 1919px) and (min-width: 1681px)  {
+@media (max-width: 1919px) {
   .curywolf-catering-box {
     max-width: 1000px;
     justify-content: center;
@@ -823,27 +823,9 @@ padding-bottom: 20px;
   .inner-wolf-bestell {
     gap: 10px;
 }
-.inner-wolf-bestell .left-content h1{
-  font-size: calc(16px + (95 - 30)*((100vw - 320px) / (1920 - 320)));
-  line-height: calc(18px + (95 - 40)*((100vw - 320px) / (1920 - 320)));
-  margin-bottom: 0rem;
-  margin-top: 1rem;
-}
   .img-big-wrap {
     width: calc(100% / 3 - 30px);
   }
-  .inner-wolf-bestell h4 {
-    max-width: 38rem;
-    font-size: 2.2rem;
-    line-height: 2.2rem;
-}
-.inner-wolf-bestell .s-wrap img.naturlich-image {
-  width: 108.88px;
-  height: 108.18px;
-  bottom: -22px;
-  bottom: -120px;
-  right: 83px;
-}
 
 }
 @media (max-width: 1680px) {
@@ -897,6 +879,40 @@ padding-bottom: 20px;
   line-height: 2rem;
 }
   
+}
+@media screen and (max-width: 1919px) and (min-width: 1681px)  {
+  .curywolf-catering-box {
+    max-width: 1000px;
+    justify-content: center;
+    padding-bottom: 390px;
+    border-top: 1px solid #fff;
+    padding-top: 70px;
+  }
+  .inner-wolf-bestell {
+    gap: 10px;
+}
+.inner-wolf-bestell .left-content h1{
+  font-size: calc(16px + (95 - 30)*((100vw - 320px) / (1920 - 320)));
+  line-height: calc(18px + (95 - 40)*((100vw - 320px) / (1920 - 320)));
+  margin-bottom: 0rem;
+  margin-top: 1rem;
+}
+  .img-big-wrap {
+    width: calc(100% / 3 - 30px);
+  }
+  .inner-wolf-bestell h4 {
+    max-width: 38rem;
+    font-size: 2.2rem;
+    line-height: 2.2rem;
+}
+.inner-wolf-bestell .s-wrap img.naturlich-image {
+  width: 108.88px;
+  height: 108.18px;
+  bottom: -22px;
+  bottom: -120px;
+  right: 83px;
+}
+
 }
 @media screen and (max-width: 1919px) and (min-width: 1680px)  {
   .inner-wolf-bestell .right-logo img {
@@ -1179,8 +1195,8 @@ padding-bottom: 20px;
   .inner-wolf-bestell h3 {
     max-width: 43rem;
 }
-.inner-wolf-bestell {
-  gap: 40px;
+.inner-wolf-bestell{
+  gap: 38px;
 }
 .inner-wolf-bestell .s-wrap{
   margin-top: 20px;
