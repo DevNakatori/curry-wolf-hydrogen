@@ -674,11 +674,22 @@ padding-bottom: 20px;
     transform: scale(1.1) !important;
     transform-origin: 0% 90%!important;
 }
+  .inner-wolf-bestell-wrap {
+    margin-top: -258px;
+  }
 }
 @media screen and (min-width: 2560px) {
   .container {
     max-width: 3000px!important;
   }
+  .inner-wolf-bestell .right-logo img {
+    width: 9.978rem;
+    height: 9.186rem;
+    position: absolute;
+    left: -116px;
+    top: 0px;
+}
+
   .inner-wolf-bestell h3 {
     color: #fff;
     font-family: "Gotham";
@@ -701,9 +712,6 @@ padding-bottom: 20px;
     position: relative;
     z-index: 1;
     gap: 20px;
-}
-.inner-wolf-bestell-wrap {
-  margin-top: -258px;
 }
 .inner-wolf-bestell .left-content h1{
   font-size: calc(12px + (95 - 30)*((100vw - 320px) / (1920 - 320)));
@@ -736,6 +744,36 @@ padding-bottom: 20px;
 .curywolf-catering-box {
   -webkit-border-top: none;
   border-top: none;
+}
+}
+@media screen and (max-width: 2240px) and (min-width: 1920px) {
+  .inner-wolf-bestell .left-content h1{
+    font-size: calc(12px + (95 - 30)*((100vw - 320px) / (1920 - 320)));
+    line-height: calc(12px + (95 - 40)*((100vw - 320px) / (1920 - 320)));
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+  }
+  .inner-wolf-bestell {
+    gap: 5px;
+}
+.inner-wolf-bestell .right-logo img {
+  width: 7.978rem;
+  height: 7.186rem;
+  left: -13px;
+  top: 43px;
+}
+.inner-wolf-bestell .s-wrap img.naturlich-image {
+  width: 104.88px;
+  height: 104.18px;
+  bottom: -113px;
+  right: 0px;
+}
+.inner-wolf-bestell .s-wrap {
+  max-width: 800px;}
+.inner-wolf-bestell h4 {
+  max-width: 40rem;
+  font-size: 2.2rem;
+  line-height: 2.2rem;
 }
 }
 @media screen and (max-width: 2048px) and (min-width: 1920px)  {
