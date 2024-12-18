@@ -100,7 +100,29 @@ export default function Page() {
       }
     }
   }, [location]);
+  
+  
 
+// useEffect(() => {
+//   function adjustInnerWolfHeight() {
+//     const header = document.querySelector('.header');
+//     const marquee = document.querySelector('.marquee');
+//     const innerWolfWrap = document.querySelector('.inner-wolf-bestell-wrap');
+
+//     const headerHeight = header.offsetHeight;
+//     const marqueeHeight = marquee.offsetHeight;
+
+//     const availableHeight = window.innerHeight - (headerHeight + marqueeHeight);
+
+//     // Use JavaScript to set the min-height directly with 'important' flag
+//     innerWolfWrap.style.setProperty('min-height', `${availableHeight}px`, 'important');
+// }
+
+// // Call on load and resize
+// window.addEventListener('load', adjustInnerWolfHeight);
+// window.addEventListener('resize', adjustInnerWolfHeight);
+
+// },[location,data])
   useEffect(() => {
     if (Accordions?.accordion?.groups?.length > 0) {
       setOpenTabs([Accordions.accordion.groups[0]._key]);
@@ -116,6 +138,7 @@ export default function Page() {
           />
         </div>
         <div className="container">
+          <div className="inner-wolf-bestell-wrap">
           <div
             className="inner-wolf-bestell"
             data-aos-duration="1500"
@@ -163,6 +186,7 @@ export default function Page() {
                 <span data-mce-fragment="1">{data?.ctaButtontext}</span>
               </Link>
             </div>
+          </div>
           </div>
           <div className="curywolf-catering-box">
             {cateringPageImages?.map((item, index) => {

@@ -20,7 +20,8 @@
   padding: 70px 0;
 }
 .marquee {
-  position: relative;
+  position: fixed;
+  top: 93px;
   z-index: 7;
   background-color: #FEDE03;
   overflow: hidden;
@@ -69,12 +70,17 @@
     height: 2.5rem;
   }
   .marquee .marquee__inner .marquee__content span.clipped-text{
-    font-size: 1rem;
-    line-height: 1.25rem;
+    font-size: 14px;
+    line-height: 16px;
   }
   .marquee .marquee__inner .marquee__content img{
     width: 30px;
     height: 30px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .marquee {
+    top: 62px;
   }
 }
 
@@ -109,7 +115,15 @@
   width: 100%;
   height: auto;
   position: fixed;
+  z-index: 1;
 }
+.small-snow {
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+}
+
 .holiday-banner-image{
   position: relative;
   height: 100%;
@@ -117,7 +131,19 @@
   margin-top: 120px;
 
 }
-
+.snow-container{
+  width: 100%;
+  height: auto;
+  position:fixed;
+  z-index: 9;
+}
+.holiday-banner .snow{
+  width: 50px;
+  height: 50px;
+  background-image: url("../assets/snow.svg");
+  position:absolute;
+  background-size: cover;
+}
 
 .error-oops footer.footer {
   display: none;

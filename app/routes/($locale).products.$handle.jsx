@@ -237,18 +237,11 @@ export default function Product() {
     }
   };
 
-  // const shopHolidays = data?.global?.ShopHolidays;
-
-  // const currentDate = new Date();
-  // const startDate = new Date(shopHolidays?.start);
-  // const endDate = new Date(shopHolidays?.end);
-
-  // // Check if the announcement is active
-  // const shopIsActive = currentDate >= startDate && currentDate <= endDate;
-    
-  // // console.log(endDate)
-  // // console.log(startDate)
-
+  const shopHolidays = data?.global?.ShopHolidays;
+  const bannerHoliday = shopHolidays?.banner
+  const shopStartDate = new Date(shopHolidays?.start);
+  const shopCloseDate = new Date(shopHolidays?.end);
+  const ShopIsNotActive =  (!shopCloseDate || new Date(shopCloseDate) < new Date()) &&(!shopStartDate || new Date(shopStartDate) > new Date())
   const preparationText = getMetafieldText(
     product.metafields?.find(
       (metafield) =>
@@ -298,7 +291,7 @@ export default function Product() {
 
   return (
     <div className="main-product-sec">
-     {/* <HolidayBanner />  */}
+    {ShopIsNotActive &&  <HolidayBanner bannerHoliday={bannerHoliday} />}
       <div className="food-decorative-garland">
         <img src={decorativegarland} alt="food-decorative-garland" />
       </div>
@@ -439,6 +432,7 @@ export default function Product() {
                   >
                     {(data) => (
                       <ProductForm
+                      ShopIsNotActive={ShopIsNotActive}
                         product={product}
                         selectedVariant={selectedVariant}
                         addToCartButton={addToCartButton}
@@ -557,6 +551,7 @@ function ProductPrice({selectedVariant}) {
   );
 }
 function ProductForm({
+  ShopIsNotActive,
   product,
   addToCartButton,
   soldOutButton,
@@ -586,7 +581,11 @@ function ProductForm({
         />
         <br />
         <AddToCartButton
-          disabled={!selectedVariant || !selectedVariant.availableForSale}
+         disabled={
+          ShopIsNotActive || 
+          !selectedVariant || 
+          !selectedVariant.availableForSale 
+        }
           onClick={() => {
             fbq('track', 'AddToCart', { currency: selectedVariant?.price.currencyCode , value: selectedVariant?.price.amount, content_type: 'product', content_id: selectedVariant?.id });
             publish('cart_viewed', {
