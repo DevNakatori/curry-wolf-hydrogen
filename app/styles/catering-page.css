@@ -686,19 +686,22 @@ padding-bottom: 20px;
     width: 9.978rem;
     height: 9.186rem;
     position: absolute;
-    left: -116px;
-    top: 0px;
+    left: -92px;
+    top: 55px;
 }
 
   .inner-wolf-bestell h3 {
     color: #fff;
     font-family: "Gotham";
     margin: 0;
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 700;
     text-align: center;
-    line-height: 40px;
-    max-width: 97rem;
+    line-height: 34px;
+    max-width: 76rem;
+}
+.inner-wolf-bestell-wrap {
+  padding-bottom: 100px;
 }
 .inner-wolf-bestell .s-wrap {
     max-width: 2000px;
@@ -707,7 +710,7 @@ padding-bottom: 20px;
 .inner-wolf-bestell .s-wrap .c-s-image-section {
     display: flex;
     justify-content: center;
-    max-width: 1560px;
+    max-width: 1250px;
     margin: 0 auto 35px;
     position: relative;
     z-index: 1;
@@ -716,6 +719,7 @@ padding-bottom: 20px;
 .inner-wolf-bestell .left-content h1{
   font-size: calc(12px + (95 - 30)*((100vw - 320px) / (1920 - 320)));
   line-height: calc(14px + (95 - 40)*((100vw - 320px) / (1920 - 320)));
+  margin: 0px;
 }
 .inner-wolf-bestell-wrap .inner-wolf-bestell {
   transform: scale(0.87);
@@ -723,17 +727,17 @@ padding-bottom: 20px;
   border-bottom: 1px solid #fff;
 }
 .food-decorative-garland {
-  margin-top: -265px !important;
+  margin-top: -210px !important;
 }
 .inner-wolf-bestell h4 {
     color: #fff;
     font-family: "BertholdBlock";
-    max-width: 95rem;
+    max-width: 58rem;
     margin: 60px 0 0;
-    font-size: 5rem;
+    font-size: 3rem;
     font-weight: 400;
     text-align: center;
-    line-height: 5rem;
+    line-height: 3.2rem;
 }
 .inner-wolf-bestell .s-wrap img.naturlich-image {
   width: 170px;
@@ -788,16 +792,19 @@ padding-bottom: 20px;
     text-align: center;
     margin-top: 0px;
     margin-bottom: 0px; 
-    font-size: calc(32px + (80 - 30)*((100vw - 320px) / (1920 - 320)));
-    line-height:calc(40px + (80 - 40) * ((100vw - 320px) / (1920 - 320)));
+    font-size: calc(18px + (80 - 30)*((100vw - 320px) / (1920 - 320)));
+    line-height:calc(20px + (80 - 40) * ((100vw - 320px) / (1920 - 320)));
+}
+.inner-wolf-bestell h3 {
+  max-width: 58rem;
 }
 .inner-wolf-bestell .s-wrap {
   max-width: 800px;
 }
 .inner-wolf-bestell h4 {
-  max-width: 40rem;
-  font-size: 2.2rem;
-  line-height: 2.2rem;
+  max-width: 35rem;
+  font-size: 1.6rem;
+  line-height: 1.6rem;
 }
   .main-catering-page .food-decorative-garland{
     margin-top: -110px !important;
