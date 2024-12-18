@@ -247,7 +247,7 @@ function HeaderCtas({isLoggedIn, logo, cart, toggle, setToggle}) {
         </Suspense>
       </NavLink>
       <NavLink prefetch="intent" to="/" end>
-        <img className="mobile-logo" height="68" width='85' src={logo} alt="logo" />
+      <img className="mobile-logo" src={logo} width="85" height="57.51" alt="logo" />
       </NavLink>
       <CartToggle cart={cart} />
       {/* <LanguageSwitcher /> */}
