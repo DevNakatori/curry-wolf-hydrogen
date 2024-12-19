@@ -1007,11 +1007,11 @@ left: 40px;
     max-width: 23.22rem;
     font-size: 1.2rem;
     line-height: 1.3rem;
-    margin-top: 0px;
+    margin-top: 20px;
 }
-.c-bottom-btn {
-margin-top: 0px; 
-}
+.inner-wolf-bestell .c-bottom-btn {
+   margin-top: 10px; 
+} 
   .inner-wolf-bestell-wrap {
     min-height: calc(100vh - 221px);
   }
@@ -1031,8 +1031,13 @@ margin-top: 0px;
   .inner-wolf-bestell .s-wrap img.naturlich-image{
     width: 71.88px;
     height: 71.18px;
-    bottom: -105px;
+    bottom: -75px;
     right: 68px;
+  }
+  .img-one:before{
+    top: -20px;
+    width: 35px;
+    height: 45px;
   }
   .inner-wolf-bestell h3{
     font-size: 16px;
