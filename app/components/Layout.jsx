@@ -14,6 +14,7 @@ import {useRootLoaderData as LoaderData} from '~/root';
 import Truck from '../assets/Truck.svg';
 import Tree from '../assets/christmas-tree.svg';
 import Marquee from './Marquee';
+import BadgeCertified from './badge-certified';
 
 /**
  * @param {LayoutProps}
@@ -23,7 +24,7 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
   const {env, locale, sanityPreviewMode} = useRootLoaderData();
   const {data} = useSanityRoot();
   const announcement = data?.global?.Announcement;
-
+  const badgeCertified =data?.global?.globalContent?.badgeCertified
   const currentDate = new Date();
   const startDate = new Date(announcement?.start);
   const endDate = new Date(announcement?.end);
@@ -49,6 +50,7 @@ export function Layout({cart, children = null, footer, header, isLoggedIn}) {
           setToggle={setToggle}
         />
       )}
+      <BadgeCertified badgeCertified={badgeCertified}/>
       {isActive && (
         <Marquee duration={announcement?.duration}>
           {announcement?.content.map((text, index) => (
