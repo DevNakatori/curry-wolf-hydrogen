@@ -83,11 +83,6 @@
   opacity: 1;
   visibility: visible;
 }
-
-.badge-certified.hidden {
-  opacity: 0;
-  visibility: hidden;
-}
 .badge-certified-warp img {
   position: relative;
   z-index: 9;
@@ -114,6 +109,10 @@
   .marquee .marquee__inner .marquee__content img{
     width: 30px;
     height: 30px;
+  }
+  .badge-certified.hidden {
+    opacity: 0;
+    visibility: hidden;
   }
 }
 @media screen and (max-width: 767px) {
