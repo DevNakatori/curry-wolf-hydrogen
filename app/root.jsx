@@ -101,6 +101,12 @@ export function links() {
 }
 
 export async function loader({context, request}) {
+    const url = new URL(request.url);
+
+ // Redirect specific query path to `/pages/catering`
+    if (url.pathname === '/de/currywurst-catering') {
+      return redirect('/pages/catering');
+    }
   const {
     storefront,
     customerAccount,
