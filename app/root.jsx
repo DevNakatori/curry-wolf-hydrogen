@@ -12,6 +12,7 @@ import {
   isRouteErrorResponse,
   useMatches,
 } from '@remix-run/react';
+import { redirect } from '@shopify/remix-oxygen';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import favicon from './assets/favicon.png';
@@ -104,9 +105,9 @@ export async function loader({context, request}) {
     const url = new URL(request.url);
 
  // Redirect specific query path to `/pages/catering`
-    if (url.pathname === '/de/currywurst-catering') {
-      return redirect('/pages/catering');
-    }
+ if (url.pathname === '/de/currywurst-catering' && url.searchParams.get('qr') === '1') {
+  return redirect('/pages/catering');
+}
   const {
     storefront,
     customerAccount,
