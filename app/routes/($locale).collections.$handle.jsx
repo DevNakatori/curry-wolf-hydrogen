@@ -218,6 +218,7 @@ export default function Collection() {
 
 function CustomMenu({data}) {
   const location = useLocation();
+
   return (
     <nav
       className="collection-menu"
@@ -225,17 +226,24 @@ function CustomMenu({data}) {
       data-aos-duration="1500"
       data-aos-once="true"
     >
-      <ul>
-        {data.menu.items.map((item) => (
-          <li key={item.id}>
-            <Link
-              to={new URL(item.url).pathname}
-              className={item.url.includes(location.pathname) ? 'active' : ''}
-            >
-              {item.title}
-            </Link>
-          </li>
-        ))}
+  <ul>
+        {data.menu.items.map((item) => {
+          let url;
+          try {
+            url = new URL(item.url, window.location.origin).pathname;
+          } catch (error) {
+            url = item.url; 
+          }
+          const formattedUrl = url === "all" ? "alle-produkte" : url;
+          const isActive = location.pathname === formattedUrl;
+          return (
+            <li key={item.id}>
+              <Link to={formattedUrl} className={isActive ? "active" : ""}>
+                {item.title}
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );
