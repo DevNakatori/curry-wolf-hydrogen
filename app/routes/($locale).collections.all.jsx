@@ -15,7 +15,7 @@ import faceSmile from '../assets/face-smile.png';
 import decorativegarland from '../assets/decorativegarland.png';
 import '../styles/collection.css';
 import {useEffect, useState} from 'react';
-import HolidayBanner from '~/components/HolidayBanner';
+// import HolidayBanner from '~/components/HolidayBanner';
 /**
  * @type {MetaFunction<typeof loader>}
  */
@@ -64,7 +64,7 @@ export default function Collection() {
 
   return (
     <div className="collection collection-all-page">
-      <HolidayBanner />
+      {/* <HolidayBanner /> */}
       <div className="food-decorative-garland">
         <img
           src={decorativegarland}
