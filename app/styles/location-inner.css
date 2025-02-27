@@ -314,12 +314,14 @@ div#closeBtn {
   margin-bottom: 5px;
 }
 
-.popup-bottom-menu .foodmenu-one ul li:nth-child(11) {
+.popup-bottom-menu .foodmenu-one ul li:last-child {
   border-bottom: 1px solid #ccc;
   padding-bottom: 20px;
   margin-bottom: 20px;
 }
-
+.popup-bottom-menu .foodmenu-one:last-child ul li:last-child {
+  border-bottom: none;
+}
 .popup-bottom-menu .foodmenu-one ul li span span:last-child {
   width: 70px;
   display: inline-block;
